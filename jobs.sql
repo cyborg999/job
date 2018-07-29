@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 29, 2018 at 03:05 PM
+-- Generation Time: Jul 29, 2018 at 07:06 PM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.2
 
@@ -61,15 +61,16 @@ INSERT INTO `company` (`id`, `name`, `address`, `overview`, `banner`, `industry`
 CREATE TABLE `socialmedia` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `link` varchar(255) NOT NULL
+  `link` varchar(255) NOT NULL,
+  `userid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `socialmedia`
 --
 
-INSERT INTO `socialmedia` (`id`, `name`, `link`) VALUES
-(1, 'fb', 'fb.com');
+INSERT INTO `socialmedia` (`id`, `name`, `link`, `userid`) VALUES
+(1, 'fb', 'fb.com', 92);
 
 -- --------------------------------------------------------
 
