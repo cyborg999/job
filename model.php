@@ -22,6 +22,10 @@ class Model {
 		$this->uploadCompanyBannerListener();
 		$this->uploadCV();
 	}
+
+	public function getErrors(){
+			return $this->errors;
+	}
 	
 	private function redirect($data){
 		if($data['usertype'] == "employer"){

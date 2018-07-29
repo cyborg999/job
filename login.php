@@ -91,7 +91,24 @@
 		}	
 	</style>
     <main class="container-fluid">
+    	<div class="row">
+    		<div class="col"></div>
+    		<div class="col">
+	    		<?php
+			    	$error = $model->getErrors();
+			    	if(count($error)){
+			    		echo '<div class="alert alert-warning alert-dismissible fade show" role="alert"><strong>Login Failed</strong>';
+			    			foreach($error as $idx => $e) {
+			    				echo ' <br/>'.$e.'You should check in on some of those fields below.';
+			    			}
+			    			echo '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+			    	}
+			    ?>	
+    		</div>
+    		<div class="col"></div>
+    	</div>
 	<section class="container loginfrm">
+
 	    <form class="form-signin" method="post">
 	    	<input type="hidden" name="login" value="1">
 	      <div class="text-center mb-4">
@@ -100,12 +117,12 @@
 	      </div>
 
 	      <div class="form-label-group">
-	        <input type="text"  name="username" class="form-control" placeholder="Username..." required autofocus>
+	        <input type="text"  name="username" value="<?= isset($_POST['username']) ? $_POST['username'] : '';?>" class="form-control" placeholder="Username..." required autofocus>
 	        <label for="inputEmail">Username</label>
 	      </div>
 
 	      <div class="form-label-group">
-	        <input type="password" name="password" class="form-control" placeholder="Password" required>
+	        <input type="password" name="password" value="<?= isset($_POST['password']) ? $_POST['password'] : '';?>"class="form-control" placeholder="Password" required>
 	        <label for="inputPassword">Password</label>
 	      </div>
 
@@ -118,10 +135,11 @@
 	    </form>
 	</section>
     <script src="js/jquery.js"></script>
+        <script src="bootstrap-4.0.0/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript">
       (function($){
         $(document).ready(function(){
-        	
+        	$('.alert').alert();
         });
       })(jQuery);
     </script>
