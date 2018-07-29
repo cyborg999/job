@@ -20,7 +20,22 @@ class Model {
 		$this->loginListener();
 		$this->uploadCompanyPhotoListener();
 		$this->uploadCompanyBannerListener();
+		$this->searchSocialListener();
 		$this->uploadCV();
+	}
+
+	public function searchSocialListener(){
+		if(isset($_POST['searchSocial'])){
+			$text = $_POST['text'];
+			$record = $this->db->query("
+				SELECT *
+				FROM socialmedia
+				WHERE name LIKE '%".$text."%'
+				AND userid !='".$_SESSION['id']."'
+				")->fetchAll();
+
+			die(json_encode($record));
+		}
 	}
 
 	public function getErrors(){
@@ -230,9 +245,9 @@ class Model {
 
 			if(count($this->errors) === 0 ){
 				$this->addUser();
-			} else {
-				op($this->errors);
-			}
+			} 
+
+			return $this;
 		}
 	}
 

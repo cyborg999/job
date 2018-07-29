@@ -99,9 +99,9 @@
 			    	if(count($error)){
 			    		echo '<div class="alert alert-warning alert-dismissible fade show" role="alert"><strong>Login Failed</strong>';
 			    			foreach($error as $idx => $e) {
-			    				echo ' <br/>'.$e.'You should check in on some of those fields below.';
+			    				echo ' <br/>'.$e;
 			    			}
-			    			echo '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+			    			echo '<br/>You should check in on some of those fields below.<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
 			    	}
 			    ?>	
     		</div>

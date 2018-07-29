@@ -53,25 +53,48 @@
 			<label>Size
 				<input type="text" name="size" class="form-control" placeholder="Company Size..."/>
 			</label>
-			<div class="table-responsive">
-				<table class="table">
-					<tr>
-						<th>Social Profile
-						<input type="text" id="socialname" class="form-control"  value="" placeholder="Search here..."/></th>
-						<th>Link</th>
-					</tr>
-					<tr>
-						<td ><input type="text" class="socialname form-control" placeholder="Name..."/></td>
-						<td ><input type="text" class="link form-control" placeholder="Link..."/></td>
-					</tr>
-				</table>
-			</div>
 			<input type="submit" name="submit" class="btn" value="Update"/>
 			<hr>
-			<a href=""> upload bannerd2</a>
 
 		</form>
 		<iframe src="companybanner.php" frameborder="0"></iframe>
+		<style type="text/css">
+			#social {
+				position: relative;
+			}
+			#first {
+				margin-bottom: 10px;	
+			}
+			#socialul {
+				position: absolute;
+				bottom: -50px;
+				left: 0;
+				width: 100%;
+				z-index: 999;
+				background: white;
+			}
+		</style>
+		<script type="text/html" id="media">
+			<div class="row">
+				<div class="col">
+					<input type="text"  class="form-control"  value="[MEDIA]" />
+				</div>
+				<div class="col">
+					<input type="text"  class="form-control"  />
+				</div>
+				<div class="col"><a href="" class="remove-media btn btn-danger">remove</a></div>
+			</div>
+			<br/>
+		</script>
+		<h5>Social Media</h5>
+		<div class="row" id="first">
+				<div class="col" id="social">
+					<input type="text" id="socialname" class="form-control"  value="" placeholder="Search here..."/>
+					<ul id="socialul">
+				</div>
+				<div class="col">Link</div>
+				<div class="col">Actions</div>
+		</div>
 
 	</section>
 	<script src="js/jquery.js"></script>
@@ -96,6 +119,74 @@
 	/*global window, $ */
 	$(function () {
 	    'use strict';
+	    var delay = (function(){
+		  var timer = 0;
+		  return function(callback, ms){
+		    clearTimeout (timer);
+		    timer = setTimeout(callback, ms);
+		  };
+		})();
+
+		$('#socialname').keyup(function() {
+			var me = $(this);
+			var target = $("#socialul");
+
+		    delay(function(){
+		      $.ajax({
+		      	url : 'process.php',
+		      	data : { text : me.val(), searchSocial :true},
+		      	type : 'POST',
+		      	dataType : 'JSON',
+		      	success : function(res){
+		      		target.html("");
+		      		
+		      		//no result
+		      		if(res.length == 0){
+		      			var li = $("<li id='noresult'>(0) Result Found. <a href=''>Click here to add this.</a></li>");
+			      		target.append(li);
+
+			      		target.find("li a").off().on("click", function(e){
+			      			e.preventDefault();
+
+			      			var text = $(this).html();
+			      			var media = $("#media").html();
+			      			media = media.replace("[MEDIA]", me.val());
+
+			      			$("#first").after(media);
+			      			target.html("");
+			      		});
+		      		} else{
+		      			for(var i in res){
+				      		var li = $("<li>"+ res[i].name+ "</li>");
+				      		target.append(li);
+			      		}
+
+			      		target.find("li").off().on("click", function(e){
+			      			var text = $(this).html();
+			      			var media = $("#media").html();
+			      			media = media.replace("[MEDIA]", text);
+
+			      			$("#first").after(media);
+			      			target.html("");
+			      		});
+		      		}
+
+		      		$(".remove-media").off().on("click", function(e){
+		      			alert("asd");
+		      			e.preventDefault();
+		      			var me = $(this);
+
+		      			me.parents(".row").remove();
+		      		});
+		      	},
+		      	error :  function(){
+		      		console.log('Oops, something went wrong.');
+		      	}
+		      });
+		    }, 300 );
+
+		});
+
 	    // Change this to the location of your server-side upload handler:
 	    var url = window.location.hostname === 'blueimp.github.io' ?
 	                '//jquery-file-upload.appspot.com/' : 'process.php',
