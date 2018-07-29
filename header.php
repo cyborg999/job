@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <!-- <link rel="icon" href="bootstrap-4.0.0/favicon.ico"> -->
 
-    <title>Pricing example for Bootstrap</title>
+    <title>Jobsearch</title>
 
     <!-- Bootstrap core CSS -->
     <link href="bootstrap-4.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
