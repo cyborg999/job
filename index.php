@@ -1,88 +1,151 @@
 <?php include_once "model.php"; ?>
 <?php $model = new Model(); ?>
 <?php include_once "header.php"; ?>
-    <div class="container">
-          <main role="main">
+    <div class="container idx">
+        <main role="main">
+          <ul class="nav nav-pills">
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Jobs</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Industries</a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Computer Programming</a>
+                <a class="dropdown-item" href="#">Education</a>
+                <a class="dropdown-item" href="#">Nursing</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Engineering</a>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Skills</a>
+            </li>
+             <li class="nav-item">
+              <a class="nav-link" href="#">Companies</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#">Industries</a>
+            </li>
+          </ul>
+          <br/>
+          
+          <!-- Main jumbotron for a primary marketing message or call to action -->
+          <div class=" banner">
+            <div class="container jumbotron">
+              <h1 class="display-3">FIND BETTER JOBS</h1>
+              <p class="increase">Increase your chances of receiving relevant jobs from recruiters. Apply to jobs on the go Discover connections who can refer you for jobs</p>
+              <p><a class="btn btn-primary btn-lg custom" href="#" role="button">Learn more &raquo;</a></p>
+            </div>
+             <div class="container search">
+                <form class="form-inline">
+                <div class="form-group mx-sm-3 mb-2">
+                  <label for="inputPassword2" class="sr-only">Search</label>
+                  <input type="text" class="form-control search2" id="inputPassword2" placeholder="Type here..">
+                </div>
+                <button type="submit" class="btn btn-primary mb-2">Search</button>
+              </form>
+                <br/>
+                <h2 class="display-7">Jobs you may be interested in</h2>
+                <br/>
+                <div class="row">
+                  <div class="col-sm-4">
+                    <div class="card">
+                      <div class="card-body">
+                        <h5 class="card-title">Senior Java Developer</h5>
+                        <a href="">US Autoparts</a>
+                        <p class="card-text">Keywords / Skills : Java, Java Development, J2EE, Spring, Struts, Java Programming, Core Java, Programming, Design, Java DEV</p>
+                        <a href="#" class="btn btn-success">Apply</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="card">
+                      <div class="card-body">
+                        <h5 class="card-title">.NET Developer</h5>
+                        <a href="">FFUF Manila</a>
+                        <p class="card-text">Keywords / Skills : C#.Net, MSSQL, NHibernate, WPF, DevExpress, WCF, Console App, Web MVC, MS Business Intelligence, Crystal Reports</p>
+                        <a href="#" class="btn btn-success">Apply</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="card">
+                      <div class="card-body">
+                        <h5 class="card-title">Web Developer</h5>
+                        <a href="">Infinite Devworks</a>
+                        <p class="card-text">Keywords / Skills : C#.Net, MSSQL, NHibernate, WPF, DevExpress, WCF, Console App, Web MVC, MS Business Intelligence, Crystal Reports</p>
+                        <a href="#" class="btn btn-success">Apply</a>
+                      </div>
+                    </div>
+                  </div>
 
-      <!-- Main jumbotron for a primary marketing message or call to action -->
-      <div class="jumbotron">
-        <div class="container">
-          <h1 class="display-3">Hello, world!</h1>
-          <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-          <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
-        </div>
-      </div>
+                </div>
+              </div>
+          </div>
+          <br/>
+          <br/>
+          <h3 class="display-6">Employer by choice</h3>
+           <!-- slider -->
+           <ul class="bychoice">
+             <li>
+               <img src="img/logo1.png">
+             </li>
+             <li>
+               <img src="img/logo2.png">
+             </li>
+             <li>
+               <img src="img/logo3.png">
+             </li>
+             <li>
+               <img src="img/logo4.png">
+             </li>
+           </ul>
+        </main>
 
-      <div class="container">
-        <!-- Example row of columns -->
-        <div class="row">
-          <div class="col-md-4">
-            <h2>Heading</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+        <footer class="pt-4 my-md-5 pt-md-5">
+          <div class="row">
+            <div class="col-12 col-md">
+              <img class="mb-2" src="img/logo.png" alt="" >
+              <small class="d-block mb-3 text-muted">&copy; 2017-2018</small>
+            </div>
+            <div class="col-6 col-md">
+              <h5>Features</h5>
+              <ul class="list-unstyled text-small">
+                <li><a class="text-muted" href="#">Cool stuff</a></li>
+                <li><a class="text-muted" href="#">Random feature</a></li>
+                <li><a class="text-muted" href="#">Team feature</a></li>
+                <li><a class="text-muted" href="#">Stuff for developers</a></li>
+                <li><a class="text-muted" href="#">Another one</a></li>
+                <li><a class="text-muted" href="#">Last time</a></li>
+              </ul>
+            </div>
+            <div class="col-6 col-md">
+              <h5>Resources</h5>
+              <ul class="list-unstyled text-small">
+                <li><a class="text-muted" href="#">Resource</a></li>
+                <li><a class="text-muted" href="#">Resource name</a></li>
+                <li><a class="text-muted" href="#">Another resource</a></li>
+                <li><a class="text-muted" href="#">Final resource</a></li>
+              </ul>
+            </div>
+            <div class="col-6 col-md">
+              <h5>About</h5>
+              <ul class="list-unstyled text-small">
+                <li><a class="text-muted" href="#">Team</a></li>
+                <li><a class="text-muted" href="#">Locations</a></li>
+                <li><a class="text-muted" href="#">Privacy</a></li>
+                <li><a class="text-muted" href="#">Terms</a></li>
+              </ul>
+            </div>
           </div>
-          <div class="col-md-4">
-            <h2>Heading</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-          </div>
-          <div class="col-md-4">
-            <h2>Heading</h2>
-            <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-          </div>
-        </div>
-
-        <hr>
-
-      </div> <!-- /container -->
-
-    </main>
-
-      <footer class="pt-4 my-md-5 pt-md-5">
-        <div class="row">
-          <div class="col-12 col-md">
-            <img class="mb-2" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="24" height="24">
-            <small class="d-block mb-3 text-muted">&copy; 2017-2018</small>
-          </div>
-          <div class="col-6 col-md">
-            <h5>Features</h5>
-            <ul class="list-unstyled text-small">
-              <li><a class="text-muted" href="#">Cool stuff</a></li>
-              <li><a class="text-muted" href="#">Random feature</a></li>
-              <li><a class="text-muted" href="#">Team feature</a></li>
-              <li><a class="text-muted" href="#">Stuff for developers</a></li>
-              <li><a class="text-muted" href="#">Another one</a></li>
-              <li><a class="text-muted" href="#">Last time</a></li>
-            </ul>
-          </div>
-          <div class="col-6 col-md">
-            <h5>Resources</h5>
-            <ul class="list-unstyled text-small">
-              <li><a class="text-muted" href="#">Resource</a></li>
-              <li><a class="text-muted" href="#">Resource name</a></li>
-              <li><a class="text-muted" href="#">Another resource</a></li>
-              <li><a class="text-muted" href="#">Final resource</a></li>
-            </ul>
-          </div>
-          <div class="col-6 col-md">
-            <h5>About</h5>
-            <ul class="list-unstyled text-small">
-              <li><a class="text-muted" href="#">Team</a></li>
-              <li><a class="text-muted" href="#">Locations</a></li>
-              <li><a class="text-muted" href="#">Privacy</a></li>
-              <li><a class="text-muted" href="#">Terms</a></li>
-            </ul>
-          </div>
-        </div>
-      </footer>
+        </footer>
     </div>
-
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="js/jquery-3.2.1.slim.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous"></script> 
+    <!-- <script src="js/jquery-3.2.1.slim.min.js"></script> -->
     <script>window.jQuery || document.write('<script src="bootstrap-4.0.0/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
     <script src="bootstrap-4.0.0/assets/js/vendor/popper.min.js"></script>
     <script src="bootstrap-4.0.0/dist/js/bootstrap.min.js"></script>
