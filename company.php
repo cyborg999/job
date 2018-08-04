@@ -5,117 +5,200 @@
 <?php include_once "header.php"; ?>
 
 <main class="container-fluid">
-	<section class="container">
-		<h1><?= $_SESSION['username'];?> Company Info</h1>
-		<div class="container photo">
-		    <!-- The fileinput-button span is used to style the file input field as button -->
-		    <span class="btn btn-success fileinput-button">
-		        <i class="glyphicon glyphicon-plus"></i>
-		        <span>Add Company Logo...</span>
-		        <!-- The file input field used as target for the file upload widget -->
-		        <input id="fileupload" type="file" name="companyphoto">
-		    </span>
-		    <br>
-		    <br>
-		    <!-- The global progress bar -->
-		    <div id="progress" class="progress">
-		        <div class="progress-bar progress-bar-success"></div>
-		    </div>
-		    <!-- The container for the uploaded files -->
-		    <div id="files" class="files"></div>
-		</div>
-		<form method="post" id="userinfo">
-			<input type="hidden" name="companyinfo" value="1">
-			<label>Name
-				<input type="text" class="form-control" name="name" value="" placeholder="Company Name..." />
-			</label>
-			<label>Address
-				<input type="text" class="form-control" name="address" value="" placeholder="Address..."/>
-			</label>
-			<label>Mobile
-				<input type="text" class="form-control" name="mobile" value="" placeholder="Mobile #..."/>
-			</label>
-			<label>Overview
-				<textarea name="overview" class="form-control" placeholder="Company Overview..."></textarea>
-			</label>
-			<label>Telephone
-				<input type="text" class="form-control" name="telephone" value="" placeholder="Telephone #..."/>
-			</label>
-			<label>Email
-				<input type="text" class="form-control" name="email" value="" placeholder="Email..."/>
-			</label>
-			<label>Industry
-				<input type="text" class="form-control" value="" name="industry_ids">
-				todo
-			</label>
-			<label>Social Media
-				<input type="text" class="form-control" value="" name="social_ids">
-				todo
-			</label>
-			<label>Size
-				<input type="text" name="size" class="form-control" placeholder="Company Size..."/>
-			</label>
-			<input type="submit" name="submit" class="btn" value="Update"/>
-			<hr>
+	<style type="text/css">
+		.completion {
+		}
+		.comp-container {
+			position: relative;
+			width: 300px;
+			height: 30px;
+			overflow: hidden;
+			margin: 0 auto;
+		}
+		.comp-bg {
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			left: 0;
+			top: 0;
+			background: url(./img/completionbg.png) no-repeat;
+			background-size: contain;
+			z-index: 1;
+		}
+		.comp-bar {
+		    width: 247px;
+		    height: 30px;
+		    position: absolute;
+		    left: -30px;
+		    top: 0;
+		    background: url(./img/completionbar.png) no-repeat;
+		    background-size: cover;
+		    z-index: 0;
+		    border-radius: 31px
+		}
+	</style>
+	<div class="comp-container">
+		<div class="comp-bar"> </div>
+		<div class="comp-bg"> </div>
+	</div>
 
-		</form>
-		<iframe src="companybanner.php" frameborder="0"></iframe>
+	<section class="container completion">
+		<h1><?= $_SESSION['username'];?> Company Info</h1>
+
 		<style type="text/css">
-			#social {
+			.completion {
+				/*background: orange;*/
 				position: relative;
+				overflow: hidden;
+				height: 500px;
 			}
-			#first {
-				margin-bottom: 10px;	
-			}
-			#socialul {
-				position: absolute;
-				bottom: -50px;
-				left: 0;
-				width: 100%;
-				z-index: 999;
+			.container.comp {
+				float: left;
 				background: white;
 			}
+			.completion .long {
+				position: absolute;
+				left: 0;
+				width: 500%;
+				/*background: red;*/
+			}
+			.upphoto {
+				width: 400px;
+			}
+			.upphoto div p {
+				margin-top: 10px;
+			}
+
 		</style>
-		<script type="text/html" id="media">
-			<div class="row data">
-				<div class="col">
-					<input type="text"  readonly="readonly" class="form-control name"  value="[MEDIA]" />
+		<div class="long">
+			<br/>
+			<br/>
+			<div class="container photo comp">
+				<div class="upphoto">
+					<span class="btn custom fileinput-button">
+				        <i class="glyphicon glyphicon-plus"></i>
+				        <span>Add Company Logo...</span>
+				        <input id="fileupload" type="file" name="companyphoto">
+				    </span>
+				    <br>
+				    <br>
+				    <div id="progress" class="progress">
+				        <div class="progress-bar progress-bar-success"></div>
+				    </div>
+				    <div id="files" class="files"></div>
+				    <br/>
+				    <br/>
+				    <input type="submit" value="next>>" data-percen="-100%" class="next btn custom" name="">
 				</div>
-				<div class="col">
-					<input type="text"  class="form-control link"  />
-				</div>
-				<div class="col"><button class="remove-media btn btn-danger">remove</button></div>
 			</div>
-		</script>
-		<h5>Social Media</h5>
-		<div class="row" id="first">
-				<div class="col" id="social">
-					<input type="text" id="socialname" class="form-control"  value="" placeholder="Search here..."/>
-					<ul id="socialul">
-				</div>
-				<div class="col">Link</div>
-				<div class="col">Actions</div>
-		</div>
-		<?php foreach($mySocial as $idx => $i): ?>
-			<div class="row data">
-				<div class="col">
-					<input type="text"  readonly="readonly" class="form-control name"  value="<?= $i['name'];?>" />
-				</div>
-				<div class="col">
-					<input type="text"  class="form-control link" value="<?= $i['link'];?>" />
-				</div>
-				<div class="col"><button class="remove-media btn btn-danger">remove</button></div>
+			<div class="container comp">
+				<form method="post" id="userinfo">
+					<input type="hidden" name="companyinfo" value="1">
+					<label>Name
+						<input type="text" class="form-control" name="name" value="" placeholder="Company Name..." />
+					</label>
+					<label>Address
+						<input type="text" class="form-control" name="address" value="" placeholder="Address..."/>
+					</label>
+					<label>Mobile
+						<input type="text" class="form-control" name="mobile" value="" placeholder="Mobile #..."/>
+					</label>
+					<label>Overview
+						<textarea name="overview" class="form-control" placeholder="Company Overview..."></textarea>
+					</label>
+					<label>Telephone
+						<input type="text" class="form-control" name="telephone" value="" placeholder="Telephone #..."/>
+					</label>
+					<label>Email
+						<input type="text" class="form-control" name="email" value="" placeholder="Email..."/>
+					</label>
+					<label>Industry
+						<input type="text" class="form-control" value="" name="industry_ids">
+						todo
+					</label>
+					<label>Social Media
+						<input type="text" class="form-control" value="" name="social_ids">
+						todo
+					</label>
+					<label>Size
+						<input type="text" name="size" class="form-control" placeholder="Company Size..."/>
+					</label>
+					<input type="submit" name="submit" class="btn" value="Update"/>
+				</form>
+				<br/>
+			    <br/>
+			    <input type="submit" value="<<prev" data-percen="0%" class="next btn custom" name="">
+			    <input type="submit" value="next>>" data-percen="-200%" class="next btn custom" name="">
 			</div>
-		<?php endforeach; ?>
-		<div class="row" id="first">
-				<div class="col">
-					<input type="submit" class="btn btn-sm btn-success save-social" value="Save">
+			<div class="container comp">
+				<iframe src="companybanner.php" frameborder="0"></iframe>
+				 <br/>
+			    <br/>
+			    <input type="submit" value="<<prev" data-percen="-100%" class="next btn custom" name="">
+			    <input type="submit" value="next>>" data-percen="-300%" class="next btn custom" name="">
+			</div>
+			<div class="container comp">
+				<style type="text/css">
+					#social {
+						position: relative;
+					}
+					#first {
+						margin-bottom: 10px;	
+					}
+					#socialul {
+						position: absolute;
+						bottom: -50px;
+						left: 0;
+						width: 100%;
+						z-index: 999;
+						background: white;
+					}
+				</style>
+
+				<h5>Social Media</h5>
+				<script type="text/html" id="media">
+					<div class="row data">
+						<div class="col">
+							<input type="text"  readonly="readonly" class="form-control name"  value="[MEDIA]" />
+						</div>
+						<div class="col">
+							<input type="text"  class="form-control link"  />
+						</div>
+						<div class="col"><button class="remove-media btn btn-danger">remove</button></div>
+					</div>
+				</script>
+				<div class="row" id="first">
+					<div class="col" id="social">
+						<input type="text" id="socialname" class="form-control"  value="" placeholder="Search here..."/>
+						<ul id="socialul"></ul>
+					</div>
+					<div class="col">Link</div>
+					<div class="col">Actions</div>
 				</div>
-				<div class="col"></div>
-				<div class="col"></div>
+				<?php foreach($mySocial as $idx => $i): ?>
+					<div class="row data">
+						<div class="col">
+							<input type="text"  readonly="readonly" class="form-control name"  value="<?= $i['name'];?>" />
+						</div>
+						<div class="col">
+							<input type="text"  class="form-control link" value="<?= $i['link'];?>" />
+						</div>
+						<div class="col"><button class="remove-media btn btn-danger">remove</button></div>
+					</div>
+				<?php endforeach; ?>
+				<div class="row" id="first">
+					<div class="col">
+						<input type="submit" class="btn btn-sm btn-success save-social" value="Save">
+					</div>
+					<div class="col"></div>
+					<div class="col"></div>
+				</div>
+				 <br/>
+			    <br/>
+			    <input type="submit" value="<<prev" data-percen="-200%" class="next btn custom" name="">
+			    <input type="submit" value="next>>" data-percen="-400%" class="next btn custom" name="">
+			</div>
 		</div>
-
-
 	</section>
 	<script src="js/jquery.js"></script>
 	<!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
@@ -146,6 +229,17 @@
 		    timer = setTimeout(callback, ms);
 		  };
 		})();
+
+		$(".next").on("click", function(e){
+			e.preventDefault();
+			var percent = $(this).data("percen");
+			var target = $(".long").first();
+
+			target.stop().animate({
+				"left" : percent
+			});
+
+		});
 
 		$(".save-social").on("click", function(){
 			var data = Array();

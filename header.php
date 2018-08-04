@@ -26,6 +26,7 @@
         color: #377dff;
         background: rgba(55, 125, 255, 0.1);
         border-color: transparent;
+        font-weight: 600;
       }
     </style>
     <!-- Custom styles for this template -->
