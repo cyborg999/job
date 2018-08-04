@@ -116,7 +116,7 @@ class Model {
 				")->execute(array($_SESSION['id']));
 
 			if($completed){
-				header("Location:profile.php");
+				header("Location:dashboard.php");
 			} else {
 				header("Location:company.php");
 			}

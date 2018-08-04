@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 29, 2018 at 07:06 PM
+-- Generation Time: Aug 04, 2018 at 07:16 PM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.2
 
@@ -41,16 +41,19 @@ CREATE TABLE `company` (
   `email` varchar(255) NOT NULL,
   `photo` varchar(255) DEFAULT NULL,
   `userid` int(11) NOT NULL,
-  `mobile` int(11) NOT NULL
+  `mobile` int(11) NOT NULL,
+  `completed` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `company`
 --
 
-INSERT INTO `company` (`id`, `name`, `address`, `overview`, `banner`, `industry`, `social_ids`, `size`, `telephone`, `email`, `photo`, `userid`, `mobile`) VALUES
-(3, '2', '2', '2', '37e8c8d4ad2cfe6b9f6462695e8246be.png', '2', '2', '2', '2', '2', '37e8c8d4ad2cfe6b9f6462695e8246be.png', 6, 2),
-(4, 'Hays Specialist', 'Tampa, Florida, US', 'Hays is the expert at recruiting qualified, professional and skilled people worldwide. We operate across the private and public sectors, dealing in full-time positions, contract roles and temporary assignments. Hays employs over 9,000 staff operating from over 250 offices in 33 countries across 20 specialisms. \r\n\r\nLast year our experts placed 67,000 candidates into permanent jobs and over 220,000 people into interim or contract assignments. We attract the best candidates, make the best match and provide the best industry expertise, delivered through our commitment to service excellence. \r\nOur website www.hays.com', NULL, 'Staffing/Employment Agencies', 'fb', '5,000 to 9,999 employees', '', 'hays@gmail.com', 'a2b5f1c3c8dec2a3173ec1409c015e2a.gif', 9, 78687678);
+INSERT INTO `company` (`id`, `name`, `address`, `overview`, `banner`, `industry`, `social_ids`, `size`, `telephone`, `email`, `photo`, `userid`, `mobile`, `completed`) VALUES
+(3, '2', '2', '2', '37e8c8d4ad2cfe6b9f6462695e8246be.png', '2', '2', '2', '2', '2', '37e8c8d4ad2cfe6b9f6462695e8246be.png', 6, 2, 0),
+(4, 'Hays Specialist', 'Tampa, Florida, US', 'Hays is the expert at recruiting qualified, professional and skilled people worldwide. We operate across the private and public sectors, dealing in full-time positions, contract roles and temporary assignments. Hays employs over 9,000 staff operating from over 250 offices in 33 countries across 20 specialisms. \r\n\r\nLast year our experts placed 67,000 candidates into permanent jobs and over 220,000 people into interim or contract assignments. We attract the best candidates, make the best match and provide the best industry expertise, delivered through our commitment to service excellence. \r\nOur website www.hays.com', NULL, 'Staffing/Employment Agencies', 'fb', '5,000 to 9,999 employees', '', 'hays@gmail.com', 'a2b5f1c3c8dec2a3173ec1409c015e2a.gif', 9, 78687678, 0),
+(5, 'jordans', '', '', NULL, '', '', '', '', '', NULL, 11, 0, 0),
+(6, 'asdsad', '', '', 'f4abe06c5c3752d36886bac2b10220d9.png', '', '', '', '', '', '733f5111c19fea69076ee001539213a9.png', 12, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -70,7 +73,9 @@ CREATE TABLE `socialmedia` (
 --
 
 INSERT INTO `socialmedia` (`id`, `name`, `link`, `userid`) VALUES
-(1, 'fb', 'fb.com', 92);
+(1, 'fb', 'fb.com', 92),
+(8, 'jordan sadiwa', '', 12),
+(9, 'asd', '', 12);
 
 -- --------------------------------------------------------
 
@@ -100,7 +105,10 @@ INSERT INTO `user` (`id`, `username`, `password`, `usertype`, `deleted`, `datere
 (6, 'loki999', 'matantei999', 'applicant', 0, '2018-07-29 05:11:18'),
 (7, 'ffuf', 'aaaaaa', 'employer', 0, '2018-07-29 07:17:41'),
 (8, 'dan999', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'applicant', 0, '2018-07-29 07:42:42'),
-(9, 'company', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'employer', 0, '2018-07-29 12:50:49');
+(9, 'company', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'employer', 0, '2018-07-29 12:50:49'),
+(10, 'admin', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'applicant', 0, '2018-08-04 12:57:32'),
+(11, 'test Company', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'employer', 0, '2018-08-04 16:03:31'),
+(12, 'employer', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'employer', 0, '2018-08-04 16:09:18');
 
 -- --------------------------------------------------------
 
@@ -170,19 +178,19 @@ ALTER TABLE `userinfo`
 -- AUTO_INCREMENT for table `company`
 --
 ALTER TABLE `company`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `socialmedia`
 --
 ALTER TABLE `socialmedia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `userinfo`
