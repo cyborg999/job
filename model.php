@@ -20,14 +20,28 @@ class Model {
 		$this->loginListener();
 		$this->uploadCompanyPhotoListener();
 		$this->uploadCompanyBannerListener();
+		$this->socialCompletedListener();
 		$this->searchSocialListener();
 		$this->saveSocialListener();
 		$this->uploadCV();
 	}
 
+	public function socialCompletedListener(){
+		if(isset($_POST['socialCompleted'])){
+			$this->db->prepare("
+					UPDATE company
+					SET completed = 1
+					WHERE userid = ?
+				")->execute(array($_SESSION['id']));
+
+			die(json_encode(array("success")));
+		}
+	}
+
 	public function saveSocialListener() {
 		if(isset($_POST['saveSocial'])){
 			if(isset($_POST['data'])){
+				$data = $_POST['data'];
 				foreach($data as $idx => $d) {
 					$stmnt = $this->db->prepare("
 							SELECT *
@@ -94,7 +108,19 @@ class Model {
 	
 	private function redirect($data){
 		if($data['usertype'] == "employer"){
-			header("Location:company.php");
+			$completed = $this->db->prepare("
+					SELECT completed
+					FROM company
+					WHERE userid = ?
+					LIMIT 1
+				")->execute(array($_SESSION['id']));
+
+			if($completed){
+				header("Location:profile.php");
+			} else {
+				header("Location:company.php");
+			}
+
 
 		} else {
 			header("Location:info.php");
@@ -208,6 +234,7 @@ class Model {
 					")->execute(array($_POST['name'],$_POST['address'],$_POST['overview'],$_POST['industry_ids'],$_POST['social_ids'],$_POST['size'],$_POST['telephone'],$_POST['email'],$_SESSION['id'],$_POST['mobile']));
 			}
 
+			die(json_encode(array('success')));
 			return $this;
 		}
 	}

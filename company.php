@@ -29,12 +29,16 @@
 		    width: 247px;
 		    height: 30px;
 		    position: absolute;
-		    left: -30px;
+		    left: -247px;
 		    top: 0;
 		    background: url(./img/completionbar.png) no-repeat;
 		    background-size: cover;
 		    z-index: 0;
 		    border-radius: 31px
+		}
+		.comp iframe {
+			width: 960px;
+			height: 300px;
 		}
 	</style>
 	<div class="comp-container">
@@ -43,14 +47,14 @@
 	</div>
 
 	<section class="container completion">
-		<h1><?= $_SESSION['username'];?> Company Info</h1>
+		<h1 class="display-4"><?= $_SESSION['username'];?> Info</h1>
 
 		<style type="text/css">
 			.completion {
 				/*background: orange;*/
 				position: relative;
 				overflow: hidden;
-				height: 500px;
+				min-height: 500px;
 			}
 			.container.comp {
 				float: left;
@@ -73,29 +77,12 @@
 		<div class="long">
 			<br/>
 			<br/>
-			<div class="container photo comp">
-				<div class="upphoto">
-					<span class="btn custom fileinput-button">
-				        <i class="glyphicon glyphicon-plus"></i>
-				        <span>Add Company Logo...</span>
-				        <input id="fileupload" type="file" name="companyphoto">
-				    </span>
-				    <br>
-				    <br>
-				    <div id="progress" class="progress">
-				        <div class="progress-bar progress-bar-success"></div>
-				    </div>
-				    <div id="files" class="files"></div>
-				    <br/>
-				    <br/>
-				    <input type="submit" value="next>>" data-percen="-100%" class="next btn custom" name="">
-				</div>
-			</div>
+
 			<div class="container comp">
 				<form method="post" id="userinfo">
 					<input type="hidden" name="companyinfo" value="1">
 					<label>Name
-						<input type="text" class="form-control" name="name" value="" placeholder="Company Name..." />
+						<input type="text" class="form-control" required name="name" value="" placeholder="Company Name..." />
 					</label>
 					<label>Address
 						<input type="text" class="form-control" name="address" value="" placeholder="Address..."/>
@@ -123,19 +110,40 @@
 					<label>Size
 						<input type="text" name="size" class="form-control" placeholder="Company Size..."/>
 					</label>
-					<input type="submit" name="submit" class="btn" value="Update"/>
+					<input type="submit" name="submit" id="update" class="btn" value="Update"/>
 				</form>
 				<br/>
 			    <br/>
-			    <input type="submit" value="<<prev" data-percen="0%" class="next btn custom" name="">
-			    <input type="submit" value="next>>" data-percen="-200%" class="next btn custom" name="">
+			    <input type="submit" id="firstnext" value="next>>" disabled data-left="-185px" data-percen="-100%" class="next btn custom" name="">
 			</div>
+
+			<div class="container photo comp">
+				<div class="upphoto">
+					<span class="btn custom fileinput-button">
+				        <i class="glyphicon glyphicon-plus"></i>
+				        <span>Add Company Logo...</span>
+				        <input id="fileupload" type="file" name="companyphoto">
+				    </span>
+				    <br>
+				    <br>
+				    <div id="progress" class="progress">
+				        <div class="progress-bar progress-bar-success"></div>
+				    </div>
+				    <div id="files" class="files"></div>
+				    <br/>
+				    <br/>
+			    	<input type="submit" value="<<prev" data-left="0px" data-percen="0%" class="next btn custom" name="">
+			    	<input type="submit" value="next>>" data-left="-120px" data-percen="-200%" class="next btn custom" name="">
+				</div>
+			</div>
+
+
 			<div class="container comp">
 				<iframe src="companybanner.php" frameborder="0"></iframe>
 				 <br/>
 			    <br/>
-			    <input type="submit" value="<<prev" data-percen="-100%" class="next btn custom" name="">
-			    <input type="submit" value="next>>" data-percen="-300%" class="next btn custom" name="">
+			    <input type="submit" value="<<prev" data-left="-120px" data-percen="-100%" class="next btn custom" name="">
+			    <input type="submit" value="next>>" data-left="-89px" data-percen="-300%" class="next btn custom" name="">
 			</div>
 			<div class="container comp">
 				<style type="text/css">
@@ -162,7 +170,7 @@
 							<input type="text"  readonly="readonly" class="form-control name"  value="[MEDIA]" />
 						</div>
 						<div class="col">
-							<input type="text"  class="form-control link"  />
+							<input type="text" required class="form-control link"  />
 						</div>
 						<div class="col"><button class="remove-media btn btn-danger">remove</button></div>
 					</div>
@@ -175,6 +183,13 @@
 					<div class="col">Link</div>
 					<div class="col">Actions</div>
 				</div>
+				<div class="row">
+					<div class="col">
+						<a href="" id="save-social" class="btn btn-sm btn-success save-social">Save</a>
+					</div>
+					<div class="col"></div>
+					<div class="col"></div>
+				</div>
 				<?php foreach($mySocial as $idx => $i): ?>
 					<div class="row data">
 						<div class="col">
@@ -186,18 +201,22 @@
 						<div class="col"><button class="remove-media btn btn-danger">remove</button></div>
 					</div>
 				<?php endforeach; ?>
-				<div class="row" id="first">
-					<div class="col">
-						<input type="submit" class="btn btn-sm btn-success save-social" value="Save">
-					</div>
-					<div class="col"></div>
-					<div class="col"></div>
-				</div>
-				 <br/>
+				
+			 	<br/>
 			    <br/>
-			    <input type="submit" value="<<prev" data-percen="-200%" class="next btn custom" name="">
-			    <input type="submit" value="next>>" data-percen="-400%" class="next btn custom" name="">
+			    <input type="submit" value="<<prev" data-left="-89px" data-percen="-200%" class="next btn custom" name="">
+			    <input type="submit" id="socialnext" disabled value="next>>" data-left="-42px" data-percen="-400%" class="next btn custom" name="">
 			</div>
+			<div class="container comp">
+				<div class="alert alert-success" role="alert">
+				  <h4 class="alert-heading display-3">Well done!</h4>
+				  <p>You can now view your profile by clicking the link below.</p>
+				  <hr>
+				<br/>
+			    <input type="submit" id="completed" value="Completed" data-left="0" data-percen="-400%" class="next btn btn-success" name="">
+				</div>
+			</div>
+			
 		</div>
 	</section>
 	<script src="js/jquery.js"></script>
@@ -230,10 +249,48 @@
 		  };
 		})();
 
+		$("#completed").on("click", function(e){
+			e.preventDefault();
+
+			$.ajax({
+				url : 'process.php',
+				data : { socialCompleted:true},
+				type : 'POST',
+				dataType : 'JSON',
+				success : function(res){
+					console.log(res);
+					setTimeout(function(){
+						window.location.href="profile.php";
+					},1500);
+				}
+			});
+		});
+
+		$("#userinfo").on("submit", function(e){
+			e.preventDefault();
+
+			$.ajax({
+				url : 'process.php',
+				data : $(this).serialize(),
+				type : 'POST',
+				dataType : 'JSON',
+				success : function(res) {
+					$("#firstnext").removeAttr("disabled");
+				}
+			});
+
+		});
+
 		$(".next").on("click", function(e){
 			e.preventDefault();
 			var percent = $(this).data("percen");
 			var target = $(".long").first();
+			var bar = $(".comp-bar").first();
+			var left = $(this).data("left");
+
+			bar.stop().animate({
+				"left" : left
+			});
 
 			target.stop().animate({
 				"left" : percent
@@ -241,7 +298,9 @@
 
 		});
 
-		$(".save-social").on("click", function(){
+		$("#save-social,.save-social").off().on("click", function(e){
+			e.preventDefault();
+
 			var data = Array();
 
 			$(".data").each(function(){
@@ -258,6 +317,7 @@
 				dataType : 'JSON',
 				success : function(res){
 					console.log(res);
+					$("#socialnext").removeAttr("disabled");
 				}
 			});
 		});
@@ -305,6 +365,7 @@
 				      		});
 			      			
 			      		});
+
 		      		} else{
 		      			for(var i in res){
 				      		var li = $("<li>"+ res[i].name+ "</li>");
