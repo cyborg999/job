@@ -112,17 +112,17 @@
 	    <form class="form-signin" method="post">
 	    	<input type="hidden" name="login" value="1">
 	      <div class="text-center mb-4">
-	        <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-	        <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+	        <!-- <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72"> -->
+	        <h1 class="h3 display-8 mb-3 font-weight-normal">Login</h1>
 	      </div>
 
 	      <div class="form-label-group">
-	        <input type="text"  name="username" value="<?= isset($_POST['username']) ? $_POST['username'] : '';?>" class="form-control" placeholder="Username..." required autofocus>
+	        <input type="text"  name="username" value="<?= isset($_POST['username']) ? $_POST['username'] : '';?>" class="form-control"  required autofocus>
 	        <label for="inputEmail">Username</label>
 	      </div>
 
 	      <div class="form-label-group">
-	        <input type="password" name="password" value="<?= isset($_POST['password']) ? $_POST['password'] : '';?>"class="form-control" placeholder="Password" required>
+	        <input type="password" name="password" value="<?= isset($_POST['password']) ? $_POST['password'] : '';?>"class="form-control" required>
 	        <label for="inputPassword">Password</label>
 	      </div>
 
@@ -138,9 +138,7 @@
         <script src="bootstrap-4.0.0/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript">
       (function($){
-        $(document).ready(function(){
-        	$('.alert').alert();
-        });
+     
       })(jQuery);
     </script>
 

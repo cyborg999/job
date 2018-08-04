@@ -21,7 +21,57 @@ class Model {
 		$this->uploadCompanyPhotoListener();
 		$this->uploadCompanyBannerListener();
 		$this->searchSocialListener();
+		$this->saveSocialListener();
 		$this->uploadCV();
+	}
+
+	public function saveSocialListener() {
+		if(isset($_POST['saveSocial'])){
+			if(isset($_POST['data'])){
+				foreach($data as $idx => $d) {
+					$stmnt = $this->db->prepare("
+							SELECT *
+							FROM socialmedia
+							WHERE name = ?
+							AND userid = ?
+						");
+
+					$stmnt->execute(array($d[0], $_SESSION['id']));
+					$exists = $stmnt->fetchAll();
+
+					if($exists){
+						$this->db->prepare("
+								UPDATE socialmedia
+								SET link = ?
+								WHERE userid = ?
+							")->execute(array($d[1], $_SESSION['id']));
+					} else {
+						$this->db->prepare("
+							INSERT INTO socialmedia(name,link,userid)
+							VALUES(?,?,?)
+							")->execute(array($d[0],$d[1],$_SESSION['id']));
+					}
+				}
+			} else {
+				$this->db->prepare("
+						DELETE 
+						FROM socialmedia
+						WHERE userid = ?
+					")->execute(array($_SESSION['id']));
+			}
+
+			
+			die(json_encode(array("success")));
+		}
+	}
+
+	public function getMySocial(){
+		$stmnt = $this->db->query("
+				SELECT *
+				FROM socialmedia
+				WHERE userid = ". $_SESSION['id']);
+
+		return $stmnt->fetchAll();
 	}
 
 	public function searchSocialListener(){

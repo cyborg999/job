@@ -1,5 +1,7 @@
 <?php include_once "model.php"; ?>
-<?php $model = new Model(); ?>
+<?php $model = new Model(); 
+	$mySocial = $model->getMySocial();
+?>
 <?php include_once "header.php"; ?>
 
 <main class="container-fluid">
@@ -75,16 +77,15 @@
 			}
 		</style>
 		<script type="text/html" id="media">
-			<div class="row">
+			<div class="row data">
 				<div class="col">
-					<input type="text"  class="form-control"  value="[MEDIA]" />
+					<input type="text"  readonly="readonly" class="form-control name"  value="[MEDIA]" />
 				</div>
 				<div class="col">
-					<input type="text"  class="form-control"  />
+					<input type="text"  class="form-control link"  />
 				</div>
-				<div class="col"><a href="" class="remove-media btn btn-danger">remove</a></div>
+				<div class="col"><button class="remove-media btn btn-danger">remove</button></div>
 			</div>
-			<br/>
 		</script>
 		<h5>Social Media</h5>
 		<div class="row" id="first">
@@ -95,6 +96,25 @@
 				<div class="col">Link</div>
 				<div class="col">Actions</div>
 		</div>
+		<?php foreach($mySocial as $idx => $i): ?>
+			<div class="row data">
+				<div class="col">
+					<input type="text"  readonly="readonly" class="form-control name"  value="<?= $i['name'];?>" />
+				</div>
+				<div class="col">
+					<input type="text"  class="form-control link" value="<?= $i['link'];?>" />
+				</div>
+				<div class="col"><button class="remove-media btn btn-danger">remove</button></div>
+			</div>
+		<?php endforeach; ?>
+		<div class="row" id="first">
+				<div class="col">
+					<input type="submit" class="btn btn-sm btn-success save-social" value="Save">
+				</div>
+				<div class="col"></div>
+				<div class="col"></div>
+		</div>
+
 
 	</section>
 	<script src="js/jquery.js"></script>
@@ -127,6 +147,34 @@
 		  };
 		})();
 
+		$(".save-social").on("click", function(){
+			var data = Array();
+
+			$(".data").each(function(){
+				var name = $(this).find(".name").val();
+				var link = $(this).find(".link").val();
+
+				data.push(Array(name,link));
+			});
+
+			$.ajax({
+				url : 'process.php',
+				data : { saveSocial : true, data : data},
+				type : 'POST',
+				dataType : 'JSON',
+				success : function(res){
+					console.log(res);
+				}
+			});
+		});
+
+		$(".col").find(".remove-media").off().on("click", function(e){
+			e.preventDefault();
+			var me = $(this);
+
+			me.parents(".row").remove();
+		});
+
 		$('#socialname').keyup(function() {
 			var me = $(this);
 			var target = $("#socialul");
@@ -152,8 +200,16 @@
 			      			var media = $("#media").html();
 			      			media = media.replace("[MEDIA]", me.val());
 
-			      			$("#first").after(media);
+			      			$("#first").after($(media));
 			      			target.html("");
+
+			      			$(".col").find(".remove-media").off().on("click", function(e){
+				      			e.preventDefault();
+				      			var me = $(this);
+
+				      			me.parents(".row").remove();
+				      		});
+			      			
 			      		});
 		      		} else{
 		      			for(var i in res){
@@ -166,18 +222,19 @@
 			      			var media = $("#media").html();
 			      			media = media.replace("[MEDIA]", text);
 
-			      			$("#first").after(media);
+			      			$("#first").after($(media));
 			      			target.html("");
+
+			      			$(".col").find(".remove-media").off().on("click", function(e){
+				      			e.preventDefault();
+				      			var me = $(this);
+
+				      			me.parents(".row").remove();
+				      		});
 			      		});
 		      		}
 
-		      		$(".remove-media").off().on("click", function(e){
-		      			alert("asd");
-		      			e.preventDefault();
-		      			var me = $(this);
 
-		      			me.parents(".row").remove();
-		      		});
 		      	},
 		      	error :  function(){
 		      		console.log('Oops, something went wrong.');
