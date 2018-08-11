@@ -8,6 +8,7 @@ session_start();
 class Model {
 	protected $db;
 	public $errors = array();
+	public $messages = array();
 
 	public function __construct(){
 		include_once "config.php";
@@ -23,7 +24,47 @@ class Model {
 		$this->socialCompletedListener();
 		$this->searchSocialListener();
 		$this->saveSocialListener();
+		$this->addNewJobListener();
 		$this->uploadCV();
+	}
+
+	public function getAllJobByUserId(){
+		$stmnt = $this->db->query("
+					SELECT *
+					FROM job
+					WHERE companyid = ".$_SESSION['id']);
+
+		return $stmnt->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+	public function getJobById($id){
+		$stmnt = $this->db->query("
+				SELECT t1.*,t2.name,t2.address,t2.overview,t2.banner,t2.size,t2.photo
+				FROM job t1
+				LEFT JOIN company t2 
+				ON t1.companyid = t2.userid
+				WHERE t1.id = ".$id."
+				LIMIT 1
+			");
+
+		return $stmnt->fetch(PDO::FETCH_ASSOC);
+	}
+
+	public function addNewJobListener(){
+		if(isset($_POST['addnewjob'])){
+			$stmnt = $this->db->prepare("
+					INSERT INTO job(companyid,description,userid,processing_time,salary,min_experience,expire_date,industryid,title,otherdesc,desclist)
+					VALUES(?,?,?,?,?,?,?,?,?,?,?)
+				")->execute(array($_SESSION['id'],$_POST['description'],$_SESSION['id'],$_POST['processing'],$_POST['salary'],$_POST['minex'],$_POST['expirationdate'],$_POST['industry'],$_POST['title'],$_POST['header'], implode("]", $_POST['list'])));
+
+			$id = $this->db->lastInsertId();
+
+			if($id){
+				$this->messages[] = "You have succesfully posted a new job.<br/> Click <a href='viewjob.php?id=".$id."'>here</a> to view the job post.";
+			}
+
+			return $this;
+		}
 	}
 
 	public function socialCompletedListener(){
@@ -105,23 +146,40 @@ class Model {
 	public function getErrors(){
 			return $this->errors;
 	}
+
+	public function getMessages(){
+			return $this->messages;
+	}
 	
+	public function getCompanyBySessionId(){
+			$completed = $this->db->query("
+				SELECT *
+				FROM company
+				WHERE userid = ".$_SESSION['id']."
+				LIMIT 1
+			");
+
+			return $completed->fetch();
+	}
+
 	private function redirect($data){
 		if($data['usertype'] == "employer"){
-			$completed = $this->db->prepare("
-					SELECT completed
-					FROM company
-					WHERE userid = ?
-					LIMIT 1
-				")->execute(array($_SESSION['id']));
+			$completed = $this->db->query("
+				SELECT *
+				FROM company
+				WHERE userid = ".$_SESSION['id']."
+				LIMIT 1
+			");
+			$data = $completed->fetch();
 
-			if($completed){
-				header("Location:dashboard.php");
+			if(isset($data['completed'])){
+				$_SESSION['photo'] = 'uploads/'.$_SESSION['id'].'/'.$data['photo'];
+				$_SESSION['name'] = $data['name'];
+
+				header("Location:profile.php");
 			} else {
 				header("Location:company.php");
 			}
-
-
 		} else {
 			header("Location:info.php");
 		}

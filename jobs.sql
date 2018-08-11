@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 04, 2018 at 07:16 PM
+-- Generation Time: Aug 11, 2018 at 06:59 PM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.2
 
@@ -51,9 +51,39 @@ CREATE TABLE `company` (
 
 INSERT INTO `company` (`id`, `name`, `address`, `overview`, `banner`, `industry`, `social_ids`, `size`, `telephone`, `email`, `photo`, `userid`, `mobile`, `completed`) VALUES
 (3, '2', '2', '2', '37e8c8d4ad2cfe6b9f6462695e8246be.png', '2', '2', '2', '2', '2', '37e8c8d4ad2cfe6b9f6462695e8246be.png', 6, 2, 0),
-(4, 'Hays Specialist', 'Tampa, Florida, US', 'Hays is the expert at recruiting qualified, professional and skilled people worldwide. We operate across the private and public sectors, dealing in full-time positions, contract roles and temporary assignments. Hays employs over 9,000 staff operating from over 250 offices in 33 countries across 20 specialisms. \r\n\r\nLast year our experts placed 67,000 candidates into permanent jobs and over 220,000 people into interim or contract assignments. We attract the best candidates, make the best match and provide the best industry expertise, delivered through our commitment to service excellence. \r\nOur website www.hays.com', NULL, 'Staffing/Employment Agencies', 'fb', '5,000 to 9,999 employees', '', 'hays@gmail.com', 'a2b5f1c3c8dec2a3173ec1409c015e2a.gif', 9, 78687678, 0),
+(4, 'Hays Specialist', 'Tampa, Florida, US', 'Hays is the expert at recruiting qualified, professional and skilled people worldwide. We operate across the private and public sectors, dealing in full-time positions, contract roles and temporary assignments. Hays employs over 9,000 staff operating from over 250 offices in 33 countries across 20 specialisms. \r\n\r\nLast year our experts placed 67,000 candidates into permanent jobs and over 220,000 people into interim or contract assignments. We attract the best candidates, make the best match and provide the best industry expertise, delivered through our commitment to service excellence. \r\nOur website www.hays.com', 'd118f39d3444485ec693535f37925461.png', 'Staffing/Employment Agencies', 'fb', '5,000 to 9,999 employees', '09345353', 'hays@gmail.com', 'a2b5f1c3c8dec2a3173ec1409c015e2a.gif', 9, 78687678, 0),
 (5, 'jordans', '', '', NULL, '', '', '', '', '', NULL, 11, 0, 0),
-(6, 'asdsad', '', '', 'f4abe06c5c3752d36886bac2b10220d9.png', '', '', '', '', '', '733f5111c19fea69076ee001539213a9.png', 12, 0, 1);
+(6, 'asdsad', '', '', 'f4abe06c5c3752d36886bac2b10220d9.png', '', '', '', '', '', '733f5111c19fea69076ee001539213a9.png', 12, 0, 1),
+(7, 'jordan sadiwa', '3242 zfdsfd', '', 'd118f39d3444485ec693535f37925461.png', '', '', '', '', 'sad@mail.com', '93e43439321d51bb2a5eeb7b1e57b4b6.jpeg', 21, 342424, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `job`
+--
+
+CREATE TABLE `job` (
+  `id` int(11) NOT NULL,
+  `companyid` int(11) NOT NULL,
+  `description` longtext NOT NULL,
+  `userid` int(11) NOT NULL,
+  `processing_time` varchar(255) NOT NULL,
+  `salary` varchar(255) NOT NULL,
+  `min_experience` varchar(255) NOT NULL,
+  `expire_date` date NOT NULL,
+  `status` int(11) NOT NULL DEFAULT '0',
+  `industryid` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `otherdesc` longtext NOT NULL,
+  `desclist` longtext NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `job`
+--
+
+INSERT INTO `job` (`id`, `companyid`, `description`, `userid`, `processing_time`, `salary`, `min_experience`, `expire_date`, `status`, `industryid`, `title`, `otherdesc`, `desclist`) VALUES
+(9, 9, 'CGI is looking for a mid-level developer proficient in front-end development technologies including Javascript, Drupal, PHP, and JQuery. The candidate selected for this position will have the opportunity to support government public-facing web sites, helping to educate the public on federal regulations and issues. The selected candidate will also build applications to collect data reported by industry to comply with federal regulations.\r\n', 9, '2-3 Days', '120,000-160,000', '3 Years Working Experience', '2018-08-25', 0, 0, 'PHP Developer at CGI', 'Please note, this email address is only to be used for those individuals who need an accommodation to apply for a job. Emails for any other reason or those that do not include a requisition number will not be returned.\r\n', 'We make it easy to translate military experience and skills! Clickhereto be directed to our site that is dedicated to veterans and transitioning service members.]All CGI offers of employment in the U.S. are contingent upon the ability to successfully complete a background investigation. Background investigation components can vary dependent upon specific assignment and/or level of US government security clearance held.]CGI will not discharge or in any other manner discriminate against employees or applicants because they have inquired about, discussed, or disclosed their own pay or the pay of another employee or applicant. However, employees who have access to the compensation information of other employees or applicants as a part of their essential job functions cannot disclose the pay of other employees or applicants to individuals who do not otherwise have access to compensation information, unless the disclosure is (a) in response to a formal complaint or charge, (b) in furtherance of an investigation, proceeding, hearing, or action, including an investigation conducted by the employer, or (c) consistent with CGIs legal duty to furnish information.');
 
 -- --------------------------------------------------------
 
@@ -75,7 +105,8 @@ CREATE TABLE `socialmedia` (
 INSERT INTO `socialmedia` (`id`, `name`, `link`, `userid`) VALUES
 (1, 'fb', 'fb.com', 92),
 (8, 'jordan sadiwa', '', 12),
-(9, 'asd', '', 12);
+(9, 'asd', '', 12),
+(10, 'fb', '', 21);
 
 -- --------------------------------------------------------
 
@@ -108,7 +139,17 @@ INSERT INTO `user` (`id`, `username`, `password`, `usertype`, `deleted`, `datere
 (9, 'company', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'employer', 0, '2018-07-29 12:50:49'),
 (10, 'admin', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'applicant', 0, '2018-08-04 12:57:32'),
 (11, 'test Company', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'employer', 0, '2018-08-04 16:03:31'),
-(12, 'employer', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'employer', 0, '2018-08-04 16:09:18');
+(12, 'employer', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'employer', 0, '2018-08-04 16:09:18'),
+(13, 'employer2', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'employer', 0, '2018-08-11 08:15:06'),
+(14, 'employer3', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'employer', 0, '2018-08-11 08:16:29'),
+(15, 'employer4', '95cd95ec0f585a3c1da0f400cbb91b3d', 'applicant', 0, '2018-08-11 08:26:56'),
+(16, 'emp5', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'employer', 0, '2018-08-11 08:27:26'),
+(17, 'EMP3', '36d04a9d74392c727b1a9bf97a7bcbac', 'employer', 0, '2018-08-11 08:29:56'),
+(18, 'asdasd', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'employer', 0, '2018-08-11 08:32:19'),
+(19, 'adsasd', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'employer', 0, '2018-08-11 08:33:21'),
+(20, 'asdasda', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'employer', 0, '2018-08-11 08:34:55'),
+(21, 'dandan', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'employer', 0, '2018-08-11 08:55:06'),
+(22, 'employer999', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'employer', 0, '2018-08-11 15:40:01');
 
 -- --------------------------------------------------------
 
@@ -153,6 +194,12 @@ ALTER TABLE `company`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `job`
+--
+ALTER TABLE `job`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `socialmedia`
 --
 ALTER TABLE `socialmedia`
@@ -178,19 +225,25 @@ ALTER TABLE `userinfo`
 -- AUTO_INCREMENT for table `company`
 --
 ALTER TABLE `company`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `job`
+--
+ALTER TABLE `job`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `socialmedia`
 --
 ALTER TABLE `socialmedia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `userinfo`

@@ -54,7 +54,7 @@
 				/*background: orange;*/
 				position: relative;
 				overflow: hidden;
-				min-height: 500px;
+				min-height: 700px;
 			}
 			.container.comp {
 				float: left;
@@ -90,9 +90,7 @@
 					<label>Mobile
 						<input type="text" class="form-control" name="mobile" value="" placeholder="Mobile #..."/>
 					</label>
-					<label>Overview
-						<textarea name="overview" class="form-control" placeholder="Company Overview..."></textarea>
-					</label>
+					<hr/>
 					<label>Telephone
 						<input type="text" class="form-control" name="telephone" value="" placeholder="Telephone #..."/>
 					</label>
@@ -101,15 +99,19 @@
 					</label>
 					<label>Industry
 						<input type="text" class="form-control" value="" name="industry_ids">
-						todo
 					</label>
-					<label>Social Media
+					<label class="hidden">Social Media
 						<input type="text" class="form-control" value="" name="social_ids">
-						todo
 					</label>
+					<hr/>
 					<label>Size
 						<input type="text" name="size" class="form-control" placeholder="Company Size..."/>
 					</label>
+					<hr/>
+					<label>Overview
+						<textarea name="overview" class="form-control" placeholder="Company Overview..."></textarea>
+					</label>
+					<hr/>
 					<input type="submit" name="submit" id="update" class="btn" value="Update"/>
 				</form>
 				<br/>

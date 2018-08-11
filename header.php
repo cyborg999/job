@@ -19,6 +19,7 @@
         height: 430px;
         width: 1000px;
       }
+      .hidden { display: none; }
       .banner .container p {
         width: 450px;
       }
@@ -40,6 +41,7 @@
           <h5 class=" my-0 mr-md-auto font-weight-normal"><a href="index.php"><img src="img/logo.png"></a></h5>
           <?php if(isset($_SESSION['id'])) : ?>
             <nav class="my-2 my-md-0 mr-md-3">
+              <a class="p-2 text-dark" href="profile.php">Profile</a>
               <a class="p-2 text-dark" href="logout.php">Logout</a>
             </nav>
           <?php else : ?>

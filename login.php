@@ -95,7 +95,7 @@
     		<div class="col"></div>
     		<div class="col">
 	    		<?php
-			    	$error = $model->getErrors();
+			    	$error = $model->getMessages();
 			    	if(count($error)){
 			    		echo '<div class="alert alert-warning alert-dismissible fade show" role="alert"><strong>Login Failed</strong>';
 			    			foreach($error as $idx => $e) {
