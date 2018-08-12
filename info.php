@@ -5,6 +5,70 @@
 <main class="container-fluid">
 	<section class="container">
 		<h1><?= $_SESSION['username'];?> Info</h1>
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<h4 class="display-8">Employment History</h4>
+				</div>
+			</div>
+			<div class="row emp">
+			
+			</div>
+			<div class="row">
+				<div class="col">
+					<form id="emphistory">
+						<input type="hidden" name="addemploymenthistory" value="1">
+						<label>Company Name
+							<input type="text" id="ecompany" class="form-control " name="company" placeholder="Company..."/>
+						</label>
+						<label>Start Date
+							<input type="date" id="sdate"  class="form-control" name="startdate" required placeholder="Date Started..."/>
+						</label>
+						<label>End Date
+							<input type="date" id="edate"  class="form-control" name="enddate" required placeholder="Date Ended..."/>
+						</label>
+						<hr>
+						<label>Job Role/Position
+							<input type="text"  id="erole" class="form-control" name="role" placeholder="Position..."/>
+						</label>
+						<hr>
+						<label>Job Description
+							<textarea class="form-control" id="edesc"  name="jobdesc"></textarea>
+						</label>
+						<hr>
+						<input type="submit" class="btn btn-success" value="Add">
+						<hr>
+					</form>
+						<input type="submit" class="btn btn-primary" value="next">
+				</div>
+			</div>
+		</div>
+		<script type="text/html" id="emphist">
+			<div class="col-12">
+				<a href="" data-id="[ID]"class="close">x</a>
+				<h5 class="display-8">[COMPANY] <small>[MONTHS]</small></h5>
+				<b>[POSITION]</b>
+				<p>[DESC]</p>
+				<hr>
+			</div>
+		</script>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>		
 		<div class="container photo">
 		    <!-- The fileinput-button span is used to style the file input field as button -->
 		    <span class="btn btn-success fileinput-button">
@@ -58,11 +122,9 @@
 			</label>
 			<label>Industry
 				<input type="text" class="form-control" value="" name="industry_ids">
-				todo
 			</label>
-			<label>Social Media
+			<label class="hidden">Social Media
 				<input type="text" class="form-control" value="" name="social_ids">
-				todo
 			</label>
 			<div class="table-responsive">
 				<table class="table">
@@ -101,6 +163,65 @@
 	<script src="js/jQuery-File-Upload-master/js/jquery.fileupload-video.js"></script>
 	<!-- The File Upload validation plugin -->
 	<script src="js/jQuery-File-Upload-master/js/jquery.fileupload-validate.js"></script>
+	<script type="text/javascript">
+		(function($){
+			$(document).ready(function(){
+				function attachListener(){
+					$(".close").off().on("click", function(e){
+						e.preventDefault();
+
+						var me = $(this);
+						var id = me.data("id");
+						
+						$.ajax({
+							url : "process.php",
+							data : { deleteEmpHis : true, id : id},
+							type : 'POST',
+							dataType : 'JSON',
+							success : function(res){
+								console.log(res);
+								me.parents(".col-12").remove();
+							}
+						});
+					});
+
+				}
+				
+				attachListener();
+				
+				$("#emphistory").on("submit", function(e){
+					e.preventDefault();
+
+				
+					$.ajax({
+						url : "process.php",
+						data : $(this).serialize(),
+						type : 'POST',
+						dataType : 'JSON',
+						success : function(res){
+							console.log(res);
+
+							var html = $("#emphist").html();
+
+							html = html.replace("[COMPANY]", $("#ecompany").val()).
+								replace("[MONTHS]", res.interval).
+								replace("[POSITION]", $("#erole").val()).
+								replace("[ID]", res.id).
+								replace("[DESC]", $("#edesc").val());
+
+							$(".emp").first().append(html);
+							
+							attachListener();
+						}
+					});
+
+				});
+			});
+
+
+
+		})(jQuery);
+	</script>
 	<script>
 	/*jslint unparam: true, regexp: true */
 	/*global window, $ */
@@ -109,24 +230,24 @@
 	    // Change this to the location of your server-side upload handler:
 	    var url = window.location.hostname === 'blueimp.github.io' ?
 	                '//jquery-file-upload.appspot.com/' : 'process.php',
-	        uploadButton = $('<button/>')
-	            .addClass('btn btn-primary')
-	            .prop('disabled', true)
-	            .text('Processing...')
-	            .on('click', function () {
-	                var $this = $(this),
-	                    data = $this.data();
-	                $this
-	                    .off('click')
-	                    .text('Abort')
-	                    .on('click', function () {
-	                        $this.remove();
-	                        data.abort();
-	                    });
-	                data.submit().always(function () {
-	                    $this.remove();
-	                });
-	            });
+        uploadButton = $('<button/>')
+            .addClass('btn btn-primary')
+            .prop('disabled', true)
+            .text('Processing...')
+            .on('click', function () {
+                var $this = $(this),
+                    data = $this.data();
+                $this
+                    .off('click')
+                    .text('Abort')
+                    .on('click', function () {
+                        $this.remove();
+                        data.abort();
+                    });
+                data.submit().always(function () {
+                    $this.remove();
+                });
+        });
 	    $('#fileupload').fileupload({
 	        url: url,
 	        dataType: 'json',

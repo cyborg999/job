@@ -24,8 +24,49 @@ class Model {
 		$this->socialCompletedListener();
 		$this->searchSocialListener();
 		$this->saveSocialListener();
+		$this->addEmploymentHistoryListener();
+		$this->deleteEmploymentHistoryListener();
 		$this->addNewJobListener();
 		$this->uploadCV();
+	}
+
+	public function deleteEmploymentHistoryListener(){
+		if(isset($_POST['deleteEmpHis'])){
+			$this->db->prepare("
+					DELETE FROM emp_history
+					WHERE id = ?
+				")->execute(array($_POST['id']));
+			
+			die(json_encode(array("success")));
+		}
+	}
+
+	public function addEmploymentHistoryListener(){
+		if(isset($_POST['addemploymenthistory'])){
+			$startdate = new DateTime($_POST['startdate']);
+			$enddate = new DateTime($_POST['enddate']);
+			$interval = $startdate->diff($enddate);
+
+			$interval->format('%m months');
+			$expText = "";
+
+			if($interval->y > 0){
+				$expText = $interval->y." year(s)";
+
+				if($interval->m > 0){
+					$expText.= " and ".$interval->m." month(s).";
+				}
+			} else {
+				$expText = $interval->m." month(s).";
+			}
+
+			$this->db->prepare("
+					INSERT INTO emp_history(companyname,startdate,enddate,jobrole,jobdesc,userid)
+					VALUES(?,?,?,?,?,?)
+				")->execute(array($_POST['company'],$_POST['startdate'],$_POST['enddate'],$_POST['role'],$_POST['jobdesc'],$_SESSION['id']));
+
+			die(json_encode(array("interval" => $expText, "id" => $this->db->lastInsertId())));
+		}
 	}
 
 	public function getAllJobByUserId(){
@@ -219,7 +260,6 @@ class Model {
 			} else {
 				$this->errors[] = "Invalid login details.";
 			}
-
 
 		}
 	}

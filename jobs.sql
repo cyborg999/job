@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 11, 2018 at 06:59 PM
+-- Generation Time: Aug 12, 2018 at 08:09 PM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.2
 
@@ -55,6 +55,33 @@ INSERT INTO `company` (`id`, `name`, `address`, `overview`, `banner`, `industry`
 (5, 'jordans', '', '', NULL, '', '', '', '', '', NULL, 11, 0, 0),
 (6, 'asdsad', '', '', 'f4abe06c5c3752d36886bac2b10220d9.png', '', '', '', '', '', '733f5111c19fea69076ee001539213a9.png', 12, 0, 1),
 (7, 'jordan sadiwa', '3242 zfdsfd', '', 'd118f39d3444485ec693535f37925461.png', '', '', '', '', 'sad@mail.com', '93e43439321d51bb2a5eeb7b1e57b4b6.jpeg', 21, 342424, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `emp_history`
+--
+
+CREATE TABLE `emp_history` (
+  `id` int(11) NOT NULL,
+  `companyid` int(11) NOT NULL DEFAULT '0',
+  `companyname` varchar(255) NOT NULL,
+  `startdate` date NOT NULL,
+  `enddate` date NOT NULL,
+  `jobrole` longtext NOT NULL,
+  `jobdesc` longtext NOT NULL,
+  `userid` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `emp_history`
+--
+
+INSERT INTO `emp_history` (`id`, `companyid`, `companyname`, `startdate`, `enddate`, `jobrole`, `jobdesc`, `userid`) VALUES
+(1, 0, 'MemeisLove', '2018-08-14', '2019-10-18', 'PHP Dev', 'desc', 23),
+(2, 0, 'US Autoparts', '2018-08-12', '2018-08-17', 'PHP Dev', 'ncluding fractional months in the above is much more complicated, because three days in a typical February is a larger fraction of that month (~10.714%) than three days in August (~9.677%), and of course even February is a moving target depending on whether it\'s a leap year.', 23),
+(4, 0, 'asd', '2018-08-15', '2018-08-23', 'asdasd', 'asd', 23),
+(5, 0, 'asdsad', '2018-08-17', '2018-08-23', 'asdasd', 'asdsad', 23);
 
 -- --------------------------------------------------------
 
@@ -149,7 +176,8 @@ INSERT INTO `user` (`id`, `username`, `password`, `usertype`, `deleted`, `datere
 (19, 'adsasd', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'employer', 0, '2018-08-11 08:33:21'),
 (20, 'asdasda', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'employer', 0, '2018-08-11 08:34:55'),
 (21, 'dandan', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'employer', 0, '2018-08-11 08:55:06'),
-(22, 'employer999', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'employer', 0, '2018-08-11 15:40:01');
+(22, 'employer999', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'employer', 0, '2018-08-11 15:40:01'),
+(23, 'applicant', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'applicant', 0, '2018-08-12 16:27:43');
 
 -- --------------------------------------------------------
 
@@ -194,6 +222,12 @@ ALTER TABLE `company`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `emp_history`
+--
+ALTER TABLE `emp_history`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `job`
 --
 ALTER TABLE `job`
@@ -228,6 +262,12 @@ ALTER TABLE `company`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
+-- AUTO_INCREMENT for table `emp_history`
+--
+ALTER TABLE `emp_history`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
 -- AUTO_INCREMENT for table `job`
 --
 ALTER TABLE `job`
@@ -243,7 +283,7 @@ ALTER TABLE `socialmedia`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `userinfo`
