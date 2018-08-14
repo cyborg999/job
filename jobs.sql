@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 12, 2018 at 08:09 PM
+-- Generation Time: Aug 14, 2018 at 08:23 PM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.2
 
@@ -111,6 +111,44 @@ CREATE TABLE `job` (
 
 INSERT INTO `job` (`id`, `companyid`, `description`, `userid`, `processing_time`, `salary`, `min_experience`, `expire_date`, `status`, `industryid`, `title`, `otherdesc`, `desclist`) VALUES
 (9, 9, 'CGI is looking for a mid-level developer proficient in front-end development technologies including Javascript, Drupal, PHP, and JQuery. The candidate selected for this position will have the opportunity to support government public-facing web sites, helping to educate the public on federal regulations and issues. The selected candidate will also build applications to collect data reported by industry to comply with federal regulations.\r\n', 9, '2-3 Days', '120,000-160,000', '3 Years Working Experience', '2018-08-25', 0, 0, 'PHP Developer at CGI', 'Please note, this email address is only to be used for those individuals who need an accommodation to apply for a job. Emails for any other reason or those that do not include a requisition number will not be returned.\r\n', 'We make it easy to translate military experience and skills! Clickhereto be directed to our site that is dedicated to veterans and transitioning service members.]All CGI offers of employment in the U.S. are contingent upon the ability to successfully complete a background investigation. Background investigation components can vary dependent upon specific assignment and/or level of US government security clearance held.]CGI will not discharge or in any other manner discriminate against employees or applicants because they have inquired about, discussed, or disclosed their own pay or the pay of another employee or applicant. However, employees who have access to the compensation information of other employees or applicants as a part of their essential job functions cannot disclose the pay of other employees or applicants to individuals who do not otherwise have access to compensation information, unless the disclosure is (a) in response to a formal complaint or charge, (b) in furtherance of an investigation, proceeding, hearing, or action, including an investigation conducted by the employer, or (c) consistent with CGIs legal duty to furnish information.');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `skill`
+--
+
+CREATE TABLE `skill` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `level` int(11) NOT NULL,
+  `userid` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `skill`
+--
+
+INSERT INTO `skill` (`id`, `name`, `level`, `userid`) VALUES
+(1, 'PHP Programming', 1, 23),
+(2, 'asdasd', 0, 23),
+(3, 'asdsad', 4, 23),
+(4, 'asdasd', 2, 23),
+(5, 'asdasdsa', 2, 23),
+(6, 'asd', 4, 23),
+(7, 'asdsfsdf', 4, 23),
+(13, 'sadasd', 4, 23),
+(14, 'sadasd', 4, 23),
+(15, 'sadasd', 4, 23),
+(16, 'sadasd', 4, 23),
+(17, 'sadasd', 4, 23),
+(18, 'sadasd', 4, 23),
+(19, 'sadasd', 4, 23),
+(20, 'sadasd', 4, 23),
+(21, 'sadasd', 4, 23),
+(22, 'sadasd', 4, 23),
+(23, 'sadasd', 4, 23),
+(24, 'sadasd', 4, 23);
 
 -- --------------------------------------------------------
 
@@ -234,6 +272,12 @@ ALTER TABLE `job`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `skill`
+--
+ALTER TABLE `skill`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `socialmedia`
 --
 ALTER TABLE `socialmedia`
@@ -272,6 +316,12 @@ ALTER TABLE `emp_history`
 --
 ALTER TABLE `job`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `skill`
+--
+ALTER TABLE `skill`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `socialmedia`

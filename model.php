@@ -26,8 +26,32 @@ class Model {
 		$this->saveSocialListener();
 		$this->addEmploymentHistoryListener();
 		$this->deleteEmploymentHistoryListener();
+		$this->addSkillListener();
+		$this->deleteSkillListener();
 		$this->addNewJobListener();
 		$this->uploadCV();
+	}
+
+	public function deleteSkillListener(){
+		if(isset($_POST['deleteSkill'])){
+			$this->db->prepare("
+					DELETE FROM skill
+					WHERE ID = ?
+				")->execute(array($_POST['id']));
+
+			die(json_encode(array("success")));
+		}
+	}
+
+	public function addSkillListener(){
+		if(isset($_POST['addskill'])){
+			$this->db->prepare("
+					INSERT INTO skill(name,level,userid)
+					VALUES(?,?,?)
+				")->execute(array($_POST['skill'],$_POST['rate'],$_SESSION['id']));
+
+			die(json_encode(array("id" => $this->db->lastInsertId())));
+		}
 	}
 
 	public function deleteEmploymentHistoryListener(){

@@ -8,6 +8,87 @@
 		<div class="container">
 			<div class="row">
 				<div class="col">
+					<h4 class="display-8">Skills/Ratings</h4>
+				</div>
+			</div>
+			<div class="container">
+				<div class="row">
+					<div class="col-5">
+						<input type="text" name="skill" class="form-control" id="skillname" placeholder="skill..."/>
+					</div>
+					<div class="col-3">
+						<ul id="rating">
+							<li class="star staroff"><figure></figure></li>
+							<li class="star staroff"><figure></figure></li>
+							<li class="star staroff"><figure></figure></li>
+							<li class="star staroff"><figure></figure></li>
+						</ul>
+					</div>
+					<div class="col">
+						<input type="submit" id="addskill" class="btn btn-success" value="add"/>
+					</div>
+				</div>
+				<div class="row" >
+					<ul id="allskills"></ul>
+				</div>
+			</div>
+			<style type="text/css">
+				#allskills,
+				#rating {
+					list-style-type: none;
+				}
+				#allskills li {
+					background: #c1e1fd;
+				    padding: 5px 10px;
+				    margin: 3px;
+				    border-radius: 15px;
+				    font-size: 12px;
+				    font-weight: 600;
+				    display: initial;
+				    line-height: 2;
+				}
+				#allskills li span.closex {
+					margin-left: 10px;
+					font-size: 15px;
+				}
+				.rate {
+					font-size: 12px;
+    				color: #ff2419;
+				}
+				#allskills,
+				#rating li {
+					display: inline-block;
+					cursor: pointer;
+				}
+				.closex {
+					opacity: .7;
+					font-weight: 600;
+				}
+				.star figure {
+					width: 30px;
+					height: 30px;
+				}
+				.staroff figure {
+					background: url(./img/staroff.png) no-repeat;
+					background-size: contain;
+				}
+				.staron figure {
+					background: url(./img/staron.png) no-repeat;
+					background-size: contain;
+				}
+			</style>
+			<script type="text/html" id="skill">
+				<li class="li">[NAME]<span class="rate">([RATE])</span><span data-id="[ID]" class="closex">x</span></li>
+			</script>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col">
 					<h4 class="display-8">Employment History</h4>
 				</div>
 			</div>
@@ -45,30 +126,14 @@
 		</div>
 		<script type="text/html" id="emphist">
 			<div class="col-12">
-				<a href="" data-id="[ID]"class="close">x</a>
+				<a href="" data-id="[ID]" class="close">x</a>
 				<h5 class="display-8">[COMPANY] <small>[MONTHS]</small></h5>
 				<b>[POSITION]</b>
 				<p>[DESC]</p>
 				<hr>
 			</div>
 		</script>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>		
+			
 		<div class="container photo">
 		    <!-- The fileinput-button span is used to style the file input field as button -->
 		    <span class="btn btn-success fileinput-button">
@@ -167,6 +232,22 @@
 		(function($){
 			$(document).ready(function(){
 				function attachListener(){
+					$(".closex").off().on("click", function(e){
+						e.preventDefault();
+						
+						var me = $(this);
+						var id = me.data("id");
+
+						$.ajax({
+							url : "process.php",
+							data : { deleteSkill : true, id : id},
+							type : 'POST',
+							dataType : 'JSON',
+							success : function(res){
+								me.parents("li").remove();
+							}
+						});	
+					});
 					$(".close").off().on("click", function(e){
 						e.preventDefault();
 
@@ -189,6 +270,39 @@
 				
 				attachListener();
 				
+				$("#addskill").on("click", function(e){
+					e.preventDefault();
+					var skill = $("#skillname").val();
+					var target = $("#allskills");
+					var rate = $("#rating").find(".staron").length;
+
+					$.ajax({
+						url : "process.php",
+						data : { addskill : true, skill : skill , rate : rate},
+						type : 'POST',
+						dataType : 'JSON',
+						success : function(res){
+							var html = $("#skill").html();
+
+							html = html.replace("[NAME]", skill).
+								replace("[ID]", res.id).
+								replace("[RATE]", rate);
+							target.append(html);
+							
+							attachListener();
+						}	
+					});
+
+				});
+
+				$("#rating li").on("click", function(e){
+					e.preventDefault();
+					$(".star").removeClass("staron").addClass("staroff");
+					var me = $(this);
+
+					me.addClass("staron");
+					me.prevAll().removeClass("staroff").addClass("staron");
+				});	
 				$("#emphistory").on("submit", function(e){
 					e.preventDefault();
 
