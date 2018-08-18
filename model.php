@@ -25,11 +25,40 @@ class Model {
 		$this->searchSocialListener();
 		$this->saveSocialListener();
 		$this->addEmploymentHistoryListener();
-		$this->deleteEmploymentHistoryListener();
+		$this->addEducationListener();
 		$this->addSkillListener();
 		$this->deleteSkillListener();
 		$this->addNewJobListener();
 		$this->uploadCV();
+	}
+
+	public function addEducationListener(){
+		if(isset($_POST['addEduc'])){
+			$start = date_create($_POST['educdatestart']);
+			$start = date_format($start,"Y/m/d");
+			$end = date_create($_POST['educdateend']);
+			$end = date_format($end,"Y/m/d");
+
+			$this->db->prepare("
+					INSERT INTO education(school,level,datestart,dateend,userid)
+					VALUES(?,?,?,?,?)
+				")->execute(array($_POST['school'],$_POST['level'],$start,$end,$_SESSION['id']));
+			$data = array(
+					"name" => $_POST['school'], 
+					"level" => $_POST['level'], 
+					"start" => $start, 
+					"end" => $end, 
+					"id" => $this->db->lastInsertId());
+
+			die(json_encode($data));
+		}
+	}
+
+	public function getIndustry(){
+		return $this->db->query("
+				SELECT *
+				FROM industry
+			")->fetchAll(PDO::FETCH_ASSOC);
 	}
 
 	public function deleteSkillListener(){
@@ -134,11 +163,19 @@ class Model {
 
 	public function socialCompletedListener(){
 		if(isset($_POST['socialCompleted'])){
-			$this->db->prepare("
+			if($_SESSION['usertype'] == "employer"){
+				$this->db->prepare("
 					UPDATE company
 					SET completed = 1
 					WHERE userid = ?
 				")->execute(array($_SESSION['id']));
+			} else {
+				$this->db->prepare("
+					UPDATE userinfo
+					SET completed = 1
+					WHERE userid = ?
+				")->execute(array($_SESSION['id']));
+			}
 
 			die(json_encode(array("success")));
 		}
@@ -278,6 +315,7 @@ class Model {
 				$data = reset($record);
 				$_SESSION['id'] = $data['id'];
 				$_SESSION['username'] = $data['username'];
+				$_SESSION['usertype'] = $data['usertype'];
 
 				$this->redirect($data);
 
@@ -433,7 +471,7 @@ class Model {
 
 			}
 
-			return $this;
+			die(json_encode(array("success")));	
 		}
 	}
 

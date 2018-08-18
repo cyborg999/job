@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 14, 2018 at 08:23 PM
+-- Generation Time: Aug 18, 2018 at 07:53 AM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.2
 
@@ -59,6 +59,43 @@ INSERT INTO `company` (`id`, `name`, `address`, `overview`, `banner`, `industry`
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `education`
+--
+
+CREATE TABLE `education` (
+  `id` int(11) NOT NULL,
+  `school` varchar(255) NOT NULL,
+  `level` varchar(255) NOT NULL,
+  `datestart` date NOT NULL,
+  `dateend` date NOT NULL,
+  `userid` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `education`
+--
+
+INSERT INTO `education` (`id`, `school`, `level`, `datestart`, `dateend`, `userid`) VALUES
+(1, 'ASDASD', 'Academic', '0000-00-00', '0000-00-00', 23),
+(2, 'ASDASD', 'Academic', '0000-00-00', '0000-00-00', 23),
+(3, 'ASDASD', 'Academic', '0000-00-00', '0000-00-00', 23),
+(4, 'ASDASD', 'Academic', '0000-00-00', '0000-00-00', 23),
+(5, 'ASDASD', 'Academic', '0000-00-00', '0000-00-00', 23),
+(6, 'ASDASD', 'Academic', '0000-00-00', '0000-00-00', 23),
+(7, 'ASDASD', 'Academic', '2018-08-01', '0000-00-00', 23),
+(8, 'ASDASD', 'Academic', '2018-08-01', '2018-08-01', 23),
+(9, 'ASDASD', 'Bachelor', '2018-08-01', '2018-08-01', 23),
+(10, 'Infinite Devworks', 'Bachelor', '2018-08-01', '2018-08-01', 23),
+(11, 'ASDASD', 'Bachelor', '2018-08-01', '2018-08-01', 23),
+(12, 'Infinite Devworks', 'Bachelor', '2018-08-01', '2018-08-01', 23),
+(13, 'Infinite Devworks', 'Bachelor', '2018-08-01', '2018-08-01', 23),
+(14, 'Infinite Devworks', 'Bachelor', '2018-08-01', '2018-08-01', 23),
+(15, 'Infinite Devworks', 'Bachelor', '2018-08-01', '2018-08-01', 23),
+(16, 'Infinite Devworks', 'Bachelor', '2018-08-01', '2018-08-01', 23);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `emp_history`
 --
 
@@ -81,7 +118,54 @@ INSERT INTO `emp_history` (`id`, `companyid`, `companyname`, `startdate`, `endda
 (1, 0, 'MemeisLove', '2018-08-14', '2019-10-18', 'PHP Dev', 'desc', 23),
 (2, 0, 'US Autoparts', '2018-08-12', '2018-08-17', 'PHP Dev', 'ncluding fractional months in the above is much more complicated, because three days in a typical February is a larger fraction of that month (~10.714%) than three days in August (~9.677%), and of course even February is a moving target depending on whether it\'s a leap year.', 23),
 (4, 0, 'asd', '2018-08-15', '2018-08-23', 'asdasd', 'asd', 23),
-(5, 0, 'asdsad', '2018-08-17', '2018-08-23', 'asdasd', 'asdsad', 23);
+(5, 0, 'asdsad', '2018-08-17', '2018-08-23', 'asdasd', 'asdsad', 23),
+(6, 0, 'company', '2018-08-16', '2018-08-15', 'web dev', 'some lorem ipsum job description.', 23),
+(7, 0, 'company', '2018-08-16', '2018-08-15', 'web dev', 'some lorem ipsum job description.', 23),
+(8, 0, 'company', '2018-08-16', '2018-08-15', 'web dev', 'some lorem ipsum job description.', 23),
+(9, 0, 'company', '2018-08-16', '2018-08-15', 'web dev', 'some lorem ipsum job description.', 23),
+(10, 0, 'MemeisLove', '2018-08-01', '2018-08-15', 'php def', 'asdada', 23);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `industry`
+--
+
+CREATE TABLE `industry` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `industry`
+--
+
+INSERT INTO `industry` (`id`, `name`) VALUES
+(1, 'HR'),
+(2, 'Finance & Accounts'),
+(3, 'IT'),
+(4, 'Purchase & Supply Chain'),
+(5, 'Admin/Secretarial'),
+(6, 'Legal'),
+(7, 'Customer Service/ BPO/ KPO'),
+(8, 'Sales'),
+(9, 'Marketing'),
+(10, 'Industry Specific Functions'),
+(11, 'Banking & Financial Services'),
+(12, 'Manufacturing'),
+(13, 'Oil & Gas'),
+(16, 'Pharma & Biotech'),
+(17, 'Telecom & ISP'),
+(18, 'Export/Import'),
+(19, 'Construction'),
+(20, 'Health Care'),
+(21, 'Real Estate'),
+(22, 'Travel & Airlines'),
+(23, 'Education/Teaching'),
+(24, 'Hotels & Restaurants'),
+(25, 'Retailing'),
+(26, 'Advertising & Media'),
+(27, 'Others');
 
 -- --------------------------------------------------------
 
@@ -148,7 +232,9 @@ INSERT INTO `skill` (`id`, `name`, `level`, `userid`) VALUES
 (21, 'sadasd', 4, 23),
 (22, 'sadasd', 4, 23),
 (23, 'sadasd', 4, 23),
-(24, 'sadasd', 4, 23);
+(24, 'sadasd', 4, 23),
+(25, 'PHP', 2, 23),
+(26, 'PHP', 2, 23);
 
 -- --------------------------------------------------------
 
@@ -171,7 +257,9 @@ INSERT INTO `socialmedia` (`id`, `name`, `link`, `userid`) VALUES
 (1, 'fb', 'fb.com', 92),
 (8, 'jordan sadiwa', '', 12),
 (9, 'asd', '', 12),
-(10, 'fb', '', 21);
+(10, 'fb', '', 21),
+(11, 'twitter', 'fb', 23),
+(12, 'fb', 'fb', 23);
 
 -- --------------------------------------------------------
 
@@ -239,15 +327,17 @@ CREATE TABLE `userinfo` (
   `email` varchar(255) NOT NULL,
   `userid` int(11) NOT NULL,
   `social_ids` varchar(255) NOT NULL,
-  `gender` varchar(255) NOT NULL
+  `gender` varchar(255) NOT NULL,
+  `completed` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `userinfo`
 --
 
-INSERT INTO `userinfo` (`id`, `firstname`, `lastname`, `middlename`, `dob`, `address`, `mobile`, `nationality`, `skill_ids`, `industry_ids`, `resume`, `photo`, `email`, `userid`, `social_ids`, `gender`) VALUES
-(4, '2', '2', '2', '0000-00-00', '2', 2, '2', '2', '2', NULL, 'afb09376f2c30cab320d9317ee39bb9e.png', '2', 6, '2', 'female');
+INSERT INTO `userinfo` (`id`, `firstname`, `lastname`, `middlename`, `dob`, `address`, `mobile`, `nationality`, `skill_ids`, `industry_ids`, `resume`, `photo`, `email`, `userid`, `social_ids`, `gender`, `completed`) VALUES
+(4, '2', '2', '2', '0000-00-00', '2', 2, '2', '2', '2', NULL, 'afb09376f2c30cab320d9317ee39bb9e.png', '2', 6, '2', 'female', 0),
+(5, 'jordan', 'sadiwa', 'DLR', '2018-08-07', '3242 zfdsfd', 342424, 'Hong Kong', '', '', NULL, NULL, 'sad@mail.com', 23, '', 'male', 1);
 
 --
 -- Indexes for dumped tables
@@ -260,9 +350,21 @@ ALTER TABLE `company`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `education`
+--
+ALTER TABLE `education`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `emp_history`
 --
 ALTER TABLE `emp_history`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `industry`
+--
+ALTER TABLE `industry`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -306,10 +408,22 @@ ALTER TABLE `company`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
+-- AUTO_INCREMENT for table `education`
+--
+ALTER TABLE `education`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
 -- AUTO_INCREMENT for table `emp_history`
 --
 ALTER TABLE `emp_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `industry`
+--
+ALTER TABLE `industry`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `job`
@@ -321,13 +435,13 @@ ALTER TABLE `job`
 -- AUTO_INCREMENT for table `skill`
 --
 ALTER TABLE `skill`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `socialmedia`
 --
 ALTER TABLE `socialmedia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `user`
@@ -339,7 +453,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `userinfo`
 --
 ALTER TABLE `userinfo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
