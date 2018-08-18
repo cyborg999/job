@@ -1,6 +1,8 @@
 <?php include_once "model.php"; ?>
 <?php $model = new Model(); 
   $data = $model->getCompanyBySessionId();
+  $industry = $model->getIndustry();
+
 ?>
 <?php include_once "header2.php"; ?>
 
@@ -58,8 +60,12 @@
                   <label> Job Title
                       <input type="text" required class="form-control" name="title" placeholder="Job Title..."/>
                   </label>
-                  <label>Industry 
-                      <input type="text" required class="form-control" name="industry" placeholder="Industry..."/>
+                  <label>Industry
+                    <select class="form-control" required name="industry">
+                      <?php foreach($industry as $idx => $i): ?>
+                        <option value=""><?= $i['name'];?></option>
+                      <?php endforeach; ?>
+                    </select>
                   </label>
                    <label>Salary Range
                       <input type="text" required  class="form-control" name="salary" placeholder="Salary Range..."/>

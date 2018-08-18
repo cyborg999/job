@@ -1,6 +1,7 @@
 <?php include_once "model.php"; ?>
 <?php $model = new Model(); 
 $data = $model->getAllJobByUserId();
+// opd($data);
 ?>
 <?php include_once "header2.php"; ?>
     <div class="container-fluid">
@@ -32,6 +33,36 @@ $data = $model->getAllJobByUserId();
                       <td><?= $d['description'];?></td>
                       <td><?= $d['expire_date'];?></td>
                       <td><a href="viewjob.php?id=<?= $d['id'];?>" class="btn btn-primary">view</a></td>
+                    </tr>
+                    <tr class="applicants"> 
+                      <td><span class="badge badge-primary">Applicants</span></td>
+                      <td colspan="3">
+                        <?php 
+                        $applicants = $model->getApplicantsByJobId($d['id']);
+                        ?>
+                          <table class="table">
+                            <tr>
+                              <th scope="col">Photo</th>
+                              <th scope="col">Name</th>
+                              <th scope="col">Gender</th>
+                              <th scope="col">Action</th>
+                            </tr>
+                            <?php foreach($applicants as $c => $a): ?>
+                                <tr> 
+                                  <td>
+                                      <img height="50" width="50" src="uploads/<?= $a['userid']."/".$a['photo'];?>">
+                                    </td>
+                                  <td><?= $a['firstname'];?></td>
+                                  <td><?= $a['gender'];?></td>
+                                  <td>
+                                    <input type="submit" data-id="<?= $a['userid'];?>" class="btn btn-succes btn-sm" value="preview" name="">
+                                  </td>
+                              </tr>
+                            <?php endforeach; ?>
+                            
+
+                          </table>
+                      </td>
                     </tr>
                   <?php endforeach; ?>
                   

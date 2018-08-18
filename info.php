@@ -52,7 +52,7 @@
 				/*background: orange;*/
 				position: relative;
 				overflow: hidden;
-				min-height: 700px;
+				min-height: 1000px;
 			}
 			.container.comp {
 				float: left;
@@ -123,7 +123,8 @@
 					<hr>	
 					<input type="submit" value="save" class="btn btn-success">
 				</form>
-			    <input type="submit" id="firstnext" value="next>>" disablsed data-left="-205px" data-percen="-100%" class="next btn custom" name="">
+				<br>
+			    <input type="submit" disabled="" id="firstnext" value="next>>" disablsed data-left="-205px" data-percen="-100%" class="next btn custom" name="">
 
 			</div>
 
@@ -179,12 +180,13 @@
 				</div>
 				<div class="row">
 						<iframe src="cv.php" frameborder="0"></iframe>
+						<br>
+						<br>
+
+					<input type="submit" value="<<prev" data-left="-120px" data-percen="-100%" class="next btn custom" name=""> 
+		   	
+	    			<input type="submit" value="next>>" data-left="-109px" data-percen="-300%" class="next btn custom" name="">
 				</div>
-				<br/>
-			    <br/>
-			   	<input type="submit" value="<<prev" data-left="-120px" data-percen="-100%" class="next btn custom" name=""> 
-			   	
-		    	<input type="submit" value="next>>" data-left="-109px" data-percen="-300%" class="next btn custom" name="">
 			</div>
 
 			<div class="container comp">
@@ -195,7 +197,7 @@
 				</div>
 				<div class="row">
 					<div class="col-5">
-						<input type="text" name="skill" class="form-control" id="skillname" placeholder="skill..."/>
+						<input type="text" required name="skill" class="form-control" id="skillname" placeholder="skill..."/>
 					</div>
 					<div class="col-3">
 						<ul id="rating">
@@ -312,7 +314,7 @@
 				</div>
 				<script type="text/html" id="emphist">
 				<div class="col-12">
-					<a href="" data-id="[ID]" class="close">x</a>
+					<a href="" data-id="[ID]" class="close closeemp">x</a>
 					<h5 class="display-8">[COMPANY] <small>[MONTHS]</small></h5>
 					<b>[POSITION]</b>
 					<p>[DESC]</p>
@@ -323,9 +325,12 @@
 
 			<div class="container comp photo">
 				<div class="row">
+					<h4 class="display-8">Add Photo</h4>
+				</div>
+				<div class="row">
 					 <span class="btn btn-success fileinput-button">
 				        <i class="glyphicon glyphicon-plus"></i>
-				        <span>Add Photo...</span>
+				        <span>Upload...</span>
 				        <input id="fileupload" type="file" name="photo">
 				    </span>
 				    <br>
@@ -335,7 +340,7 @@
 				    </div>
 				    <div id="files" class="files"></div>
 				</div>
-				<div class="row">	
+				<div class="row clearfix">	
 					<br/>
 				    <br/>
 				    <input type="submit" value="<<prev" data-left="-89px" data-percen="-400%" class="next btn custom" name="">
@@ -361,6 +366,9 @@
 						width: 100%;
 						z-index: 999;
 						background: white;
+					}
+					.data {
+						margin: 5px 0;
 					}
 				</style>
 
@@ -412,10 +420,11 @@
 			<div class="container comp">
 				<div class="alert alert-success" role="alert">
 				  <h4 class="alert-heading display-3">Well done!</h4>
-				  <p>You can now view your profile by clicking the link below.</p>
+				  <p>You can now login to your profile by clicking the link below.</p>
 				  <hr>
 				<br/>
-			    <input type="submit" id="completed" value="Completed" data-left="0"  class="next btn btn-success" name="">
+
+			    <input type="submit" id="completed2" value="Completed" data-left="0"  class=" btn btn-success" name="">
 				</div>
 			</div>
 			
@@ -467,7 +476,7 @@
 							}
 						});	
 					});
-					$(".close").off().on("click", function(e){
+					$(".closeemp").off().on("click", function(e){
 						e.preventDefault();
 
 						var me = $(this);
@@ -489,22 +498,7 @@
 				
 				attachListener();
 
-				$("#completed").on("click", function(e){
-					e.preventDefault();
-
-					$.ajax({
-						url : 'process.php',
-						data : { socialCompleted:true},
-						type : 'POST',
-						dataType : 'JSON',
-						success : function(res){
-							console.log(res);
-							setTimeout(function(){
-								window.location.href="profile.php";
-							},1500);
-						}
-					});
-				});
+				
 				$("#userinfo").on("submit", function(e){
 					e.preventDefault();
 
@@ -536,6 +530,35 @@
 				});
 
 			});
+
+				$("#completed2").on("click", function(e){
+					e.preventDefault();
+
+					var percent = $(this).data("percen");
+					var target = $(".long").first();
+					var bar = $(".comp-bar").first();
+					var left = $(this).data("left");
+
+					bar.stop().animate({
+						"left" : left
+					});
+
+					target.stop().animate({
+						"left" : percent
+					});
+
+					$.ajax({
+						url : 'process.php',
+						data : { socialCompleted:true},
+						type : 'POST',
+						dataType : 'JSON',
+						success : function(res){
+							setTimeout(function(){
+								window.location.href="login.php";
+							},1500);
+						}
+					});
+				});
 
 				$("#save-social,.save-social").off().on("click", function(e){
 					e.preventDefault();

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 18, 2018 at 07:53 AM
+-- Generation Time: Aug 18, 2018 at 08:03 PM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.2
 
@@ -21,6 +21,27 @@ SET time_zone = "+00:00";
 --
 -- Database: `jobs`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `application`
+--
+
+CREATE TABLE `application` (
+  `id` int(11) NOT NULL,
+  `jobid` int(11) NOT NULL,
+  `userid` int(11) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `application`
+--
+
+INSERT INTO `application` (`id`, `jobid`, `userid`, `status`) VALUES
+(6, 9, 23, 0),
+(7, 9, 23, 0);
 
 -- --------------------------------------------------------
 
@@ -51,7 +72,7 @@ CREATE TABLE `company` (
 
 INSERT INTO `company` (`id`, `name`, `address`, `overview`, `banner`, `industry`, `social_ids`, `size`, `telephone`, `email`, `photo`, `userid`, `mobile`, `completed`) VALUES
 (3, '2', '2', '2', '37e8c8d4ad2cfe6b9f6462695e8246be.png', '2', '2', '2', '2', '2', '37e8c8d4ad2cfe6b9f6462695e8246be.png', 6, 2, 0),
-(4, 'Hays Specialist', 'Tampa, Florida, US', 'Hays is the expert at recruiting qualified, professional and skilled people worldwide. We operate across the private and public sectors, dealing in full-time positions, contract roles and temporary assignments. Hays employs over 9,000 staff operating from over 250 offices in 33 countries across 20 specialisms. \r\n\r\nLast year our experts placed 67,000 candidates into permanent jobs and over 220,000 people into interim or contract assignments. We attract the best candidates, make the best match and provide the best industry expertise, delivered through our commitment to service excellence. \r\nOur website www.hays.com', 'd118f39d3444485ec693535f37925461.png', 'Staffing/Employment Agencies', 'fb', '5,000 to 9,999 employees', '09345353', 'hays@gmail.com', 'a2b5f1c3c8dec2a3173ec1409c015e2a.gif', 9, 78687678, 0),
+(4, 'Hays Specialist', 'Tampa, Florida, US', 'Hays is the expert at recruiting qualified, professional and skilled people worldwide. We operate across the private and public sectors, dealing in full-time positions, contract roles and temporary assignments. Hays employs over 9,000 staff operating from over 250 offices in 33 countries across 20 specialisms. \r\n\r\nLast year our experts placed 67,000 candidates into permanent jobs and over 220,000 people into interim or contract assignments. We attract the best candidates, make the best match and provide the best industry expertise, delivered through our commitment to service excellence. \r\nOur website www.hays.com', 'd118f39d3444485ec693535f37925461.png', 'Staffing/Employment Agencies', 'fb', '5,000 to 9,999 employees', '09345353', 'hays@gmail.com', 'a2b5f1c3c8dec2a3173ec1409c015e2a.gif', 9, 78687678, 1),
 (5, 'jordans', '', '', NULL, '', '', '', '', '', NULL, 11, 0, 0),
 (6, 'asdsad', '', '', 'f4abe06c5c3752d36886bac2b10220d9.png', '', '', '', '', '', '733f5111c19fea69076ee001539213a9.png', 12, 0, 1),
 (7, 'jordan sadiwa', '3242 zfdsfd', '', 'd118f39d3444485ec693535f37925461.png', '', '', '', '', 'sad@mail.com', '93e43439321d51bb2a5eeb7b1e57b4b6.jpeg', 21, 342424, 1);
@@ -123,7 +144,12 @@ INSERT INTO `emp_history` (`id`, `companyid`, `companyname`, `startdate`, `endda
 (7, 0, 'company', '2018-08-16', '2018-08-15', 'web dev', 'some lorem ipsum job description.', 23),
 (8, 0, 'company', '2018-08-16', '2018-08-15', 'web dev', 'some lorem ipsum job description.', 23),
 (9, 0, 'company', '2018-08-16', '2018-08-15', 'web dev', 'some lorem ipsum job description.', 23),
-(10, 0, 'MemeisLove', '2018-08-01', '2018-08-15', 'php def', 'asdada', 23);
+(10, 0, 'MemeisLove', '2018-08-01', '2018-08-15', 'php def', 'asdada', 23),
+(11, 0, 'Infinite Dev Works', '2018-08-08', '2018-08-15', 'HP Web Developer', 'some desc', 23),
+(12, 0, 'Infinite Dev Works', '2018-08-08', '2018-08-15', 'HP Web Developer', 'some desc', 23),
+(13, 0, 'MemeisLove', '2018-08-02', '2018-08-28', 'PHP Dev', 'aadasd', 23),
+(14, 0, 'MemeisLove', '2018-08-02', '2018-08-22', 'PHP Dev', 'asdasda', 23),
+(15, 0, 'asdsad', '2018-08-08', '2018-08-22', 'asdasd', 'asdasd', 23);
 
 -- --------------------------------------------------------
 
@@ -186,15 +212,18 @@ CREATE TABLE `job` (
   `industryid` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `otherdesc` longtext NOT NULL,
-  `desclist` longtext NOT NULL
+  `desclist` longtext NOT NULL,
+  `date_added` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `job`
 --
 
-INSERT INTO `job` (`id`, `companyid`, `description`, `userid`, `processing_time`, `salary`, `min_experience`, `expire_date`, `status`, `industryid`, `title`, `otherdesc`, `desclist`) VALUES
-(9, 9, 'CGI is looking for a mid-level developer proficient in front-end development technologies including Javascript, Drupal, PHP, and JQuery. The candidate selected for this position will have the opportunity to support government public-facing web sites, helping to educate the public on federal regulations and issues. The selected candidate will also build applications to collect data reported by industry to comply with federal regulations.\r\n', 9, '2-3 Days', '120,000-160,000', '3 Years Working Experience', '2018-08-25', 0, 0, 'PHP Developer at CGI', 'Please note, this email address is only to be used for those individuals who need an accommodation to apply for a job. Emails for any other reason or those that do not include a requisition number will not be returned.\r\n', 'We make it easy to translate military experience and skills! Clickhereto be directed to our site that is dedicated to veterans and transitioning service members.]All CGI offers of employment in the U.S. are contingent upon the ability to successfully complete a background investigation. Background investigation components can vary dependent upon specific assignment and/or level of US government security clearance held.]CGI will not discharge or in any other manner discriminate against employees or applicants because they have inquired about, discussed, or disclosed their own pay or the pay of another employee or applicant. However, employees who have access to the compensation information of other employees or applicants as a part of their essential job functions cannot disclose the pay of other employees or applicants to individuals who do not otherwise have access to compensation information, unless the disclosure is (a) in response to a formal complaint or charge, (b) in furtherance of an investigation, proceeding, hearing, or action, including an investigation conducted by the employer, or (c) consistent with CGIs legal duty to furnish information.');
+INSERT INTO `job` (`id`, `companyid`, `description`, `userid`, `processing_time`, `salary`, `min_experience`, `expire_date`, `status`, `industryid`, `title`, `otherdesc`, `desclist`, `date_added`) VALUES
+(9, 9, 'CGI is looking for a mid-level developer proficient in front-end development technologies including Javascript, Drupal, PHP, and JQuery. The candidate selected for this position will have the opportunity to support government public-facing web sites, helping to educate the public on federal regulations and issues. The selected candidate will also build applications to collect data reported by industry to comply with federal regulations.\r\n', 9, '2-3 Days', '120,000-160,000', '3 Years Working Experience', '2018-08-25', 0, 0, 'PHP Developer at CGI', 'Please note, this email address is only to be used for those individuals who need an accommodation to apply for a job. Emails for any other reason or those that do not include a requisition number will not be returned.\r\n', 'We make it easy to translate military experience and skills! Clickhereto be directed to our site that is dedicated to veterans and transitioning service members.]All CGI offers of employment in the U.S. are contingent upon the ability to successfully complete a background investigation. Background investigation components can vary dependent upon specific assignment and/or level of US government security clearance held.]CGI will not discharge or in any other manner discriminate against employees or applicants because they have inquired about, discussed, or disclosed their own pay or the pay of another employee or applicant. However, employees who have access to the compensation information of other employees or applicants as a part of their essential job functions cannot disclose the pay of other employees or applicants to individuals who do not otherwise have access to compensation information, unless the disclosure is (a) in response to a formal complaint or charge, (b) in furtherance of an investigation, proceeding, hearing, or action, including an investigation conducted by the employer, or (c) consistent with CGIs legal duty to furnish information.', '2018-08-18 15:58:06'),
+(10, 9, 'CGI is looking for a mid-level developer proficient in front-end development technologies including Javascript, Drupal, PHP, and JQuery. The candidate selected for this position will have the opportunity to support government public-facing web sites, helping to educate the public on federal regulations and issues. The selected candidate will also build applications to collect data reported by industry to comply with federal regulations.\r\n', 9, '2-3 Days', '120,000-160,000', '3 Years Working Experience', '2018-08-25', 0, 0, 'Web Developer', 'Please note, this email address is only to be used for those individuals who need an accommodation to apply for a job. Emails for any other reason or those that do not include a requisition number will not be returned.\r\n', 'We make it easy to translate military experience and skills! Clickhereto be directed to our site that is dedicated to veterans and transitioning service members.]All CGI offers of employment in the U.S. are contingent upon the ability to successfully complete a background investigation. Background investigation components can vary dependent upon specific assignment and/or level of US government security clearance held.]CGI will not discharge or in any other manner discriminate against employees or applicants because they have inquired about, discussed, or disclosed their own pay or the pay of another employee or applicant. However, employees who have access to the compensation information of other employees or applicants as a part of their essential job functions cannot disclose the pay of other employees or applicants to individuals who do not otherwise have access to compensation information, unless the disclosure is (a) in response to a formal complaint or charge, (b) in furtherance of an investigation, proceeding, hearing, or action, including an investigation conducted by the employer, or (c) consistent with CGIs legal duty to furnish information.', '2018-08-18 15:58:06'),
+(11, 12, 'some desc', 12, '5-7 Days', '20,000- 50,000', ' 3 Years', '2018-08-24', 0, 0, 'Web Developer', 'header', '', '2018-08-18 17:20:36');
 
 -- --------------------------------------------------------
 
@@ -234,7 +263,8 @@ INSERT INTO `skill` (`id`, `name`, `level`, `userid`) VALUES
 (23, 'sadasd', 4, 23),
 (24, 'sadasd', 4, 23),
 (25, 'PHP', 2, 23),
-(26, 'PHP', 2, 23);
+(26, 'PHP', 2, 23),
+(28, 'PHP', 3, 23);
 
 -- --------------------------------------------------------
 
@@ -259,7 +289,8 @@ INSERT INTO `socialmedia` (`id`, `name`, `link`, `userid`) VALUES
 (9, 'asd', '', 12),
 (10, 'fb', '', 21),
 (11, 'twitter', 'fb', 23),
-(12, 'fb', 'fb', 23);
+(12, 'fb', 'fb', 23),
+(13, 'jordan sadiwa', '', 23);
 
 -- --------------------------------------------------------
 
@@ -303,7 +334,8 @@ INSERT INTO `user` (`id`, `username`, `password`, `usertype`, `deleted`, `datere
 (20, 'asdasda', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'employer', 0, '2018-08-11 08:34:55'),
 (21, 'dandan', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'employer', 0, '2018-08-11 08:55:06'),
 (22, 'employer999', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'employer', 0, '2018-08-11 15:40:01'),
-(23, 'applicant', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'applicant', 0, '2018-08-12 16:27:43');
+(23, 'applicant', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'applicant', 0, '2018-08-12 16:27:43'),
+(24, 'applicant2', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'applicant', 0, '2018-08-18 18:01:05');
 
 -- --------------------------------------------------------
 
@@ -336,12 +368,18 @@ CREATE TABLE `userinfo` (
 --
 
 INSERT INTO `userinfo` (`id`, `firstname`, `lastname`, `middlename`, `dob`, `address`, `mobile`, `nationality`, `skill_ids`, `industry_ids`, `resume`, `photo`, `email`, `userid`, `social_ids`, `gender`, `completed`) VALUES
-(4, '2', '2', '2', '0000-00-00', '2', 2, '2', '2', '2', NULL, 'afb09376f2c30cab320d9317ee39bb9e.png', '2', 6, '2', 'female', 0),
-(5, 'jordan', 'sadiwa', 'DLR', '2018-08-07', '3242 zfdsfd', 342424, 'Hong Kong', '', '', NULL, NULL, 'sad@mail.com', 23, '', 'male', 1);
+(4, '2', '2', '2', '0000-00-00', '2', 2, '2', '2', '2', NULL, '', '2', 6, '2', 'female', 0),
+(5, 'Jordan', '', '', '0000-00-00', '', 0, '', '', '', '7d9e92e6620014147b7ea839451e87d5.docx', '93e43439321d51bb2a5eeb7b1e57b4b6.jpeg', '', 23, '', 'male', 1);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `application`
+--
+ALTER TABLE `application`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `company`
@@ -402,6 +440,12 @@ ALTER TABLE `userinfo`
 --
 
 --
+-- AUTO_INCREMENT for table `application`
+--
+ALTER TABLE `application`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT for table `company`
 --
 ALTER TABLE `company`
@@ -417,7 +461,7 @@ ALTER TABLE `education`
 -- AUTO_INCREMENT for table `emp_history`
 --
 ALTER TABLE `emp_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `industry`
@@ -429,25 +473,25 @@ ALTER TABLE `industry`
 -- AUTO_INCREMENT for table `job`
 --
 ALTER TABLE `job`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `skill`
 --
 ALTER TABLE `skill`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `socialmedia`
 --
 ALTER TABLE `socialmedia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `userinfo`

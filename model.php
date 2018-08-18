@@ -29,7 +29,47 @@ class Model {
 		$this->addSkillListener();
 		$this->deleteSkillListener();
 		$this->addNewJobListener();
+		$this->viewJobListener();
+		$this->browseListener();
+		$this->applyListener();
 		$this->uploadCV();
+	}
+
+	public function applyListener(){
+		if(isset($_POST['apply'])){
+			$this->db->prepare("
+					INSERT INTO application(jobid,userid)
+					VALUES(?,?)
+				")->execute(array($_POST['id'], $_SESSION['id']));
+
+			die(json_encode(array("success")));
+		}
+	}
+
+	public function browseListener(){
+		if(isset($_POST['browse'])){
+
+			$text = $_POST['searchtext'];
+			$stmnt =  $this->db->query("
+				SELECT t1.*,t2.name,t2.address,t2.overview,t2.banner,t2.size,t2.photo
+				FROM job t1
+				LEFT JOIN company t2 
+				ON t1.companyid = t2.userid
+				WHERE t1.title LIKE '%".$text."%'
+			")->fetchAll(PDO::FETCH_ASSOC);
+
+			die(json_encode($stmnt));
+
+		}
+	}
+
+	public function viewJobListener(){
+		if(isset($_POST['viewjob'])){
+			$data = $this->getJobById($_POST['id']);
+
+			die(json_encode($data));
+		}
+		
 	}
 
 	public function addEducationListener(){
@@ -127,6 +167,19 @@ class Model {
 					SELECT *
 					FROM job
 					WHERE companyid = ".$_SESSION['id']);
+
+		return $stmnt->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+	public function getApplicantsByJobId($id){
+		$stmnt = $this->db->query("
+			SELECT t1.*,t2.firstname,t2.gender,t2.photo,t2.id as 'applicantid'
+			FROM application t1
+			LEFT JOIN userinfo t2 
+			ON t1.userid = t2.userid
+			WHERE t1.jobid = ".$id."
+
+		");
 
 		return $stmnt->fetchAll(PDO::FETCH_ASSOC);
 	}
@@ -274,7 +327,7 @@ class Model {
 			");
 			$data = $completed->fetch();
 
-			if(isset($data['completed'])){
+			if((isset($data['completed'])) && ($data['completed'] == 1)){
 				$_SESSION['photo'] = 'uploads/'.$_SESSION['id'].'/'.$data['photo'];
 				$_SESSION['name'] = $data['name'];
 
@@ -283,7 +336,23 @@ class Model {
 				header("Location:company.php");
 			}
 		} else {
-			header("Location:info.php");
+			$completed = $this->db->query("
+				SELECT *
+				FROM userinfo
+				WHERE userid = ".$_SESSION['id']."
+				LIMIT 1
+			");
+
+			$data = $completed->fetch();
+
+			if((isset($data['completed'])) && ($data['completed'] == 1)){
+				$_SESSION['photo'] = 'uploads/'.$_SESSION['id'].'/'.$data['photo'];
+				$_SESSION['name'] = $data['firstname'];
+
+				header("Location:browse.php");
+			} else {
+				header("Location:info.php");
+			}
 		}
 	}
 

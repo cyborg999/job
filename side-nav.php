@@ -12,12 +12,34 @@
       <img id="account-logo" src="<?= $_SESSION['photo'];?>">
     </div>
     <ul class="nav flex-column">
+      <?php if($_SESSION['usertype'] == "employer"): ?>
+        <li class="nav-item">
+          <a class="nav-link" href="profile.php">
+            <span data-feather="users"></span>
+            Account
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="newjob.php">
+            <span data-feather="file"></span>
+            Post New Job
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="alljob.php">
+            <span data-feather="clipboard"></span>
+            View All Jobs
+          </a>
+        </li>
+      <?php else: ?>
       <li class="nav-item">
         <a class="nav-link" href="profile.php">
           <span data-feather="users"></span>
-          Account
+          Browse Job
         </a>
       </li>
+      <?php endif; ?>
+
    <!--    <li class="nav-item">
         <a class="nav-link active" href="#">
           <span data-feather="home"></span>
@@ -25,18 +47,7 @@
         </a>
       </li> -->
       
-      <li class="nav-item">
-        <a class="nav-link" href="newjob.php">
-          <span data-feather="file"></span>
-          Post New Job
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="alljob.php">
-          <span data-feather="clipboard"></span>
-          View All Jobs
-        </a>
-      </li>
+
       <!-- <li class="nav-item">
         <a class="nav-link" href="#">
           <span data-feather="bar-chart-2"></span>
