@@ -39,6 +39,10 @@
         </li>
       <?php else: ?>
       <li class="nav-item">
+      <!--   <a class="nav-link" href="myprofile.php">
+          <span data-feather="users"></span>
+          View Online Profile
+        </a> -->
         <a class="nav-link" href="browse.php">
           <span data-feather="users"></span>
           Browse Job

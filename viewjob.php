@@ -54,7 +54,7 @@
           <div class="container">
             <style type="text/css">
               .job-banner {
-              background: #eee url(uploads/<?= $data['userid'];?>/<?= $data['banner'];?>);
+              background: #eee url(uploads/<?= $data['userid'];?>/<?= $data['banner'];?>) no-repeat;
                 height: 200px;
                 width: 100%;
                 background-size: contain;

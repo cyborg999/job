@@ -1,5 +1,6 @@
 <?php
-error_reporting(E_ALL);
+// error_reporting(E_ALL);
+error_reporting(0);
 
 include_once "helper.php";
 
@@ -164,6 +165,16 @@ class Model {
 		}
 	}
 
+	public function getFeaturedJobs(){
+		return $this->db->query("
+				SELECT t1.title,t1.salary,t1.description,t2.name as 'company'
+				FROM job t1
+				LEFT JOIN company t2 ON t1.userid = t2.userid
+				ORDER BY t1.date_added ASC
+				LIMIT 3
+			")->fetchAll(PDO::FETCH_ASSOC);
+	}
+
 	public function getAllJobByUserId(){
 		$stmnt = $this->db->query("
 					SELECT *
@@ -184,7 +195,7 @@ class Model {
 		");
 
 		return $stmnt->fetchAll(PDO::FETCH_ASSOC);
-	}
+	} 
 
 	public function getJobById($id){
 		$stmnt = $this->db->query("

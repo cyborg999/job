@@ -1,5 +1,7 @@
 <?php include_once "model.php"; ?>
-<?php $model = new Model(); ?>
+<?php $model = new Model(); 
+  $featuredJobs = $model->getFeaturedJobs();
+?>
 <?php include_once "header.php"; ?>
     <div class="container idx">
         <main role="main">
@@ -48,37 +50,29 @@
                 <h2 class="display-7">Jobs you may be interested in</h2>
                 <br/>
                 <div class="row">
+                  <?php
+                    // opd($featuredJobs);
+                  ?>
+                  <style type="text/css">
+                    .desc {
+                      white-space: nowrap; 
+                      overflow: hidden;
+                      text-overflow: ellipsis;
+                    }
+                  </style>
+                  <?php foreach($featuredJobs as $idx => $job): ?>
                   <div class="col-sm-4">
                     <div class="card">
                       <div class="card-body">
-                        <h5 class="card-title">Senior Java Developer</h5>
-                        <a href="">US Autoparts</a>
-                        <p class="card-text">Keywords / Skills : Java, Java Development, J2EE, Spring, Struts, Java Programming, Core Java, Programming, Design, Java DEV</p>
+                        <h5 class="card-title"><?= $job['title']; ?></h5>
+                        <a href=""><?= $job['company']; ?></a>
+                        <p class="card-text">Salary : <?= $job['salary']; ?></p>
+                        <p class="card-text desc"><?= $job['description']; ?></p>
                         <a href="#" class="btn btn-success">Apply</a>
                       </div>
                     </div>
                   </div>
-                  <div class="col-sm-4">
-                    <div class="card">
-                      <div class="card-body">
-                        <h5 class="card-title">.NET Developer</h5>
-                        <a href="">FFUF Manila</a>
-                        <p class="card-text">Keywords / Skills : C#.Net, MSSQL, NHibernate, WPF, DevExpress, WCF, Console App, Web MVC, MS Business Intelligence, Crystal Reports</p>
-                        <a href="#" class="btn btn-success">Apply</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-sm-4">
-                    <div class="card">
-                      <div class="card-body">
-                        <h5 class="card-title">Web Developer</h5>
-                        <a href="">Infinite Devworks</a>
-                        <p class="card-text">Keywords / Skills : C#.Net, MSSQL, NHibernate, WPF, DevExpress, WCF, Console App, Web MVC, MS Business Intelligence, Crystal Reports</p>
-                        <a href="#" class="btn btn-success">Apply</a>
-                      </div>
-                    </div>
-                  </div>
-
+                 <?php endforeach; ?>
                 </div>
               </div>
           </div>
