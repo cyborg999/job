@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+
 include_once "helper.php";
 
 
@@ -565,6 +567,7 @@ class Model {
 
 		$_SESSION['id'] = $this->db->lastInsertId();
 		$_SESSION['username'] = $_POST['username'];
+		$_SESSION['usertype'] = $_POST['usertype'];
 
 		$this->redirect($_POST);
 	}

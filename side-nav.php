@@ -9,7 +9,13 @@
 <nav class="col-md-2 d-none d-md-block bg-light sidebar">
   <div class="sidebar-sticky">
     <div class="img-container">
-      <img id="account-logo" src="<?= $_SESSION['photo'];?>">
+      <br>  
+      <br>  
+      <?php
+      $valid = strpos($_SESSION['photo'], ".");
+      $photo = (!$valid) ? "./img/default.jpg" : $_SESSION['photo'];
+      ?>
+      <img id="account-logo" src="<?= $photo;?>">
     </div>
     <ul class="nav flex-column">
       <?php if($_SESSION['usertype'] == "employer"): ?>
@@ -33,7 +39,7 @@
         </li>
       <?php else: ?>
       <li class="nav-item">
-        <a class="nav-link" href="profile.php">
+        <a class="nav-link" href="browse.php">
           <span data-feather="users"></span>
           Browse Job
         </a>
