@@ -55,7 +55,7 @@ $data = $model->getAllJobByUserId();
                                   <td><?= $a['firstname'];?></td>
                                   <td><?= $a['gender'];?></td>
                                   <td>
-                                    <input type="submit" data-id="<?= $a['userid'];?>" class="btn btn-succes btn-sm" value="preview" name="">
+                                    <input type="submit" data-toggle="modal" data-target="#previewmodal" data-id="preview.php?id=<?= $a['userid'];?>" class="btn previewApplicant btn-succes btn-sm" value="preview" name="">
                                   </td>
                               </tr>
                             <?php endforeach; ?>
@@ -87,6 +87,22 @@ $data = $model->getAllJobByUserId();
     <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
     <script>
       feather.replace()
+    </script>
+    <script type="text/javascript">
+      
+      (function($){
+          $(document).ready(function(){
+              $(".previewApplicant").on("click", function(e){
+                  e.preventDefault();
+
+                  var id = $(this).data("id");
+                
+                $("#previewmodal").find("iframe").attr("src", id);
+
+              });
+
+          });
+      })(jQuery);
     </script>
   </body>
 </html>

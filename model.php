@@ -1,6 +1,6 @@
 <?php
-// error_reporting(E_ALL);
-error_reporting(0);
+error_reporting(E_ALL);
+// error_reporting(0);
 
 include_once "helper.php";
 
@@ -36,6 +36,67 @@ class Model {
 		$this->browseListener();
 		$this->applyListener();
 		$this->uploadCV();
+	}
+
+	public function getUserById($id) {
+		return  $this->db->query("
+					SELECT *
+					FROM userinfo
+					WHERE userid = ".$id."
+					LIMIT 1
+					")->fetch(PDO::FETCH_ASSOC);
+
+	}
+
+	public function getSocialMediaByUserId($id){
+		return $this->db->query("
+				SELECT *
+				FROM socialmedia
+				WHERE userid =".$id)->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+	public function getSkillsByUserId($id){
+		return $this->db->query("
+				SELECT *
+				FROM skill
+				WHERE userid =".$id)->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+	public function getEducationByUserId($id){
+		return $this->db->query("
+				SELECT *
+				FROM education
+				WHERE userid =".$id)->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+	public function getEmploymentHistoryByUserId($id) {
+		$record =  $this->db->query("
+				SELECT *
+				FROM emp_history
+				WHERE userid =".$id)->fetchAll(PDO::FETCH_ASSOC);
+		
+		foreach($record as $idx => $r){
+			$startdate = new DateTime($r['startdate']);
+			$enddate = new DateTime($r['enddate']);
+			$interval = $startdate->diff($enddate);
+
+			$interval->format('%m months');
+			$expText = "";
+
+			if($interval->y > 0){
+				$expText = $interval->y." year(s)";
+
+				if($interval->m > 0){
+					$expText.= " and ".$interval->m." month(s).";
+				}
+			} else {
+				$expText = $interval->m." month(s).";
+			}
+
+			$record[$idx]['interval'] = $expText;
+		}
+
+		return $record;
 	}
 
 	public function applyListener(){
@@ -542,14 +603,16 @@ class Model {
 							industry_ids = ?, 
 							email = ?, 
 							social_ids = ?, 
-							gender = ?
+							gender = ?,
+							position = ?,
+							intro = ?
 						WHERE userid = ?
-					")->execute(array($_POST['firstname'],$_POST['lastname'],$_POST['middlename'],$_POST['dob'],$_POST['address'],$_POST['mobile'],$_POST['nationality'],$_POST['skill_ids'],$_POST['industry_ids'],$_POST['email'],$_POST['social_ids'], $_POST['gender'],$_SESSION['id']));
+					")->execute(array($_POST['firstname'],$_POST['lastname'],$_POST['middlename'],$_POST['dob'],$_POST['address'],$_POST['mobile'],$_POST['nationality'],$_POST['skill_ids'],$_POST['industry_ids'],$_POST['email'],$_POST['social_ids'], $_POST['gender'],$_POST['position'],$_POST['intro'],$_SESSION['id']));
 			} else {
 				$this->db->prepare("
-						INSERT INTO userinfo(firstname,lastname,middlename,dob,address,mobile,nationality,skill_ids,industry_ids,email,userid,social_ids,gender) 
-						VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)
-					")->execute(array($_POST['firstname'],$_POST['lastname'],$_POST['middlename'],$_POST['dob'],$_POST['address'],$_POST['mobile'],$_POST['nationality'],$_POST['skill_ids'],$_POST['industry_ids'],$_POST['email'],$_SESSION['id'],$_POST['social_ids'], $_POST['gender']));
+						INSERT INTO userinfo(firstname,lastname,middlename,dob,address,mobile,nationality,skill_ids,industry_ids,email,userid,social_ids,gender,position,intro) 
+						VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+					")->execute(array($_POST['firstname'],$_POST['lastname'],$_POST['middlename'],$_POST['dob'],$_POST['address'],$_POST['mobile'],$_POST['nationality'],$_POST['skill_ids'],$_POST['industry_ids'],$_POST['email'],$_SESSION['id'],$_POST['social_ids'], $_POST['gender'],$_POST['position'],$_POST['intro']));
 
 			}
 

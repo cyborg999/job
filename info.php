@@ -121,6 +121,15 @@
 						</select>
 					</label>
 					<hr>	
+					<label>Desired Position
+						<input type="text" class="form-control" required name="position" placeholder="Position..."/>
+					</label>
+					<br>
+					<hr>	
+					<label>Short Introduction about you
+						<textarea class="form-control" required name="intro"></textarea>
+					</label>
+					<hr>	
 					<input type="submit" value="save" class="btn btn-success">
 				</form>
 				<br>
@@ -313,14 +322,14 @@
 
 				</div>
 				<script type="text/html" id="emphist">
-				<div class="col-12">
-					<a href="" data-id="[ID]" class="close closeemp">x</a>
-					<h5 class="display-8">[COMPANY] <small>[MONTHS]</small></h5>
-					<b>[POSITION]</b>
-					<p>[DESC]</p>
-					<hr>
-				</div>
-			</script>
+					<div class="col-12">
+						<a href="" data-id="[ID]" class="close closeemp">x</a>
+						<h5 class="display-8">[COMPANY] <small>[MONTHS]</small></h5>
+						<b>[POSITION]</b>
+						<p>[DESC]</p>
+						<hr>
+					</div>
+				</script>
 			</div>
 
 			<div class="container comp photo">

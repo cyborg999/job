@@ -39,13 +39,17 @@
         </li>
       <?php else: ?>
       <li class="nav-item">
-      <!--   <a class="nav-link" href="myprofile.php">
+        <a class="nav-link" data-toggle="modal" data-target="#previewmodal" href="myprofile.php">
           <span data-feather="users"></span>
           View Online Profile
-        </a> -->
+        </a>
         <a class="nav-link" href="browse.php">
           <span data-feather="users"></span>
           Browse Job
+        </a>
+        <a class="nav-link" href="myprofile.php">
+          <span data-feather="users"></span>
+          Update Profile
         </a>
       </li>
       <?php endif; ?>
@@ -106,3 +110,43 @@
     </ul> -->
   </div>
 </nav>
+
+<div class="modal container" tabindex="-1" id="previewmodal" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Preview</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <iframe id="preview" frameborder="0" src="preview.php?id=<?= $_SESSION['id'];?>"></iframe>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style type="text/css">
+  .modal-dialog {
+    max-width: 100%!important;
+    width: 100%!important;
+  }
+  #preview {
+    width: 100%;   
+    min-height: 500px; 
+  }
+</style>
+    <script src="js/jquery.js"></script>
+    <script src="bootstrap-4.0.0/dist/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+  (function($){
+    $('#previewmodal').on('shown.bs.modal', function () {
+      $('#myInput').trigger('focus')
+    });
+  })(jQuery);
+</script>

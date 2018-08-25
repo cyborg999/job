@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 18, 2018 at 08:03 PM
+-- Generation Time: Aug 25, 2018 at 07:19 PM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.2
 
@@ -112,7 +112,10 @@ INSERT INTO `education` (`id`, `school`, `level`, `datestart`, `dateend`, `useri
 (13, 'Infinite Devworks', 'Bachelor', '2018-08-01', '2018-08-01', 23),
 (14, 'Infinite Devworks', 'Bachelor', '2018-08-01', '2018-08-01', 23),
 (15, 'Infinite Devworks', 'Bachelor', '2018-08-01', '2018-08-01', 23),
-(16, 'Infinite Devworks', 'Bachelor', '2018-08-01', '2018-08-01', 23);
+(16, 'Infinite Devworks', 'Bachelor', '2018-08-01', '2018-08-01', 23),
+(17, 'Marinduque State College', 'Bachelor', '2018-08-01', '2018-08-01', 25),
+(18, 'Marinduque State College', 'Bachelor', '2018-08-01', '2018-08-01', 25),
+(19, 'Marinduque State College', 'Doctorate', '2018-08-01', '2018-08-01', 26);
 
 -- --------------------------------------------------------
 
@@ -149,7 +152,9 @@ INSERT INTO `emp_history` (`id`, `companyid`, `companyname`, `startdate`, `endda
 (12, 0, 'Infinite Dev Works', '2018-08-08', '2018-08-15', 'HP Web Developer', 'some desc', 23),
 (13, 0, 'MemeisLove', '2018-08-02', '2018-08-28', 'PHP Dev', 'aadasd', 23),
 (14, 0, 'MemeisLove', '2018-08-02', '2018-08-22', 'PHP Dev', 'asdasda', 23),
-(15, 0, 'asdsad', '2018-08-08', '2018-08-22', 'asdasd', 'asdasd', 23);
+(15, 0, 'asdsad', '2018-08-08', '2018-08-22', 'asdasd', 'asdasd', 23),
+(16, 0, 'MemeisLove', '2018-08-02', '2018-08-29', 'PHP Developer', 'some desc', 25),
+(17, 0, 'MemeisLove', '2018-08-16', '2018-08-23', 'PHP Dev', 'sfsdfs', 26);
 
 -- --------------------------------------------------------
 
@@ -264,7 +269,8 @@ INSERT INTO `skill` (`id`, `name`, `level`, `userid`) VALUES
 (24, 'sadasd', 4, 23),
 (25, 'PHP', 2, 23),
 (26, 'PHP', 2, 23),
-(28, 'PHP', 3, 23);
+(28, 'PHP', 3, 23),
+(29, 'PHP', 3, 26);
 
 -- --------------------------------------------------------
 
@@ -288,9 +294,11 @@ INSERT INTO `socialmedia` (`id`, `name`, `link`, `userid`) VALUES
 (8, 'jordan sadiwa', '', 12),
 (9, 'asd', '', 12),
 (10, 'fb', '', 21),
-(11, 'twitter', 'fb', 23),
-(12, 'fb', 'fb', 23),
-(13, 'jordan sadiwa', '', 23);
+(11, 'twitter', 'twitter.com', 23),
+(12, 'github', 'github.com', 23),
+(13, 'facebook', 'facebook.com', 23),
+(14, 'fb', 'fn.vom', 25),
+(15, 'jordan sadiwa', 'sfsdf', 26);
 
 -- --------------------------------------------------------
 
@@ -335,7 +343,10 @@ INSERT INTO `user` (`id`, `username`, `password`, `usertype`, `deleted`, `datere
 (21, 'dandan', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'employer', 0, '2018-08-11 08:55:06'),
 (22, 'employer999', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'employer', 0, '2018-08-11 15:40:01'),
 (23, 'applicant', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'applicant', 0, '2018-08-12 16:27:43'),
-(24, 'applicant2', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'applicant', 0, '2018-08-18 18:01:05');
+(24, 'applicant2', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'applicant', 0, '2018-08-18 18:01:05'),
+(25, 'applicant3', '80228fe3343c9613474abdc5d549416d', 'applicant', 0, '2018-08-20 13:29:53'),
+(26, 'applicant4', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'applicant', 0, '2018-08-20 15:14:44'),
+(27, 'applicant6', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'applicant', 0, '2018-08-22 10:33:20');
 
 -- --------------------------------------------------------
 
@@ -360,16 +371,21 @@ CREATE TABLE `userinfo` (
   `userid` int(11) NOT NULL,
   `social_ids` varchar(255) NOT NULL,
   `gender` varchar(255) NOT NULL,
-  `completed` int(11) NOT NULL DEFAULT '0'
+  `completed` int(11) NOT NULL DEFAULT '0',
+  `position` varchar(255) DEFAULT NULL,
+  `intro` longtext
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `userinfo`
 --
 
-INSERT INTO `userinfo` (`id`, `firstname`, `lastname`, `middlename`, `dob`, `address`, `mobile`, `nationality`, `skill_ids`, `industry_ids`, `resume`, `photo`, `email`, `userid`, `social_ids`, `gender`, `completed`) VALUES
-(4, '2', '2', '2', '0000-00-00', '2', 2, '2', '2', '2', NULL, '', '2', 6, '2', 'female', 0),
-(5, 'Jordan', '', '', '0000-00-00', '', 0, '', '', '', '7d9e92e6620014147b7ea839451e87d5.docx', '93e43439321d51bb2a5eeb7b1e57b4b6.jpeg', '', 23, '', 'male', 1);
+INSERT INTO `userinfo` (`id`, `firstname`, `lastname`, `middlename`, `dob`, `address`, `mobile`, `nationality`, `skill_ids`, `industry_ids`, `resume`, `photo`, `email`, `userid`, `social_ids`, `gender`, `completed`, `position`, `intro`) VALUES
+(4, '2', '2', '2', '0000-00-00', '2', 2, '2', '2', '2', NULL, '', '2', 6, '2', 'female', 0, NULL, NULL),
+(5, 'Jordan', 'Sadiwa', '', '2018-08-08', '1852 Sandejas Pasay City', 0, 'Philippines', '', '', '7d9e92e6620014147b7ea839451e87d5.docx', '93e43439321d51bb2a5eeb7b1e57b4b6.jpeg', 'sadiwajordan1991@gmail.com', 23, '', 'male', 1, 'Full Stack Web Developer', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\r\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\r\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
+(6, 'Jordan', 'Sadiwa', 'De los Reyes', '2018-08-09', '1852 Sandejas Pasay City', 630000000, 'Philippines', '', '', NULL, '93e43439321d51bb2a5eeb7b1e57b4b6.jpeg', 'sad@mail.com', 25, '', 'male', 1, NULL, NULL),
+(7, 'jordan', 'sadiwa', 'De los Reyes', '0000-00-00', '3242 zfdsfd', 342424, 'Hong Kong', '', '', NULL, NULL, 'sad@mail.com', 26, '', 'male', 1, NULL, NULL),
+(8, '', '', '', '0000-00-00', '', 0, '', '', '', NULL, NULL, '', 27, '', 'male', 0, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -455,13 +471,13 @@ ALTER TABLE `company`
 -- AUTO_INCREMENT for table `education`
 --
 ALTER TABLE `education`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `emp_history`
 --
 ALTER TABLE `emp_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `industry`
@@ -479,25 +495,25 @@ ALTER TABLE `job`
 -- AUTO_INCREMENT for table `skill`
 --
 ALTER TABLE `skill`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `socialmedia`
 --
 ALTER TABLE `socialmedia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `userinfo`
 --
 ALTER TABLE `userinfo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
