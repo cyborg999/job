@@ -15,6 +15,7 @@
 
     <!-- Custom styles for this template -->
     <link href="css/dashboard.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="js/jQuery-File-Upload-master/css/jquery.fileupload.css"/>
     </style>
 </head>
 

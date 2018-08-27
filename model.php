@@ -35,6 +35,8 @@ class Model {
 		$this->viewJobListener();
 		$this->browseListener();
 		$this->applyListener();
+		$this->deleteEducationListener();
+		$this->deleteEmploymentHistoryListener();
 		$this->uploadCV();
 	}
 
@@ -191,6 +193,17 @@ class Model {
 		if(isset($_POST['deleteEmpHis'])){
 			$this->db->prepare("
 					DELETE FROM emp_history
+					WHERE id = ?
+				")->execute(array($_POST['id']));
+			
+			die(json_encode(array("success")));
+		}
+	}
+
+	public function deleteEducationListener(){
+		if(isset($_POST['deleteEduc'])){
+			$this->db->prepare("
+					DELETE FROM education
 					WHERE id = ?
 				")->execute(array($_POST['id']));
 			
@@ -435,6 +448,8 @@ class Model {
 				UPDATE company
 				SET ".$type." = ?
 				WHERE userid = ?")->execute(array($filename, $_SESSION['id']));
+
+		$_SESSION['photo'] = 'uploads/'.$_SESSION['id'].'/'.$filename;
 	}
 
 	private function updateUploadInfo($filename,$type) {

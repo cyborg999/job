@@ -1,7 +1,14 @@
 <?php include_once "model.php"; ?>
 <?php $model = new Model(); 
-    $industry = $model->getIndustry();
-    $mySocial = $model->getMySocial();
+  $industry = $model->getIndustry();
+  $mySocial = $model->getMySocial();
+  $personal = $model->getUserById($_SESSION['id']);
+  $education = $model->getEducationByUserId($_SESSION['id']);
+  $employment = $model->getEmploymentHistoryByUserId($_SESSION['id']);
+  $skills = $model->getSkillsByUserId($_SESSION['id']);
+  $social = $model->getSocialMediaByUserId($_SESSION['id']);
+
+  // opd($personal);
 ?>
 <?php include_once "header2.php"; ?>
 
@@ -50,38 +57,44 @@
             <div class="tab-content" id="personalDataContent">
               <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="personal">
                 <div class="container comp">
+                  <!-- <div class="row">
+                    <div class="col">
+                          <div class="alert updated alert-success alert-dismissible fade show" role="alert"><strong>Success</strong>
+                           <br/>All data are now updated.<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
+                    </div>
+                  </div> -->
                   <form method="post" id="userinfo">
                     <label class="hidden">Social Media
                       <input type="text" class="form-control" value="" name="social_ids">
                     </label>
                     <input type="hidden" name="userinfo" value="1">
                     <label>Firstname
-                      <input type="text" class="form-control" name="firstname" value="" placeholder="Firstname..." />
+                      <input type="text" class="form-control" name="firstname" value="<?= isset($personal['firstname']) ? $personal['firstname'] : '';?>" placeholder="Firstname..." />
                     </label>
                     <label>Middlename
-                      <input type="text" class="form-control" name="middlename" value="" placeholder="Middlename..."/>
+                      <input type="text" class="form-control" name="middlename" value="<?= isset($personal['middlename']) ? $personal['middlename'] : '';?>" placeholder="Middlename..."/>
                     </label>
                     <label>Lastname
-                      <input type="text" class="form-control" name="lastname" value="" placeholder="Lastname..."/>
+                      <input type="text" class="form-control" name="lastname" value="<?= isset($personal['lastname']) ? $personal['lastname'] : '';?>" placeholder="Lastname..."/>
                     </label>
                     <label>Gender
-                      <input type="checkbox" name="gender" value="male" checked />
-                      <input type="checkbox" name="gender" value="female"/>
+                      <input type="radio" name="gender" value="male" <?= isset($personal['gender']) ? ($personal['gender'] == 'male') ? 'checked' : '' : '';?>  />
+                      <input type="radio" name="gender" value="female"  <?= isset($personal['gender']) ? ($personal['gender'] == 'female') ? 'checked' : '' : '';?> />
                     </label>
                     <label>Date of Birth
-                      <input type="date" class="form-control" name="dob" value="" placeholder="Date of Birth..."/>
+                      <input type="date" class="form-control" name="dob" value="<?= isset($personal['dob']) ? $personal['dob'] : '';?>" placeholder="Date of Birth..."/>
                     </label>
                     <label>Address
-                      <input type="text" class="form-control" name="address" value="" placeholder="Address..."/>
+                      <input type="text" class="form-control" name="address" value="<?= isset($personal['address']) ? $personal['address'] : '';?>" placeholder="Address..."/>
                     </label>
                     <label>Mobile
-                      <input type="text" class="form-control" name="mobile" value="" placeholder="Mobile #..."/>
+                      <input type="text" class="form-control" name="mobile" value="<?= isset($personal['mobile']) ? $personal['mobile'] : '';?>" placeholder="Mobile #..."/>
                     </label>
                     <label>Nationality
-                      <input type="text" class="form-control" name="nationality" value="" placeholder="Nationality..."/>
+                      <input type="text" class="form-control" name="nationality" value="<?= isset($personal['nationality']) ? $personal['nationality'] : '';?>" placeholder="Nationality..."/>
                     </label>
                     <label>Email
-                      <input type="text" class="form-control" name="email" value="" placeholder="Email..."/>
+                      <input type="text" class="form-control" name="email" value="<?= isset($personal['email']) ? $personal['email'] : '';?>" placeholder="Email..."/>
                     </label>
                     <label class="hidden">Key Skills
                       <input type="text" class="form-control" value="" name="skill_ids">
@@ -89,18 +102,18 @@
                     <label>Industry
                       <select class="form-control" name="industry_ids">
                         <?php foreach($industry as $idx => $i): ?>
-                          <option value=""><?= $i['name'];?></option>
+                          <option value="<?= $i['id'];?>"  <?= ($i['id'] == $personal['industry_ids']) ? 'selected' : '';?> ><?= $i['name'];?></option>
                         <?php endforeach; ?>
                       </select>
                     </label>
                     <hr>  
                     <label>Desired Position
-                      <input type="text" class="form-control" required name="position" placeholder="Position..."/>
+                      <input type="text" class="form-control" value="<?= isset($personal['position']) ? $personal['position'] : '';?>" required name="position" placeholder="Position..."/>
                     </label>
                     <br>
                     <hr>  
                     <label>Short Introduction about you
-                      <textarea class="form-control" required name="intro"></textarea>
+                      <textarea class="form-control" required name="intro"><?= isset($personal['intro']) ? $personal['intro'] : '';?></textarea>
                     </label>
                     <hr>  
                     <input type="submit" value="save" class="btn btn-success">
@@ -196,7 +209,15 @@
               <div class="tab-pane fade" id="educProfile" role="tabpanel" aria-labelledby="educationalTab">
                 <div class="container comp">
                   <div class="row" id="education">
+                    <?php foreach($education as $idx => $e): ?>
+                      <div class="col-12 educ">
+                        <a href="" class="educclose" data-id="<?= $e['id'];?>">x</a>
+                        <p class="mb-0"><?= $e['school']; ?></p>
+                        <p class="blockquote-footer"><?= $e['level']; ?> <cite title="Source Title"><?= $e['datestart']; ?>-<?= $e['dateend']; ?></cite></p>
+                        <hr>    
+                      </div>
                     
+                  <?php endforeach; ?>
                   </div>
                   <div class="row">
                     <form id="formeduc">
@@ -225,10 +246,12 @@
                     
                   </div>
                   <script type="text/html" id="educ">
-                    <blockquote class="blockquote text-center">
+                    <div class="col-12 educ">
+                      <!-- <a href="" class="educclose" data-id="<?= $e['id'];?>">x</a> -->
                       <p class="mb-0">[SCHOOL]</p>
-                      <footer class="blockquote-footer">[LEVEL] <cite title="Source Title">[START]-[END]</cite></footer>
-                    </blockquote>
+                      <p class="blockquote-footer">[LEVEL] <cite title="Source Title">[START]-[END]</cite></p>
+                      <hr>    
+                    </div>
                   </script>
                 </div>
 
@@ -249,8 +272,27 @@
                       <h4 class="display-8">Employment History</h4>
                     </div>
                   </div>
+                   <style type="text/css">
+                    .borderp {
+                      border: none;
+                      border-left: 5px solid #eee;
+                      padding-left: 10px;
+                      margin: 0;
+                      clear: both;
+                      display: block;
+                      margin-bottom: 20px!important;
+                    }
+                  </style>
                   <div class="row emp">
-                  
+                    <?php foreach($employment as $idx => $e): ?>
+                      <div class="borderp col-12">
+                        <a href="" data-id="<?= $e['id'];?>" class="close closeemp">x</a>
+                        <h5 class="display-8"><?= $e['companyname']; ?> <small><?= $e['interval']; ?></small></h5>
+                        <b><?= $e['jobrole']; ?></b>
+                        <p><?= $e['jobdesc']; ?></p>
+                        <hr>
+                    </div>
+                    <?php endforeach; ?>  
                   </div>
                   <div class="row">
                     <div class="col">
@@ -281,7 +323,7 @@
                     
                   </div>
                   <script type="text/html" id="emphist">
-                    <div class="col-12">
+                    <div class="borderp col-12">
                       <a href="" data-id="[ID]" class="close closeemp">x</a>
                       <h5 class="display-8">[COMPANY] <small>[MONTHS]</small></h5>
                       <b>[POSITION]</b>
@@ -316,7 +358,11 @@
                     </div>
                   </div>
                   <div class="row" >
-                    <ul id="allskills"></ul>
+                     <div id="allskills">
+                      <?php foreach($skills as $idx => $e): ?>
+                        <p class="li"><?= $e['name']; ?><span class="rate <?= $e['level']; ?>">(<?= $e['level']; ?>)</span><span data-id="<?= $e['id'];?>" class="closex">x</span></p>
+                      <?php endforeach ?>
+                    </div>
                   </div>
                 </div>
                 <style type="text/css">
@@ -326,7 +372,7 @@
                   }
                   #allskills li {
                     background: #c1e1fd;
-                      padding: 5px 10px;
+                      padding: 2px 5px;
                       margin: 3px;
                       border-radius: 15px;
                       font-size: 12px;
@@ -347,6 +393,24 @@
                     display: inline-block;
                     cursor: pointer;
                   }
+
+                  #allskills p {
+                background: #c1e1fd;
+                  padding: 3px 10px;
+                  margin: 3px;
+                  border-radius: 15px;
+                  font-size: 12px;
+                  font-weight: 600;
+                  display: initial;
+                  display: block;
+                  width: initial;
+                  float: left;
+                  line-height: 2;
+              }
+              .rate {
+                font-size: 12px;
+                  color: #ff2419;
+              }
                   .closex {
                     opacity: .7;
                     font-weight: 600;
@@ -365,7 +429,7 @@
                   }
                 </style>
                 <script type="text/html" id="skill">
-                  <li class="li">[NAME]<span class="rate">([RATE])</span><span data-id="[ID]" class="closex">x</span></li>
+                  <p class="li">[NAME]<span class="rate">([RATE])</span><span data-id="[ID]" class="closex">x</span></p>
                 </script>
               </div>
             </div>
@@ -381,21 +445,455 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script>window.jQuery || document.write('<script src="bootstrap-4.0.0/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
     <script src="bootstrap-4.0.0/assets/js/vendor/popper.min.js"></script>
-
+    <script src="js/jquery.js"></script>
+  <script src="js/jQuery-File-Upload-master/js/vendor/jquery.ui.widget.js"></script>
+  <!-- The Load Image plugin is included for the preview images and image resizing functionality -->
+  <script src="js/loadimage.js"></script>
+  <!-- The basic File Upload plugin -->
+  <script src="js/jQuery-File-Upload-master/js/jquery.fileupload.js"></script>
+  <!-- The File Upload processing plugin -->
+  <script src="js/jQuery-File-Upload-master/js/jquery.fileupload-process.js"></script>
+  <!-- The File Upload image preview & resize plugin -->
+  <script src="js/jQuery-File-Upload-master/js/jquery.fileupload-image.js"></script>
+  <!-- The File Upload audio preview plugin -->
+  <script src="js/jQuery-File-Upload-master/js/jquery.fileupload-audio.js"></script>
+  <!-- The File Upload video preview plugin -->
+  <script src="js/jQuery-File-Upload-master/js/jquery.fileupload-video.js"></script>
+  <!-- The File Upload validation plugin -->
+  <script src="js/jQuery-File-Upload-master/js/jquery.fileupload-validate.js"></script>
     <!-- Icons -->
-    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-    <script>
+    <!-- <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script> -->
+   <!--  <script>
       feather.replace()
-    </script>
+    </script> -->
 
     <script type="text/javascript">
-      (function($){
-        $(document).ready(function(){
+    (function($){
+      'use strict';
+        var delay = (function(){
+        var timer = 0;
+        return function(callback, ms){
+          clearTimeout (timer);
+          timer = setTimeout(callback, ms);
+        };
+      })();
 
-         
+      $(document).ready(function(){
+
+        function attachListener(){
+          $(".col").find(".remove-media").off().on("click", function(e){
+            e.preventDefault();
+            var me = $(this);
+
+            me.parents(".data").remove();
+          });
+
+          $(".educclose").off().on("click", function(e){
+            e.preventDefault();
+
+            var me = $(this);
+            var id = me.data("id");
+
+            $.ajax({
+              url : "process.php",
+              data : { deleteEduc : true, id:id},
+              type : 'POST',
+              dataType : 'JSON',
+              success : function(res){
+                console.log(res);
+                me.parents(".educ").remove();
+              }
+            });
+          });
+
+          $(".closex").off().on("click", function(e){
+            e.preventDefault();
+            
+            var me = $(this);
+            var id = me.data("id");
+
+            $.ajax({
+              url : "process.php",
+              data : { deleteSkill : true, id : id},
+              type : 'POST',
+              dataType : 'JSON',
+              success : function(res){
+                me.parents(".li").remove();
+              }
+            }); 
+          });
+          $(".closeemp").off().on("click", function(e){
+            e.preventDefault();
+
+            var me = $(this);
+            var id = me.data("id");
+
+            $.ajax({
+              url : "process.php",
+              data : { deleteEmpHis : true, id : id},
+              type : 'POST',
+              dataType : 'JSON',
+              success : function(res){
+                console.log(res);
+                me.parents(".col-12").remove();
+              }
+            });
+          });
+
+        }
+        
+        attachListener();
+
+        
+        $("#userinfo").on("submit", function(e){
+          e.preventDefault();
+          var me = $(this);
+
+          $.ajax({
+            url : 'process.php',
+            data : $(this).serialize(),
+            type : 'POST',
+            dataType : 'JSON',
+            success : function(res) {
+              $("#firstnext").removeAttr("disabled");
+
+
+            }
+          });
         });
 
-      })(jQuery);
-    </script>
+
+      $(".next").on("click", function(e){
+        e.preventDefault();
+        var percent = $(this).data("percen");
+        var target = $(".long").first();
+        var bar = $(".comp-bar").first();
+        var left = $(this).data("left");
+
+        bar.stop().animate({
+          "left" : left
+        });
+
+        target.stop().animate({
+          "left" : percent
+        });
+
+      });
+
+        $("#completed2").on("click", function(e){
+          e.preventDefault();
+
+          var percent = $(this).data("percen");
+          var target = $(".long").first();
+          var bar = $(".comp-bar").first();
+          var left = $(this).data("left");
+
+          bar.stop().animate({
+            "left" : left
+          });
+
+          target.stop().animate({
+            "left" : percent
+          });
+
+          $.ajax({
+            url : 'process.php',
+            data : { socialCompleted:true},
+            type : 'POST',
+            dataType : 'JSON',
+            success : function(res){
+              setTimeout(function(){
+                window.location.href="login.php";
+              },1500);
+            }
+          });
+        });
+
+        $("#save-social,.save-social").off().on("click", function(e){
+          e.preventDefault();
+
+          var data = Array();
+
+          $(".data").each(function(){
+            var name = $(this).find(".name").val();
+            var link = $(this).find(".link").val();
+
+            data.push(Array(name,link));
+          });
+
+          $.ajax({
+            url : 'process.php',
+            data : { saveSocial : true, data : data},
+            type : 'POST',
+            dataType : 'JSON',
+            success : function(res){
+              console.log(res);
+              $("#socialnext").removeAttr("disabled");
+            }
+          });
+        });
+
+        $('#socialname').keyup(function() {
+          var me = $(this);
+          var target = $("#socialul");
+
+            delay(function(){
+              $.ajax({
+                url : 'process.php',
+                data : { text : me.val(), searchSocial :true},
+                type : 'POST',
+                dataType : 'JSON',
+                success : function(res){
+                  target.html("");
+                  
+                  console.log(res);
+                  //no result
+                  if(res.length == 0){
+                    var li = $("<li id='noresult'>(0) Result Found. <a href=''>Click here to add this.</a></li>");
+                    target.append(li);
+
+                    target.find("li a").off().on("click", function(e){
+                      e.preventDefault();
+
+                      var text = $(this).html();
+                      var media = $("#media").html();
+                      media = media.replace("[MEDIA]", me.val());
+
+                      $("#first").after($(media));
+                      target.html("");
+
+                      $(".col").find(".remove-media").off().on("click", function(e){
+                        e.preventDefault();
+                        var me = $(this);
+
+                        me.parents(".row").remove();
+                      });
+                      
+                    });
+
+                  } else{
+                    for(var i in res){
+                      var li = $("<li>"+ res[i].name+ "</li>");
+                      target.append(li);
+                    }
+
+                    target.find("li").off().on("click", function(e){
+                      var text = $(this).html();
+                      var media = $("#media").html();
+                      media = media.replace("[MEDIA]", text);
+
+                      $("#first").after($(media));
+                      target.html("");
+
+                      $(".col").find(".remove-media").off().on("click", function(e){
+                        e.preventDefault();
+                        var me = $(this);
+
+                        me.parents(".row").remove();
+                      });
+                    });
+                  }
+
+
+                },
+                error :  function(){
+                  console.log('Oops, something went wrong.');
+                }
+              });
+            }, 300 );
+
+        });
+
+        $("#formeduc").on("submit", function(e){
+          e.preventDefault();
+          var html = $("#educ").html();
+          var target = $("#education");
+
+          $.ajax({
+            url : "process.php",
+            data : $(this).serialize(),
+            type : 'POST',
+            dataType : 'JSON', 
+            success : function(res){
+              html = html.replace("[SCHOOL]", res.name).
+                  replace("[LEVEL]", res.level).
+                  replace("[START]", res.start).
+                  replace("[END]", res.end);
+
+              target.append(html);
+            }
+          });
+        });
+
+        $("#addskill").on("click", function(e){
+          e.preventDefault();
+          var skill = $("#skillname").val();
+          var target = $("#allskills");
+          var rate = $("#rating").find(".staron").length;
+
+          $.ajax({
+            url : "process.php",
+            data : { addskill : true, skill : skill , rate : rate},
+            type : 'POST',
+            dataType : 'JSON',
+            success : function(res){
+              var html = $("#skill").html();
+
+              html = html.replace("[NAME]", skill).
+                replace("[ID]", res.id).
+                replace("[RATE]", rate);
+              target.append(html);
+              
+              attachListener();
+            } 
+          });
+
+        });
+
+        $("#rating li").on("click", function(e){
+          e.preventDefault();
+          $(".star").removeClass("staron").addClass("staroff");
+          var me = $(this);
+
+          me.addClass("staron");
+          me.prevAll().removeClass("staroff").addClass("staron");
+        }); 
+        $("#emphistory").on("submit", function(e){
+          e.preventDefault();
+
+        
+          $.ajax({
+            url : "process.php",
+            data : $(this).serialize(),
+            type : 'POST',
+            dataType : 'JSON',
+            success : function(res){
+              console.log(res);
+
+              var html = $("#emphist").html();
+
+              html = html.replace("[COMPANY]", $("#ecompany").val()).
+                replace("[MONTHS]", res.interval).
+                replace("[POSITION]", $("#erole").val()).
+                replace("[ID]", res.id).
+                replace("[DESC]", $("#edesc").val());
+
+              $(".emp").first().append(html);
+              
+              attachListener();
+            }
+          });
+
+        });
+      });
+
+
+
+    })(jQuery);
+  </script>
+    <script>
+  /*jslint unparam: true, regexp: true */
+  /*global window, $ */
+  $(function () {
+      'use strict';
+      // Change this to the location of your server-side upload handler:
+      var url = window.location.hostname === 'blueimp.github.io' ?
+                  '//jquery-file-upload.appspot.com/' : 'process.php',
+        uploadButton = $('<button/>')
+            .addClass('btn btn-primary')
+            .prop('disabled', true)
+            .text('Processing...')
+            .on('click', function () {
+                var $this = $(this),
+                    data = $this.data();
+                $this
+                    .off('click')
+                    .text('Abort')
+                    .on('click', function () {
+                        $this.remove();
+                        data.abort();
+                    });
+                data.submit().always(function () {
+                    $this.remove();
+                });
+        });
+      $('#fileupload').fileupload({
+          url: url,
+          dataType: 'json',
+          autoUpload: false,
+          acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+          maxFileSize: 999000,
+          // Enable image resizing, except for Android and Opera,
+          // which actually support image resizing, but fail to
+          // send Blob objects via XHR requests:
+          disableImageResize: /Android(?!.*Chrome)|Opera/
+              .test(window.navigator.userAgent),
+          previewMaxWidth: 100,
+          previewMaxHeight: 100,
+          previewCrop: true
+      }).on('fileuploadadd', function (e, data) {
+          data.context = $('<div/>').appendTo('#files');
+          $.each(data.files, function (index, file) {
+              var node = $('<p/>')
+                      .append($('<span/>').text(file.name));
+              if (!index) {
+                  node
+                      .append('<br>')
+                      .append(uploadButton.clone(true).data(data));
+              }
+              node.appendTo(data.context);
+          });
+      }).on('fileuploadprocessalways', function (e, data) {
+          var index = data.index,
+              file = data.files[index],
+              node = $(data.context.children()[index]);
+          if (file.preview) {
+              node
+                  .prepend('<br>')
+                  .prepend(file.preview);
+          }
+          if (file.error) {
+              node
+                  .append('<br>')
+                  .append($('<span class="text-danger"/>').text(file.error));
+          }
+          if (index + 1 === data.files.length) {
+              data.context.find('button')
+                  .text('Upload')
+                  .prop('disabled', !!data.files.error);
+          }
+      }).on('fileuploadprogressall', function (e, data) {
+          var progress = parseInt(data.loaded / data.total * 100, 10);
+          $('#progress .progress-bar').css(
+              'width',
+              progress + '%'
+          );
+      }).on('fileuploaddone', function (e, data) {
+          $.each(data.result.files, function (index, file) {
+              if (file.url) {
+                  var link = $('<a>')
+                      .attr('target', '_blank')
+                      .prop('href', file.url);
+                  $(data.context.children()[index])
+                      .wrap(link);
+              } else if (file.error) {
+                  var error = $('<span class="text-danger"/>').text(file.error);
+                  $(data.context.children()[index])
+                      .append('<br>')
+                      .append(error);
+              }
+          });
+      }).on('fileuploadfail', function (e, data) {
+        console.log(data);
+          $.each(data.files, function (index) {
+              var error = $('<span class="text-danger"/>').text('File upload failed.');
+              $(data.context.children()[index])
+                  .append('<br>')
+                  .append(error);
+          });
+      }).prop('disabled', !$.support.fileInput)
+          .parent().addClass($.support.fileInput ? undefined : 'disabled');
+  });
+  </script>
   </body>
 </html>

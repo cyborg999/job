@@ -1,7 +1,7 @@
 <style type="text/css">
   #account-logo {
-    width: 200px;
-    height: auto;
+    width: auto;
+    max-height: 200px;
     display: block;
     margin: 20px auto 10px;
   }
@@ -14,6 +14,7 @@
       <?php
       $valid = strpos($_SESSION['photo'], ".");
       $photo = (!$valid) ? "./img/default.jpg" : $_SESSION['photo'];
+
       ?>
       <img id="account-logo" src="<?= $photo;?>">
     </div>
