@@ -422,6 +422,9 @@ class Model {
 			} else {
 				header("Location:company.php");
 			}
+		}
+		elseif($data['usertype'] == "admin"){
+			header("Location:admin.php");
 		} else {
 			$completed = $this->db->query("
 				SELECT *
