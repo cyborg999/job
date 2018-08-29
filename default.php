@@ -13,7 +13,7 @@
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
           <div class="container">
             <div class="img-container profile-banner">
-              <h2 class="compname display-2">title</h2>
+              <h2 class="compname display-5">title</h2>
             </div>
           </div>
           <br>

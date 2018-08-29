@@ -17,14 +17,13 @@
 
       ?>
       <img id="account-logo" src="<?= $photo;?>">
+        
     </div>
+
     <ul class="nav flex-column">
       <li class="nav-item">
-      <!--   <a class="nav-link" data-toggle="modal" data-target="#previewmodal" href="myprofile.php">
-          <span data-feather="users"></span>
-          Companies
-        </a>
-        <a class="nav-link" href="browse.php">
+       
+        <!-- <a class="nav-link" href="browse.php">
           <span data-feather="users"></span>
           Settings
         </a>
@@ -35,6 +34,10 @@
         <a class="nav-link" href="requirements.php">
           <span data-feather="users"></span>
           Requirements
+        </a>
+         <a class="nav-link" href="companies.php">
+          <span data-feather="users"></span>
+          Companies
         </a>
       </li>
     </ul>

@@ -2,7 +2,7 @@
 <?php $model = new Model(); 
   $data = $model->getCompanyBySessionId();
   $industry = $model->getIndustry();
-
+  $approved = $model->checkIfApproved();
 ?>
 <?php include_once "header2.php"; ?>
 
@@ -40,70 +40,80 @@
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
           <br/>
           <br/>
-          <div class="container">
-              <h2 class="display-6">Post New Job</h2>
-          </div>
-          <br/>
-          <div class="container">
-              <?php
-                $msg = $model->getMessages();
-                if(count($msg)){
-                  echo '<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Success</strong>';
-                    foreach($msg as $idx => $e) {
-                      echo ' <br/>'.$e;
-                    }
-                    echo '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
-                }
-              ?>  
-            <form class="form"  method="post" id="newpost">  
-              <input type="hidden" name="addnewjob" value="true">
-                  <label> Job Title
-                      <input type="text" required class="form-control" name="title" placeholder="Job Title..."/>
-                  </label>
-                  <label>Industry
-                    <select class="form-control" required name="industry">
-                      <?php foreach($industry as $idx => $i): ?>
-                        <option value=""><?= $i['name'];?></option>
-                      <?php endforeach; ?>
-                    </select>
-                  </label>
-                   <label>Salary Range
-                      <input type="text" required  class="form-control" name="salary" placeholder="Salary Range..."/>
-                  </label>
-                <hr>  
-                  <label>Processing Time
-                      <input type="text" required  class="form-control" name="processing" placeholder="Processing Time..."/>
-                  </label>
-                  <label>Available Until
-                      <input type="date" required  class="form-control" name="expirationdate" placeholder="Expiration..."/>
-                  </label>
-                   <label> Minimum Experience
-                      <input type="text" required  class="form-control" name="minex" placeholder="Minimum Experience..."/>
-                  </label>
-                <hr>  
-                <div class="form-group"> 
-                  <h5 class="display-7">Job Description</h5>
-                    <label> 
-                          <textarea rows="2" required  cols="100" class="form-control" name="description" placeholder="Job Description..."></textarea>
+          <?php if (!$approved): ?>
+            <div class="container">
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Failed to add a new job post.</strong>
+                <p>You need to add all the needed requirements first in order to post a new job opening.</p>
+                <p>You can click this <a href="updaterequirements.php">link</a> to upload the needed files.</p>
+              </div>
+            </div>  
+          <?php else: ?>
+            <div class="container">
+                <h2 class="display-6">Post New Job</h2>
+            </div>
+            <br/>
+            <div class="container">
+                <?php
+                  $msg = $model->getMessages();
+                  if(count($msg)){
+                    echo '<div class="alert alert-success alert-dismissible fade show" role="alert"><strong>Success</strong>';
+                      foreach($msg as $idx => $e) {
+                        echo ' <br/>'.$e;
+                      }
+                      echo '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+                  }
+                ?>  
+              <form class="form"  method="post" id="newpost">  
+                <input type="hidden" name="addnewjob" value="true">
+                    <label> Job Title
+                        <input type="text" required class="form-control" name="title" placeholder="Job Title..."/>
                     </label>
-                </div>
-                <hr>  
-                <div class="form-group"> 
-                  <h5 class="display-7">List Description</h5>
-                    <label>Header
-                          <textarea rows="2" cols="100" class="form-control" name="header" placeholder="Header..."></textarea>
+                    <label>Industry
+                      <select class="form-control" required name="industry">
+                        <?php foreach($industry as $idx => $i): ?>
+                          <option value=""><?= $i['name'];?></option>
+                        <?php endforeach; ?>
+                      </select>
                     </label>
-                </div>
-                <div class="form-group list-desc"> 
-                    <input type="text" name="list[]" class="form-control li" placeholder="Header Description..."/>
-                </div>
-                <div class="form-group "> 
-                    <a href=" " id="add" class="btn btn-success">+</a>
-                </div>
-                <hr>  
-                <input type="submit" class="btn btn-primary" value="Post"/>
-            </form>
-          </div>
+                     <label>Salary Range
+                        <input type="text" required  class="form-control" name="salary" placeholder="Salary Range..."/>
+                    </label>
+                  <hr>  
+                    <label>Processing Time
+                        <input type="text" required  class="form-control" name="processing" placeholder="Processing Time..."/>
+                    </label>
+                    <label>Available Until
+                        <input type="date" required  class="form-control" name="expirationdate" placeholder="Expiration..."/>
+                    </label>
+                     <label> Minimum Experience
+                        <input type="text" required  class="form-control" name="minex" placeholder="Minimum Experience..."/>
+                    </label>
+                  <hr>  
+                  <div class="form-group"> 
+                    <h5 class="display-7">Job Description</h5>
+                      <label> 
+                            <textarea rows="2" required  cols="100" class="form-control" name="description" placeholder="Job Description..."></textarea>
+                      </label>
+                  </div>
+                  <hr>  
+                  <div class="form-group"> 
+                    <h5 class="display-7">List Description</h5>
+                      <label>Header
+                            <textarea rows="2" cols="100" class="form-control" name="header" placeholder="Header..."></textarea>
+                      </label>
+                  </div>
+                  <div class="form-group list-desc"> 
+                      <input type="text" name="list[]" class="form-control li" placeholder="Header Description..."/>
+                  </div>
+                  <div class="form-group "> 
+                      <a href=" " id="add" class="btn btn-success">+</a>
+                  </div>
+                  <hr>  
+                  <input type="submit" class="btn btn-primary" value="Post"/>
+              </form>
+            </div>
+          <?php endif ?>
         </main>
       </div>
     </div>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 25, 2018 at 07:19 PM
+-- Generation Time: Aug 29, 2018 at 01:39 PM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.2
 
@@ -63,19 +63,20 @@ CREATE TABLE `company` (
   `photo` varchar(255) DEFAULT NULL,
   `userid` int(11) NOT NULL,
   `mobile` int(11) NOT NULL,
-  `completed` int(11) NOT NULL DEFAULT '0'
+  `completed` int(11) NOT NULL DEFAULT '0',
+  `approved` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `company`
 --
 
-INSERT INTO `company` (`id`, `name`, `address`, `overview`, `banner`, `industry`, `social_ids`, `size`, `telephone`, `email`, `photo`, `userid`, `mobile`, `completed`) VALUES
-(3, '2', '2', '2', '37e8c8d4ad2cfe6b9f6462695e8246be.png', '2', '2', '2', '2', '2', '37e8c8d4ad2cfe6b9f6462695e8246be.png', 6, 2, 0),
-(4, 'Hays Specialist', 'Tampa, Florida, US', 'Hays is the expert at recruiting qualified, professional and skilled people worldwide. We operate across the private and public sectors, dealing in full-time positions, contract roles and temporary assignments. Hays employs over 9,000 staff operating from over 250 offices in 33 countries across 20 specialisms. \r\n\r\nLast year our experts placed 67,000 candidates into permanent jobs and over 220,000 people into interim or contract assignments. We attract the best candidates, make the best match and provide the best industry expertise, delivered through our commitment to service excellence. \r\nOur website www.hays.com', 'd118f39d3444485ec693535f37925461.png', 'Staffing/Employment Agencies', 'fb', '5,000 to 9,999 employees', '09345353', 'hays@gmail.com', 'a2b5f1c3c8dec2a3173ec1409c015e2a.gif', 9, 78687678, 1),
-(5, 'jordans', '', '', NULL, '', '', '', '', '', NULL, 11, 0, 0),
-(6, 'asdsad', '', '', 'f4abe06c5c3752d36886bac2b10220d9.png', '', '', '', '', '', '733f5111c19fea69076ee001539213a9.png', 12, 0, 1),
-(7, 'jordan sadiwa', '3242 zfdsfd', '', 'd118f39d3444485ec693535f37925461.png', '', '', '', '', 'sad@mail.com', '93e43439321d51bb2a5eeb7b1e57b4b6.jpeg', 21, 342424, 1);
+INSERT INTO `company` (`id`, `name`, `address`, `overview`, `banner`, `industry`, `social_ids`, `size`, `telephone`, `email`, `photo`, `userid`, `mobile`, `completed`, `approved`) VALUES
+(3, '2', '2', '2', '37e8c8d4ad2cfe6b9f6462695e8246be.png', '2', '2', '2', '2', '2', '37e8c8d4ad2cfe6b9f6462695e8246be.png', 6, 2, 0, 0),
+(4, 'Hays Specialist', 'Tampa, Florida, US', 'Hays is the expert at recruiting qualified, professional and skilled people worldwide. We operate across the private and public sectors, dealing in full-time positions, contract roles and temporary assignments. Hays employs over 9,000 staff operating from over 250 offices in 33 countries across 20 specialisms. \r\n\r\nLast year our experts placed 67,000 candidates into permanent jobs and over 220,000 people into interim or contract assignments. We attract the best candidates, make the best match and provide the best industry expertise, delivered through our commitment to service excellence. \r\nOur website www.hays.com', 'd118f39d3444485ec693535f37925461.png', 'Staffing/Employment Agencies', 'fb', '5,000 to 9,999 employees', '09345353', 'hays@gmail.com', 'a2b5f1c3c8dec2a3173ec1409c015e2a.gif', 9, 78687678, 1, 0),
+(5, 'jordans', '', '', NULL, '', '', '', '', '', NULL, 11, 0, 0, 0),
+(6, 'asdsad', '', '', 'f4abe06c5c3752d36886bac2b10220d9.png', '', '', '', '', '', '733f5111c19fea69076ee001539213a9.png', 12, 0, 1, 0),
+(7, 'jordan sadiwa', '3242 zfdsfd', '', 'd118f39d3444485ec693535f37925461.png', '', '', '', '', 'sad@mail.com', '93e43439321d51bb2a5eeb7b1e57b4b6.jpeg', 21, 342424, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -97,25 +98,12 @@ CREATE TABLE `education` (
 --
 
 INSERT INTO `education` (`id`, `school`, `level`, `datestart`, `dateend`, `userid`) VALUES
-(1, 'ASDASD', 'Academic', '0000-00-00', '0000-00-00', 23),
-(2, 'ASDASD', 'Academic', '0000-00-00', '0000-00-00', 23),
-(3, 'ASDASD', 'Academic', '0000-00-00', '0000-00-00', 23),
-(4, 'ASDASD', 'Academic', '0000-00-00', '0000-00-00', 23),
-(5, 'ASDASD', 'Academic', '0000-00-00', '0000-00-00', 23),
-(6, 'ASDASD', 'Academic', '0000-00-00', '0000-00-00', 23),
-(7, 'ASDASD', 'Academic', '2018-08-01', '0000-00-00', 23),
-(8, 'ASDASD', 'Academic', '2018-08-01', '2018-08-01', 23),
-(9, 'ASDASD', 'Bachelor', '2018-08-01', '2018-08-01', 23),
-(10, 'Infinite Devworks', 'Bachelor', '2018-08-01', '2018-08-01', 23),
-(11, 'ASDASD', 'Bachelor', '2018-08-01', '2018-08-01', 23),
-(12, 'Infinite Devworks', 'Bachelor', '2018-08-01', '2018-08-01', 23),
-(13, 'Infinite Devworks', 'Bachelor', '2018-08-01', '2018-08-01', 23),
-(14, 'Infinite Devworks', 'Bachelor', '2018-08-01', '2018-08-01', 23),
 (15, 'Infinite Devworks', 'Bachelor', '2018-08-01', '2018-08-01', 23),
-(16, 'Infinite Devworks', 'Bachelor', '2018-08-01', '2018-08-01', 23),
 (17, 'Marinduque State College', 'Bachelor', '2018-08-01', '2018-08-01', 25),
 (18, 'Marinduque State College', 'Bachelor', '2018-08-01', '2018-08-01', 25),
-(19, 'Marinduque State College', 'Doctorate', '2018-08-01', '2018-08-01', 26);
+(19, 'Marinduque State College', 'Doctorate', '2018-08-01', '2018-08-01', 26),
+(21, 'Marinduque State College', 'Master', '2018-08-01', '2018-08-01', 23),
+(22, 'Infinite Devworks', 'Master', '2018-08-01', '2018-08-01', 23);
 
 -- --------------------------------------------------------
 
@@ -139,22 +127,10 @@ CREATE TABLE `emp_history` (
 --
 
 INSERT INTO `emp_history` (`id`, `companyid`, `companyname`, `startdate`, `enddate`, `jobrole`, `jobdesc`, `userid`) VALUES
-(1, 0, 'MemeisLove', '2018-08-14', '2019-10-18', 'PHP Dev', 'desc', 23),
 (2, 0, 'US Autoparts', '2018-08-12', '2018-08-17', 'PHP Dev', 'ncluding fractional months in the above is much more complicated, because three days in a typical February is a larger fraction of that month (~10.714%) than three days in August (~9.677%), and of course even February is a moving target depending on whether it\'s a leap year.', 23),
-(4, 0, 'asd', '2018-08-15', '2018-08-23', 'asdasd', 'asd', 23),
-(5, 0, 'asdsad', '2018-08-17', '2018-08-23', 'asdasd', 'asdsad', 23),
-(6, 0, 'company', '2018-08-16', '2018-08-15', 'web dev', 'some lorem ipsum job description.', 23),
-(7, 0, 'company', '2018-08-16', '2018-08-15', 'web dev', 'some lorem ipsum job description.', 23),
-(8, 0, 'company', '2018-08-16', '2018-08-15', 'web dev', 'some lorem ipsum job description.', 23),
-(9, 0, 'company', '2018-08-16', '2018-08-15', 'web dev', 'some lorem ipsum job description.', 23),
-(10, 0, 'MemeisLove', '2018-08-01', '2018-08-15', 'php def', 'asdada', 23),
-(11, 0, 'Infinite Dev Works', '2018-08-08', '2018-08-15', 'HP Web Developer', 'some desc', 23),
-(12, 0, 'Infinite Dev Works', '2018-08-08', '2018-08-15', 'HP Web Developer', 'some desc', 23),
-(13, 0, 'MemeisLove', '2018-08-02', '2018-08-28', 'PHP Dev', 'aadasd', 23),
-(14, 0, 'MemeisLove', '2018-08-02', '2018-08-22', 'PHP Dev', 'asdasda', 23),
-(15, 0, 'asdsad', '2018-08-08', '2018-08-22', 'asdasd', 'asdasd', 23),
 (16, 0, 'MemeisLove', '2018-08-02', '2018-08-29', 'PHP Developer', 'some desc', 25),
-(17, 0, 'MemeisLove', '2018-08-16', '2018-08-23', 'PHP Dev', 'sfsdfs', 26);
+(17, 0, 'MemeisLove', '2018-08-16', '2018-08-23', 'PHP Dev', 'sfsdfs', 26),
+(18, 0, 'Infinite Dev Works', '2018-08-08', '2018-11-17', 'PHP Dev', 'lorem', 23);
 
 -- --------------------------------------------------------
 
@@ -233,6 +209,36 @@ INSERT INTO `job` (`id`, `companyid`, `description`, `userid`, `processing_time`
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `requirement`
+--
+
+CREATE TABLE `requirement` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `userid` int(11) DEFAULT NULL,
+  `level` int(11) NOT NULL DEFAULT '0',
+  `location` varchar(255) DEFAULT NULL,
+  `requirement_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `requirement`
+--
+
+INSERT INTO `requirement` (`id`, `name`, `userid`, `level`, `location`, `requirement_id`) VALUES
+(10, 'Form 2', 28, 0, NULL, NULL),
+(11, 'Form 3', 28, 0, NULL, NULL),
+(12, 'Form 1', 28, 0, NULL, NULL),
+(37, '', 9, 1, 'uploads/9/5118c63d9bfcd58f6fd627929f78e162.jpg', 10),
+(38, '', 9, 1, 'uploads/9/3742ddd4085c6c0ece97655e4bb7a6c8.jpg', 11),
+(39, '', 9, 1, 'uploads/9/1b6d4794cf42f67a5a58fe8c33e05603.jpg', 12),
+(40, '', 21, 1, 'uploads/21/36365401cfa9ee33ef474d17788e494e.jpg', 10),
+(41, '', 21, 1, 'uploads/21/36365401cfa9ee33ef474d17788e494e.jpg', 11),
+(42, '', 21, 1, 'uploads/21/36365401cfa9ee33ef474d17788e494e.jpg', 12);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `skill`
 --
 
@@ -248,29 +254,13 @@ CREATE TABLE `skill` (
 --
 
 INSERT INTO `skill` (`id`, `name`, `level`, `userid`) VALUES
-(1, 'PHP Programming', 1, 23),
-(2, 'asdasd', 0, 23),
-(3, 'asdsad', 4, 23),
-(4, 'asdasd', 2, 23),
-(5, 'asdasdsa', 2, 23),
-(6, 'asd', 4, 23),
-(7, 'asdsfsdf', 4, 23),
-(13, 'sadasd', 4, 23),
-(14, 'sadasd', 4, 23),
-(15, 'sadasd', 4, 23),
-(16, 'sadasd', 4, 23),
-(17, 'sadasd', 4, 23),
-(18, 'sadasd', 4, 23),
-(19, 'sadasd', 4, 23),
-(20, 'sadasd', 4, 23),
-(21, 'sadasd', 4, 23),
-(22, 'sadasd', 4, 23),
-(23, 'sadasd', 4, 23),
-(24, 'sadasd', 4, 23),
-(25, 'PHP', 2, 23),
-(26, 'PHP', 2, 23),
-(28, 'PHP', 3, 23),
-(29, 'PHP', 3, 26);
+(29, 'PHP', 3, 26),
+(34, 'Web Development', 4, 23),
+(35, 'PHP', 4, 23),
+(36, 'Javascript', 2, 23),
+(37, 'CSS/CSS3', 4, 23),
+(38, 'Photoshop', 3, 23),
+(39, 'MS Office', 3, 23);
 
 -- --------------------------------------------------------
 
@@ -294,11 +284,9 @@ INSERT INTO `socialmedia` (`id`, `name`, `link`, `userid`) VALUES
 (8, 'jordan sadiwa', '', 12),
 (9, 'asd', '', 12),
 (10, 'fb', '', 21),
-(11, 'twitter', 'twitter.com', 23),
-(12, 'github', 'github.com', 23),
-(13, 'facebook', 'facebook.com', 23),
 (14, 'fb', 'fn.vom', 25),
-(15, 'jordan sadiwa', 'sfsdf', 26);
+(15, 'jordan sadiwa', 'sfsdf', 26),
+(18, 'jordan sadiwa', 'test.com', 23);
 
 -- --------------------------------------------------------
 
@@ -329,7 +317,6 @@ INSERT INTO `user` (`id`, `username`, `password`, `usertype`, `deleted`, `datere
 (7, 'ffuf', 'aaaaaa', 'employer', 0, '2018-07-29 07:17:41'),
 (8, 'dan999', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'applicant', 0, '2018-07-29 07:42:42'),
 (9, 'company', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'employer', 0, '2018-07-29 12:50:49'),
-(10, 'admin', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'applicant', 0, '2018-08-04 12:57:32'),
 (11, 'test Company', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'employer', 0, '2018-08-04 16:03:31'),
 (12, 'employer', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'employer', 0, '2018-08-04 16:09:18'),
 (13, 'employer2', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'employer', 0, '2018-08-11 08:15:06'),
@@ -346,7 +333,8 @@ INSERT INTO `user` (`id`, `username`, `password`, `usertype`, `deleted`, `datere
 (24, 'applicant2', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'applicant', 0, '2018-08-18 18:01:05'),
 (25, 'applicant3', '80228fe3343c9613474abdc5d549416d', 'applicant', 0, '2018-08-20 13:29:53'),
 (26, 'applicant4', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'applicant', 0, '2018-08-20 15:14:44'),
-(27, 'applicant6', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'applicant', 0, '2018-08-22 10:33:20');
+(27, 'applicant6', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'applicant', 0, '2018-08-22 10:33:20'),
+(28, 'admin', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'admin', 0, '2018-08-28 05:15:37');
 
 -- --------------------------------------------------------
 
@@ -382,7 +370,7 @@ CREATE TABLE `userinfo` (
 
 INSERT INTO `userinfo` (`id`, `firstname`, `lastname`, `middlename`, `dob`, `address`, `mobile`, `nationality`, `skill_ids`, `industry_ids`, `resume`, `photo`, `email`, `userid`, `social_ids`, `gender`, `completed`, `position`, `intro`) VALUES
 (4, '2', '2', '2', '0000-00-00', '2', 2, '2', '2', '2', NULL, '', '2', 6, '2', 'female', 0, NULL, NULL),
-(5, 'Jordan', 'Sadiwa', '', '2018-08-08', '1852 Sandejas Pasay City', 0, 'Philippines', '', '', '7d9e92e6620014147b7ea839451e87d5.docx', '93e43439321d51bb2a5eeb7b1e57b4b6.jpeg', 'sadiwajordan1991@gmail.com', 23, '', 'male', 1, 'Full Stack Web Developer', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\r\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\r\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
+(5, 'fname1', 'lname1', 'mname1', '2018-08-02', 'add1', 1, 'nat1', '', '16', '7d9e92e6620014147b7ea839451e87d5.docx', '35fe3128054de722cc7796074b08dd2f.jpg', 'sad1@gmail.com', 23, '', 'female', 1, '23424', '24234'),
 (6, 'Jordan', 'Sadiwa', 'De los Reyes', '2018-08-09', '1852 Sandejas Pasay City', 630000000, 'Philippines', '', '', NULL, '93e43439321d51bb2a5eeb7b1e57b4b6.jpeg', 'sad@mail.com', 25, '', 'male', 1, NULL, NULL),
 (7, 'jordan', 'sadiwa', 'De los Reyes', '0000-00-00', '3242 zfdsfd', 342424, 'Hong Kong', '', '', NULL, NULL, 'sad@mail.com', 26, '', 'male', 1, NULL, NULL),
 (8, '', '', '', '0000-00-00', '', 0, '', '', '', NULL, NULL, '', 27, '', 'male', 0, NULL, NULL);
@@ -425,6 +413,12 @@ ALTER TABLE `industry`
 -- Indexes for table `job`
 --
 ALTER TABLE `job`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `requirement`
+--
+ALTER TABLE `requirement`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -471,13 +465,13 @@ ALTER TABLE `company`
 -- AUTO_INCREMENT for table `education`
 --
 ALTER TABLE `education`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `emp_history`
 --
 ALTER TABLE `emp_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `industry`
@@ -492,22 +486,28 @@ ALTER TABLE `job`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
+-- AUTO_INCREMENT for table `requirement`
+--
+ALTER TABLE `requirement`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+
+--
 -- AUTO_INCREMENT for table `skill`
 --
 ALTER TABLE `skill`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `socialmedia`
 --
 ALTER TABLE `socialmedia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `userinfo`

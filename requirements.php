@@ -1,5 +1,7 @@
 <?php include_once "model.php"; ?>
 <?php $model = new Model(); 
+
+$requirements = $model->getAllAdminRequirements();
 ?>
 <?php include_once "header2.php"; ?>
 
@@ -14,13 +16,45 @@
           <br>
           <div class="container">
             <div class="img-container profile-banner">
-              <h2 class="compname display-2">Admin Page</h2>
+              <h2 class="compname display-2">Required Forms</h2>
             </div>
           </div>
           <br>
           <div class="container">
             <div class="row">
-              content
+              <div class="table-responsive">
+                <table class="table">
+                  <tr>
+                    <th>Name</th>
+                    <th>Action</th>
+                  </tr>
+                  <tr id="addreq">
+                    <td>
+                      <input type="text" class="form-control" required id="requirement" placeholder="Form Name"/>
+                    </td>
+                    <td>
+                      <a href="" class="btn btn-sucess" id="addnew">Add New</a>
+                    </td>
+                  </tr>
+                  <?php foreach($requirements as $idx => $r): ?>
+                    <tr>
+                      <td><?= $r['name'];?></td>
+                      <td>
+                        <a href="" data-id="<?= $r['id'];?>" class="btn btn-danger remove">Remove</a>
+                      </td>
+                    </tr>  
+                  <?php endforeach; ?>
+                  
+                </table>
+                <script type="text/html" id="newreq">
+                  <tr>
+                    <td>[NAME]</td>
+                    <td>
+                      <a href="" data-id="[ID]" class="btn btn-danger remove">Remove</a>
+                    </td>
+                  </tr>
+                </script>
+              </div>
             </div>
           </div>
          
@@ -45,7 +79,58 @@
     <script type="text/javascript">
       (function($){
         $(document).ready(function(){
+          function __listen(){
+            $(".remove").off().on("click", function(e){
+              e.preventDefault();
 
+              var me = $(this);
+              var id = me.data("id");
+
+              $.ajax({
+                url : "process.php",
+                data : { deleteReq : true, id : id},
+                type : "POST",
+                dataType : "JSON",
+                success : function(res){
+                  console.log(res);
+
+                  me.parents("tr").remove();
+                 
+                }
+              });
+            });
+          }
+
+          __listen();
+
+          $("#addnew").on("click", function(e){
+            e.preventDefault();
+
+            var txt = $("#requirement").val();
+
+            $.ajax({
+              url : "process.php",
+              data : { addReq : true, txt : txt},
+              type : "POST",
+              dataType : "JSON",
+              success : function(res){
+                console.log(res);
+                if(res.id === false){
+                  alert(res.errors);
+                } else {
+                  var html = $("#newreq").html();
+                  var target = $("#addreq");
+
+                  html = html.replace("[NAME]", txt).
+                    replace("[ID]", res.id);
+                  target.after(html);
+        
+                  __listen();
+
+                }
+              }
+            });
+          });
          
         });
 

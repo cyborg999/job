@@ -1,7 +1,8 @@
 <style type="text/css">
   #account-logo {
-    width: auto;
+    width: 95%;
     max-height: 200px;
+    height: auto;
     display: block;
     margin: 20px auto 10px;
   }
@@ -24,6 +25,12 @@
           <a class="nav-link" href="profile.php">
             <span data-feather="users"></span>
             Account
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="updaterequirements.php">
+            <span data-feather="file"></span>
+            Requirements
           </a>
         </li>
         <li class="nav-item">

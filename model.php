@@ -37,7 +37,169 @@ class Model {
 		$this->applyListener();
 		$this->deleteEducationListener();
 		$this->deleteEmploymentHistoryListener();
+		$this->deleteRequirementListener();
+		$this->requirementUploadListener();
+		$this->addRequirementListener();
+		$this->approveCompanyListener();
 		$this->uploadCV();
+	}
+
+	public function checkIfApproved(){
+		$approved =  $this->db->query("
+				SELECT userid,approved
+				FROM company
+				WHERE userid = ". $_SESSION['id']."
+				LIMIT 1
+			")->fetch(PDO::FETCH_ASSOC);
+
+		return $approved['approved'];
+	}
+
+	public function  approveCompanyListener(){
+		if(isset($_POST['approveCompany'])){
+			$this->db->prepare("
+				UPDATE company
+				SET approved = 1
+				WHERE id = ?
+				")->execute(array($_POST['id']));
+
+			die(json_encode(array("success")));
+		}
+	}
+
+	public function getCompanyByApproved($approved){
+		$records = $this->db->query("
+				SELECT *
+				FROM company
+				WHERE completed = 1
+				AND approved = ".$approved)->fetchAll(PDO::FETCH_ASSOC);
+
+		return $records;
+	}
+
+	public function requirementUploadListener(){
+		if(isset($_FILES['file'])){
+			$allowedTypes = array("jpg", "pdf");
+
+			foreach($_FILES['file']['size'] as $idx => $size){
+				if(count($this->errors) == 0){
+					if($size == 0){
+						$this->errors[] = "Incomplete files attached.";
+					}
+
+					$filetype = explode(".", $_FILES['file']['name'][$idx]);
+					$filetype = end($filetype);
+
+					if(count($this->errors) == 0){
+						if(!in_array($filetype, $allowedTypes)){
+							$this->errors[] = "Incomplete file type.";
+						}
+					}
+				}
+
+			}
+
+			if(count($this->errors) == 0){
+				$this->db->prepare("
+					DELETE FROM requirement
+					WHERE userid = ? 
+				")->execute(array($_SESSION['id']));
+
+				foreach($_FILES['file']['name'] as $idx => $name){
+					$path = "uploads/".$_SESSION['id']."/";
+					$ext = ".".pathinfo($name, PATHINFO_EXTENSION);
+					$filename = md5($name).$ext;
+
+					if(move_uploaded_file($_FILES['file']['tmp_name'][$idx], $path.$filename)){
+						$this->db->prepare("
+							INSERT INTO requirement
+							SET requirement_id = ?,
+							level = 1,
+							location = ?,
+							userid = ?
+							")->execute(array($idx, $path.$filename, $_SESSION['id']));
+
+					}
+
+				}
+			}
+
+			return $this;
+		}
+	}
+
+	public function deleteRequirementListener(){
+		if(isset($_POST['deleteReq'])){
+			$this->db->prepare("
+					DELETE FROM requirement
+					WHERE id = ?
+				")->execute(array($_POST['id']));
+
+			die(json_encode(array("deleted")));
+		}
+	}
+
+	public function getAllAdminRequirements(){
+		return $this->db->query("
+			SELECT *
+			FROM requirement
+			WHERE level = 0
+			")->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+	public function getAllAdminRequirementsByUserId($id){
+		$data = $this->getAllAdminRequirements();
+
+		foreach ($data as $key => $value) {
+			$req = $this->db->query("
+					SELECT *
+					FROM requirement
+					WHERE userid = ".$id." 
+					AND requirement_id = ".$value['id']."
+					LIMIT 1
+					")->fetch(PDO::FETCH_ASSOC);
+
+			$data[$key]['uploaded'] = $req['location'];
+		}
+
+		return $data;
+	}
+
+	public function addRequirementListener(){
+		if(isset($_POST['addReq'])){
+			$name = $_POST['txt'];
+			$id = false;
+
+			//check length
+			if(strlen($name)>2) {
+
+				//check if exists
+				$exists = $this->db->query("
+					SELECT *
+					FROM requirement
+					WHERE name = '".$name."'
+					LIMIT 1
+					")->rowCount();	
+
+				if($exists>0){
+					$this->errors[] = "Form name already exists.";
+				}
+				else {
+					$this->db->prepare("
+						INSERT INTO requirement(name,userid)
+						VALUES(?,?)
+						")->execute(array($name, $_SESSION['id']));
+
+					$id = $this->db->lastInsertId();
+				}
+
+			}
+			else {
+				$this->errors[] = "Form name is too short";
+			}
+
+			die(json_encode(array("id"=>$id, 'errors' => $this->errors)));
+		}
 	}
 
 	public function getUserById($id) {
