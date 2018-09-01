@@ -1,6 +1,10 @@
 <?php include_once "model.php"; ?>
 <?php $model = new Model(); 
   $featuredJobs = $model->getFeaturedJobs();
+  $sliders = $model->getAllSlider();
+  $featuredCompanies = $model->getFeaturedCompanies();
+  $settings = $model->getSettings();
+
 ?>
 <?php include_once "header.php"; ?>
     <div class="container idx">
@@ -31,15 +35,58 @@
           </ul>
           <br/>
           
-          <!-- Main jumbotron for a primary marketing message or call to action -->
-          <div class=" banner">
-            <div class="container jumbotron">
-              <h1 class="display-3">FIND BETTER JOBS</h1>
-              <p class="increase">Increase your chances of receiving relevant jobs from recruiters. Apply to jobs on the go Discover connections who can refer you for jobs</p>
-              <p><a class="btn btn-primary btn-lg custom" href="#" role="button">Learn more &raquo;</a></p>
-            </div>
+          <style type="text/css">
+            .carousel-item {
+              height: 400px;
+            }
+            .carousel-inner {
+              background: black;
+            }
+            .carousel h5,
+            .carousel p {
+              text-shadow: 1px 1px 10px #6b6969;
+            }
+          </style>
+          <div class="container-fluid">
+              <div class="row">
+                <div class="col">
+                  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                  <ol class="carousel-indicators">
+                    <?php foreach ($sliders as $key => $value): ?>
+                      <li data-target="#carouselExampleIndicators" data-slide-to="<?= $idx; ?>" class="<?= ($key==0) ? 'active' : '';?>"></li>
+                    <?php endforeach ?>
+                  </ol>
+                  
+                  <div class="carousel-inner">
+
+                    <?php foreach ($sliders as $key => $slide): ?>
+                      <div style="background-image: url(./uploads/photos/<?= $slide['filename'];?>);background-size:cover;" class="carousel-item <?= ($key==0) ? 'active' : '';?>">
+                         <div class="carousel-caption d-none d-md-block">
+                          <h5><?= $slide['title'];?></h5>
+                          <p><?= $slide['description'];?></p>
+                        </div>
+                      </div>  
+                    <?php endforeach ?>
+                    
+                  </div>
+                  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                  </a>
+                </div> 
+                </div>
+              </div>
+            
+          </div>
+          <div class=" bansner">
+              <br>
+              <br>
              <div class="container search">
-                <form class="form-inline">
+                <form class="form-inline hidden">
                 <div class="form-group mx-sm-3 mb-2">
                   <label for="inputPassword2" class="sr-only">Search</label>
                   <input type="text" class="form-control search2" id="inputPassword2" placeholder="Type here..">
@@ -68,7 +115,7 @@
                         <a href=""><?= $job['company']; ?></a>
                         <p class="card-text">Salary : <?= $job['salary']; ?></p>
                         <p class="card-text desc"><?= $job['description']; ?></p>
-                        <a href="#" class="btn btn-success">Apply</a>
+                        <a href="viewjob.php?id=<?= $job['id']; ?>" class="btn btn-success">Apply</a>
                       </div>
                     </div>
                   </div>
@@ -81,59 +128,127 @@
           <h3 class="display-6">Employer by choice</h3>
            <!-- slider -->
            <ul class="bychoice">
+            <?php foreach ($featuredCompanies as $key => $value): ?>
              <li>
-               <img src="img/logo1.png">
-             </li>
-             <li>
-               <img src="img/logo2.png">
-             </li>
-             <li>
-               <img src="img/logo3.png">
-             </li>
-             <li>
-               <img src="img/logo4.png">
-             </li>
+              <a href="">
+               <img width="100" height="auto" src="uploads/<?= $value['userid'].'/'.$value['photo'];?>" alt="<?= $value['name']; ?>">
+              </a>
+             </li> 
+            <?php endforeach ?>
            </ul>
         </main>
 
         <footer class="pt-4 my-md-5 pt-md-5">
           <div class="row">
-            <div class="col-12 col-md">
+            <div class="col-3">
               <img class="mb-2" src="img/logo.png" alt="" >
               <small class="d-block mb-3 text-muted">&copy; 2017-2018</small>
             </div>
-            <div class="col-6 col-md">
-              <h5>Features</h5>
-              <ul class="list-unstyled text-small">
-                <li><a class="text-muted" href="#">Cool stuff</a></li>
-                <li><a class="text-muted" href="#">Random feature</a></li>
-                <li><a class="text-muted" href="#">Team feature</a></li>
-                <li><a class="text-muted" href="#">Stuff for developers</a></li>
-                <li><a class="text-muted" href="#">Another one</a></li>
-                <li><a class="text-muted" href="#">Last time</a></li>
-              </ul>
-            </div>
-            <div class="col-6 col-md">
-              <h5>Resources</h5>
-              <ul class="list-unstyled text-small">
-                <li><a class="text-muted" href="#">Resource</a></li>
-                <li><a class="text-muted" href="#">Resource name</a></li>
-                <li><a class="text-muted" href="#">Another resource</a></li>
-                <li><a class="text-muted" href="#">Final resource</a></li>
-              </ul>
-            </div>
-            <div class="col-6 col-md">
+            
+            <div class="col-8">
               <h5>About</h5>
               <ul class="list-unstyled text-small">
-                <li><a class="text-muted" href="#">Team</a></li>
-                <li><a class="text-muted" href="#">Locations</a></li>
-                <li><a class="text-muted" href="#">Privacy</a></li>
-                <li><a class="text-muted" href="#">Terms</a></li>
+                <li><a class="text-muted" data-toggle="modal" data-target="#termsModal" href="#">Terms & Conditions</a></li>
+                <li><a data-toggle="modal" data-target="#contactModal" class="text-muted" href="#">Contact Us</a></li>
+                <li><a data-toggle="modal" data-target="#privacyModal" class="text-muted" href="#">Privacy & Policies</a></li>
+                <li><a data-toggle="modal" data-target="#aboutModal" class="text-muted" href="#">About Us</a></li>
               </ul>
             </div>
           </div>
         </footer>
     </div>
+
+<style type="text/css">
+  .modal-dialog {
+    max-width: 80%;
+  }
+</style>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <div class="modal fade" id="termsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Terms & Conditions</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p><?= $settings['terms']; ?></p>
+              <p><?= $settings['contact']; ?></p>
+              <p><?= $settings['privacy']; ?></p>
+              <p><?= $settings['about']; ?></p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>   
+
+      <div class="modal fade" id="contactModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Contact Us</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p><?= $settings['contact']; ?></p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>   
+
+      <div class="modal fade" id="privacyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Privacy & Policy</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p><?= $settings['privacy']; ?></p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>   
+
+      <div class="modal fade" id="aboutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">About Us</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p><?= $settings['about']; ?></p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>      
+    </div>
+  </div>
+</div>
+
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
@@ -142,8 +257,8 @@
     <!-- <script src="js/jquery-3.2.1.slim.min.js"></script> -->
     <script>window.jQuery || document.write('<script src="bootstrap-4.0.0/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
     <script src="bootstrap-4.0.0/assets/js/vendor/popper.min.js"></script>
-    <script src="bootstrap-4.0.0/dist/js/bootstrap.min.js"></script>
     <script src="bootstrap-4.0.0/assets/js/vendor/holder.min.js"></script>
+    <script src="bootstrap-4.0.0/dist/js/bootstrap.min.js"></script>
     <script>
       Holder.addTheme('thumb', {
         bg: '#55595c',
@@ -151,6 +266,15 @@
         text: 'Thumbnail'
       });
 
+    </script>
+    <script type="text/javascript">
+      (function($){
+        $(document).ready(function(){
+          $('.carousel').carousel();
+         
+        });
+
+      })(jQuery);
     </script>
   </body>
 </html>

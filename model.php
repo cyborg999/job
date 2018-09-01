@@ -1,6 +1,6 @@
 <?php
-error_reporting(E_ALL);
-// error_reporting(0);
+// error_reporting(E_ALL);
+error_reporting(0);
 
 include_once "helper.php";
 
@@ -41,7 +41,205 @@ class Model {
 		$this->requirementUploadListener();
 		$this->addRequirementListener();
 		$this->approveCompanyListener();
+		$this->addSlideListener();
+		$this->uploadSliderListener();
+		$this->deleteSlideListener();
+		$this->markSeenListener();
+		$this->settingsListener();
+		$this->changePasswordListener();
 		$this->uploadCV();
+	}	
+
+	public function changePasswordListener(){
+		if(isset($_POST['changepw'])){
+			$record = $this->db->query("
+					SELECT *
+					FROM user
+					WHERE username = '".$_POST['username']."'
+					LIMIT 1
+				")->fetchAll();
+
+			if(count($record)>0){
+				$data = reset($record);
+				if($data['id'] == $_SESSION['id']){
+					if($data['password'] != md5($_POST['password1'])){
+						$this->errors[] = "Incorrect Password";
+					} else {
+						if($_POST['password1'] == $_POST['password2']){
+							$this->errors[] = "Old password must not be the same with the new one";
+						} else {
+							if($_POST['password2'] != $_POST['password3']){
+								$this->errors[] = "New passwords doesnt matched.";
+							} else {
+								if(strlen($_POST['password3']) <= 5){
+									$this->errors[] = "Password is too short.";
+								} else {
+									$this->db->prepare("
+											UPDATE user
+											SET password = ?
+											WHERE id = ?
+										")->execute(array(md5($_POST['password3']), $_SESSION['id']));
+
+									return $this;
+								}
+
+							}
+						}	
+					}
+				} else {
+					$this->errors[] = "Username doesnt matched.";
+				}
+
+			} else {
+				$this->errors[] = "Invalid Username.";
+			}
+
+		}
+	}
+
+	public function getSettings(){
+		return $this->db->query("
+				SELECT *
+				FROM admin
+				LIMIT 1
+			")->fetch(PDO::FETCH_ASSOC);
+	}
+
+	public function settingsListener(){
+		if(isset($_POST['setting'])){
+			$this->db->prepare("
+				DELETE FROM admin
+				")->execute(array());
+
+			$this->db->prepare("
+					INSERT INTO admin
+					SET terms = ?,
+					contact = ?,
+					privacy = ?,
+					about = ?,
+					name = ?
+				")->execute(array($_POST['terms'],$_POST['contact'],$_POST['privacy'],$_POST['about'],$_POST['name']));
+
+			return $this;
+		}
+	}
+
+	public function deleteSlideListener(){
+		if(isset($_POST['deleteSlide'])){
+			$id = $_POST['id'];
+
+			$this->db->prepare("DELETE FROM slider WHERE id=?")->execute(array($id));
+
+			die(json_encode(array(true)));
+		}
+	}
+
+	public function getAllSlider(){
+		return $this->db->query("
+			SELECT t1.*, t2.filename FROM slider t1
+			LEFT JOIN photo t2 on t1.photoid = t2.id
+			where t1.title !=''
+			")->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+	public function addSlideListener(){
+		if(isset($_POST['addSlider'])){
+			$title 	= $_POST['title'];
+			$desc 	= $_POST['description'];
+			$id 	= $_POST['id'];
+
+			$stmnt = $this->db->prepare("UPDATE slider SET title =?, description = ? WHERE photoid = ?");
+			$stmnt->execute(array($title, $desc, $id));
+
+			die(json_encode(array("updated" => true)));
+		}
+	}
+
+	public function getPhotoPath($filename, $id = false){
+		$file 	= explode(".", $filename);
+		$ext 	= end($file);
+		$path 	= "";
+
+
+		$videoExt = array("bmp", "jpg", "png","jpeg");
+
+		if(in_array($ext, $videoExt)){
+			$path = md5($filename.time());
+
+			if (!file_exists('uploads/photos')) {
+			    mkdir('uploads/photos/', 0777, true);
+			}
+
+			if($id != false){
+				$slideId = $this->addPhoto($path.".".$ext, $id);
+				$this->addSlide($slideId);
+				echo $slideId;
+
+			} else {
+				//add new record
+				$this->addPhoto($path.".".$ext);
+				//return html to js as response
+				echo "uploads/photos/". $path.".".$ext;
+			
+			}
+
+			
+			return array($path.".".$ext, true, $path);
+		}
+	}
+
+	public function addSlide($id){
+		$stmnt = $this->db
+			->prepare("INSERT INTO slider(photoid) VALUES(?)")
+			->execute(array($id));
+	}
+
+	public function addPhoto($filename, $id){
+		$this->db
+			->prepare("INSERT INTO photo(filename) VALUES(?)")
+			->execute(array($filename));
+
+		if($id == true){
+			return $this->db->lastInsertId();
+		} 
+	}
+
+	public function uploadSliderListener(){
+		$fn = (isset($_SERVER['HTTP_X_FILENAME']) ? $_SERVER['HTTP_X_FILENAME'] : false);
+		$isReady = (isset($_GET['sliderPath'])) ? $_GET['sliderPath'] : null;
+			
+		if(isset($_GET['sliderPath'])){
+			if (!file_exists('uploads/photos')) {
+			    mkdir('uploads/photos/', 0777, true);
+			}
+
+			if ($fn) {
+				//pag nag drag&drop
+				list($file, $html, $path) =  $this->getPhotoPath($fn, true);
+
+				// var_dump($fn);
+				file_put_contents(
+					'uploads/photos/'. $file,
+					file_get_contents('php://input')
+				);
+
+			} else {
+				//browse
+				$files = $_FILES['fileselect'];
+
+				foreach ($files['error'] as $id => $err) {
+					if ($err == UPLOAD_ERR_OK) {
+						list($file, $html, $path) = $this->getPhotoPath($files['name'][$id], true);
+
+						move_uploaded_file(
+							$files['tmp_name'][$id],
+							'uploads/photos/'.$file
+						);
+					} 
+				}
+
+			}
+		}
 	}
 
 	public function checkIfApproved(){
@@ -55,6 +253,27 @@ class Model {
 		return $approved['approved'];
 	}
 
+	public function markSeenListener(){
+		if(isset($_POST['markSeen'])){
+			$this->db->prepare("
+					UPDATE message
+					SET seen = 1
+					WHERE receiver = ?
+				")->execute(array($_SESSION['id']));
+
+			die(json_encode(array("success")));
+		}
+	}
+
+	public function getNotification(){
+		return $this->db->query("
+				SELECT *
+				FROM message
+				WHERE receiver = ".$_SESSION['id']."
+				AND seen = 0
+			")->fetchAll(PDO::FETCH_ASSOC);
+	}
+
 	public function  approveCompanyListener(){
 		if(isset($_POST['approveCompany'])){
 			$this->db->prepare("
@@ -63,6 +282,7 @@ class Model {
 				WHERE id = ?
 				")->execute(array($_POST['id']));
 
+			$this->addMessage("Your account has been approved.<br> You can now post a new job opening.", $_POST['userid']);
 			die(json_encode(array("success")));
 		}
 	}
@@ -191,6 +411,10 @@ class Model {
 						")->execute(array($name, $_SESSION['id']));
 
 					$id = $this->db->lastInsertId();
+
+					$receiver = $this->getAllCompletedCompany();
+					$this->disApproveAll();
+					$this->addMessage("Required forms have been updated by the administrator.<br>Please comply with the new requirements in order to post a new job.", $receiver);
 				}
 
 			}
@@ -200,6 +424,48 @@ class Model {
 
 			die(json_encode(array("id"=>$id, 'errors' => $this->errors)));
 		}
+	}
+
+	public function disApproveAll(){
+		$this->db->prepare("
+			UPDATE company
+			SET approved = 0
+			WHERE approved = 1
+			")->execute(array());
+
+		return $this;
+	}
+
+	public function getAllCompletedCompany(){
+		return $this->db->query("
+				SELECT userid
+				FROM company
+				WHERE completed = 1
+			")->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+	public function addMessage($msg, $receiver){
+		if(is_array($receiver)){
+			foreach ($receiver as $key => $value) {
+				$this->db->prepare("
+					INSERT INTO message
+					SET content = ?,
+					sender = ?,
+					receiver = ?
+				")->execute(array($msg, $_SESSION['id'], $value['userid']));
+
+			}
+		} else {
+			$this->db->prepare("
+					INSERT INTO message
+					SET content = ?,
+					sender = ?,
+					receiver = ?
+				")->execute(array($msg, $_SESSION['id'], $receiver));
+
+		}
+		
+		return $this;
 	}
 
 	public function getUserById($id) {
@@ -401,9 +667,18 @@ class Model {
 		}
 	}
 
+	public function getFeaturedCompanies(){
+		return $this->db->query("
+				SELECT name,photo,userid
+				FROM company
+				WHERE approved = 1
+				LIMIT 10
+			")->fetchAll(PDO::FETCH_ASSOC);
+	}
+
 	public function getFeaturedJobs(){
 		return $this->db->query("
-				SELECT t1.title,t1.salary,t1.description,t2.name as 'company'
+				SELECT t1.id,t1.title,t1.salary,t1.description,t2.name as 'company'
 				FROM job t1
 				LEFT JOIN company t2 ON t1.userid = t2.userid
 				ORDER BY t1.date_added ASC

@@ -17,9 +17,13 @@
             </div>
           </div>
           <br>
+
           <div class="container">
             <div class="row">
-              content
+              <div class="col">
+                
+              </div>
+              
             </div>
           </div>
          
@@ -44,7 +48,6 @@
     <script type="text/javascript">
       (function($){
         $(document).ready(function(){
-
          
         });
 

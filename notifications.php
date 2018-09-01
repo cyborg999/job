@@ -1,26 +1,48 @@
 <?php include_once "model.php"; ?>
 <?php $model = new Model(); 
+
 ?>
-<?php include_once "header2.php"; ?>
+<?php include_once "header2.php";
+
+ ?>
 
   <style type="text/css">
 
   </style>
     <div class="container-fluid">
       <div class="row">
-        <?php include_once "admin-nav.php"; ?>
+        <?php include_once "side-nav.php"; 
+
+  $notif = $model->getNotification();
+        ?>
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
           <br>
           <br>
           <div class="container">
+            <div class="img-container profile-banner">
+              <h2 class="compname display-7">Messages from Admin</h2>
+            </div>
+          </div>
+          <br>
+          <div class="container">
             <div class="row">
-              <div class="jumbotron col">
-                <h1 class="display-4">Welcome to Admin Page</h1>
-                <p class="lead">To edit the homepage, click the button below</p>
-                <hr class="my-4">
-                <a class="btn btn-primary btn-lg" href="setting.php" role="button">Settings</a>
+              <div class="col">
+                <?php foreach ($notif as $key => $value): ?>
+                  <div class="notif">
+                     <span class="float-lesft badge-primary badge">admin</span>
+                     <p class="msg float-risght"><?= $value['content'];?></p>
+                     <hr>
+                   </div>   
+
+                <?php endforeach ?>
+                <?php if (count($notif)> 0): ?>
+                  <a href="" class="btn btn-primary seen">Mark as Read</a>
+                <?php endif ?>
+               
+
               </div>
+
             </div>
           </div>
          
@@ -45,8 +67,19 @@
     <script type="text/javascript">
       (function($){
         $(document).ready(function(){
+          $(".seen").on("click", function(e){
+            e.preventDefault();
 
-         
+            $.ajax({
+              url : "process.php",
+              data : { markSeen : true},
+              type : 'POST',
+              dataType : 'JSON',
+              success : function(res){
+                console.log(res);
+              }
+            });
+          });
         });
 
       })(jQuery);

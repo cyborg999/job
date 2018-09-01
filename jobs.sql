@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 29, 2018 at 01:39 PM
+-- Generation Time: Sep 01, 2018 at 07:28 PM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.2
 
@@ -21,6 +21,29 @@ SET time_zone = "+00:00";
 --
 -- Database: `jobs`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin`
+--
+
+CREATE TABLE `admin` (
+  `id` int(11) NOT NULL,
+  `terms` longtext,
+  `contact` longtext NOT NULL,
+  `privacy` longtext NOT NULL,
+  `about` longtext NOT NULL,
+  `logo` varchar(255) DEFAULT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`id`, `terms`, `contact`, `privacy`, `about`, `logo`, `name`) VALUES
+(8, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\r\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\r\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'ContactLorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\r\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\r\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'PriLorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\r\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\r\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'AbotLorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\r\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\r\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', NULL, '');
 
 -- --------------------------------------------------------
 
@@ -209,6 +232,54 @@ INSERT INTO `job` (`id`, `companyid`, `description`, `userid`, `processing_time`
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `message`
+--
+
+CREATE TABLE `message` (
+  `id` int(11) NOT NULL,
+  `content` varchar(255) NOT NULL,
+  `sender` int(11) NOT NULL,
+  `receiver` varchar(255) DEFAULT NULL,
+  `seen` int(11) NOT NULL DEFAULT '0',
+  `dateadded` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `message`
+--
+
+INSERT INTO `message` (`id`, `content`, `sender`, `receiver`, `seen`, `dateadded`) VALUES
+(24, 'Required forms have been updated by the administrator.<br>Please comply with the new requirements in order to post a new job.', 28, '9', 1, '2018-09-01 16:44:58'),
+(25, 'Your account has been approved.<br> You can now post a new job opening.', 28, '4', 0, '2018-09-01 16:45:14'),
+(26, 'Required forms have been updated by the administrator.<br>Please comply with the new requirements in order to post a new job.', 28, '9', 1, '2018-09-01 16:45:22');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `photo`
+--
+
+CREATE TABLE `photo` (
+  `id` int(11) NOT NULL,
+  `filename` varchar(255) NOT NULL,
+  `active` int(11) NOT NULL DEFAULT '1',
+  `dateadded` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `photo`
+--
+
+INSERT INTO `photo` (`id`, `filename`, `active`, `dateadded`) VALUES
+(71, '5b4ecc3aa89441e04b839fc2392ead53.png', 1, '2018-08-29 15:09:22'),
+(72, 'dee20a9f2dae8ca2c592292f5fcaed27.png', 1, '2018-08-29 15:10:39'),
+(73, '1fd0476eca4e8a345d40ad06944c2718.png', 1, '2018-08-29 15:31:50'),
+(74, '62ceda10c7dca2bf6d7bef7234166120.jpg', 1, '2018-09-01 13:42:31'),
+(75, '55a1d747e74ae579d5e54a0f08ef71be.jpg', 1, '2018-09-01 13:43:07');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `requirement`
 --
 
@@ -226,15 +297,20 @@ CREATE TABLE `requirement` (
 --
 
 INSERT INTO `requirement` (`id`, `name`, `userid`, `level`, `location`, `requirement_id`) VALUES
-(10, 'Form 2', 28, 0, NULL, NULL),
-(11, 'Form 3', 28, 0, NULL, NULL),
-(12, 'Form 1', 28, 0, NULL, NULL),
 (37, '', 9, 1, 'uploads/9/5118c63d9bfcd58f6fd627929f78e162.jpg', 10),
 (38, '', 9, 1, 'uploads/9/3742ddd4085c6c0ece97655e4bb7a6c8.jpg', 11),
 (39, '', 9, 1, 'uploads/9/1b6d4794cf42f67a5a58fe8c33e05603.jpg', 12),
 (40, '', 21, 1, 'uploads/21/36365401cfa9ee33ef474d17788e494e.jpg', 10),
 (41, '', 21, 1, 'uploads/21/36365401cfa9ee33ef474d17788e494e.jpg', 11),
-(42, '', 21, 1, 'uploads/21/36365401cfa9ee33ef474d17788e494e.jpg', 12);
+(42, '', 21, 1, 'uploads/21/36365401cfa9ee33ef474d17788e494e.jpg', 12),
+(48, 'Registration Form', 28, 0, NULL, NULL),
+(49, 'NSO', 28, 0, NULL, NULL),
+(50, 'BIR', 28, 0, NULL, NULL),
+(51, 'Brgy Clearance', 28, 0, NULL, NULL),
+(52, 'form', 28, 0, NULL, NULL),
+(53, 'ffffff', 28, 0, NULL, NULL),
+(54, 'adasd', 28, 0, NULL, NULL),
+(55, 'adas', 28, 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -261,6 +337,29 @@ INSERT INTO `skill` (`id`, `name`, `level`, `userid`) VALUES
 (37, 'CSS/CSS3', 4, 23),
 (38, 'Photoshop', 3, 23),
 (39, 'MS Office', 3, 23);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `slider`
+--
+
+CREATE TABLE `slider` (
+  `id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `description` varchar(500) NOT NULL,
+  `photoid` int(11) NOT NULL,
+  `dateadded` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `slider`
+--
+
+INSERT INTO `slider` (`id`, `title`, `description`, `photoid`, `dateadded`) VALUES
+(52, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'Ut enim ad minim veniam,\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 73, '2018-08-29 15:31:50'),
+(53, 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'Ut enim ad minim veniam,\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\ncillum dolore eu fugiat nulla pariatur.', 74, '2018-09-01 13:42:32'),
+(54, 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ', 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.', 75, '2018-09-01 13:43:08');
 
 -- --------------------------------------------------------
 
@@ -380,6 +479,12 @@ INSERT INTO `userinfo` (`id`, `firstname`, `lastname`, `middlename`, `dob`, `add
 --
 
 --
+-- Indexes for table `admin`
+--
+ALTER TABLE `admin`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `application`
 --
 ALTER TABLE `application`
@@ -416,6 +521,18 @@ ALTER TABLE `job`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `message`
+--
+ALTER TABLE `message`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `photo`
+--
+ALTER TABLE `photo`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `requirement`
 --
 ALTER TABLE `requirement`
@@ -425,6 +542,12 @@ ALTER TABLE `requirement`
 -- Indexes for table `skill`
 --
 ALTER TABLE `skill`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `slider`
+--
+ALTER TABLE `slider`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -448,6 +571,12 @@ ALTER TABLE `userinfo`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `admin`
+--
+ALTER TABLE `admin`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `application`
@@ -486,16 +615,34 @@ ALTER TABLE `job`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
+-- AUTO_INCREMENT for table `message`
+--
+ALTER TABLE `message`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+
+--
+-- AUTO_INCREMENT for table `photo`
+--
+ALTER TABLE `photo`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+
+--
 -- AUTO_INCREMENT for table `requirement`
 --
 ALTER TABLE `requirement`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT for table `skill`
 --
 ALTER TABLE `skill`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+
+--
+-- AUTO_INCREMENT for table `slider`
+--
+ALTER TABLE `slider`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT for table `socialmedia`

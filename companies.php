@@ -45,7 +45,7 @@ $companies = $model->getCompanyByApproved(0);
                       <td><?= $value['name'];?></td>
                       <td>
                           <a href="" class="btn view">view requirements</a>
-                          <a href="" data-id="<?= $value['id'];?>" class="btn btn-primary approve">Approve</a>
+                          <a href="" data-id="<?= $value['id'];?>" data-userid="<?= $value['userid'];?>" class="btn btn-primary approve">Approve</a>
                       </td>
                     </tr> 
                     <tr class="req hidden">
@@ -114,10 +114,11 @@ $companies = $model->getCompanyByApproved(0);
 
               var me = $(this);
               var id = me.data("id");
+              var userid = me.data("id");
 
               $.ajax({
                 url : "process.php",
-                data : { approveCompany : true, id:id},
+                data : { approveCompany : true, id:id, userid:userid},
                 type : 'POST',
                 dataType : 'JSON',
                 success : function(res){

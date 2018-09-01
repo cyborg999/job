@@ -35,11 +35,31 @@
           <span data-feather="users"></span>
           Requirements
         </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="slideshow.php">
+          <span data-feather="users"></span>
+          Banner
+        </a>
+      </li>
+      <li class="nav-item">
          <a class="nav-link" href="companies.php">
           <span data-feather="users"></span>
           Companies
         </a>
       </li>
+      <li class="nav-item">
+         <a class="nav-link" href="setting.php">
+          <span data-feather="users"></span>
+          Settings
+        </a>
+      </li>
+       <li class="nav-item">
+          <a class="nav-link" href="adminpw.php">
+            <span data-feather="clipboard"></span>
+            Change Password
+          </a>
+        </li>
     </ul>
   </div>
 </nav>

@@ -21,6 +21,16 @@
     </div>
     <ul class="nav flex-column">
       <?php if($_SESSION['usertype'] == "employer"): ?>
+        <?php 
+        $notif = $model->getNotification();
+
+        ?>
+        <li>
+          <a class="nav-link" href="notifications.php">
+            <span data-feather="inbox"></span>
+              Unread Messages<span class="badge badge-danger"><?= count($notif);?></span>
+          </a>
+        </li>
         <li class="nav-item">
           <a class="nav-link" href="profile.php">
             <span data-feather="users"></span>
@@ -51,16 +61,27 @@
           <span data-feather="users"></span>
           View Online Profile
         </a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" href="browse.php">
           <span data-feather="users"></span>
           Browse Job
         </a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" href="myprofile.php">
           <span data-feather="users"></span>
           Update Profile
         </a>
       </li>
       <?php endif; ?>
+     <li class="nav-item">
+          <a class="nav-link" href="password.php">
+            <span data-feather="clipboard"></span>
+            Change Password
+          </a>
+        </li>
+
 
    <!--    <li class="nav-item">
         <a class="nav-link active" href="#">
