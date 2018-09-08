@@ -1,30 +1,33 @@
 <?php include_once "model.php"; ?>
 <?php $model = new Model(); 
-  $model->restrictAccessByLevel(3);
 ?>
-<?php include_once "header2.php"; ?>
+<?php include_once "header.php"; ?>
 
   <style type="text/css">
 
   </style>
     <div class="container-fluid">
       <div class="row">
-        <?php include_once "admin-nav.php"; ?>
-
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-          <br>
-          <br>
           <div class="container">
             <div class="row">
-              <div class="jumbotron col">
-                <h1 class="display-4">Welcome to Admin Page</h1>
-                <p class="lead">To edit the homepage, click the button below</p>
-                <hr class="my-4">
-                <a class="btn btn-primary btn-lg" href="setting.php" role="button">Settings</a>
-              </div>
+                <div class="col-md-12">
+                    <div class="error-template">
+                        <h1>
+                            Oops!</h1>
+                        <h2>
+                            404 Not Found</h2>
+                        <div class="error-details">
+                            Sorry, an error has occured, Requested page not found!
+                        </div>
+                        <div class="error-actions">
+                            <a href="index.php" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span>
+                                Take Me Home </a>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-         
+        </div>
         </main>
       </div>
     </div>
@@ -35,22 +38,6 @@
     <script>window.jQuery || document.write('<script src="bootstrap-4.0.0/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
     <script src="bootstrap-4.0.0/assets/js/vendor/popper.min.js"></script>
     <script src="js/jquery.js"></script>
-    <script src="bootstrap-4.0.0/dist/js/bootstrap.min.js"></script>
-
-    <!-- Icons -->
-    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-    <script>
-      feather.replace()
-    </script>
-
-    <script type="text/javascript">
-      (function($){
-        $(document).ready(function(){
-
-         
-        });
-
-      })(jQuery);
-    </script>
+  
   </body>
 </html>

@@ -1,5 +1,6 @@
 <?php include_once "model.php"; ?>
 <?php $model = new Model(); 
+  $model->restrictAccessByLevel(2);
 $data = $model->getAllJobByUserId();
 // opd($data);
 ?>

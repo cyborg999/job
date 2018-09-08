@@ -32,31 +32,31 @@
           Banner
         </a> -->
         <a class="nav-link" href="requirements.php">
-          <span data-feather="users"></span>
+          <span data-feather="file-text"></span>
           Requirements
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="slideshow.php">
-          <span data-feather="users"></span>
+          <span data-feather="plus-circle"></span>
           Banner
         </a>
       </li>
       <li class="nav-item">
          <a class="nav-link" href="companies.php">
-          <span data-feather="users"></span>
+          <span data-feather="file"></span>
           Companies
         </a>
       </li>
       <li class="nav-item">
          <a class="nav-link" href="setting.php">
-          <span data-feather="users"></span>
+          <span data-feather="settings"></span>
           Settings
         </a>
       </li>
        <li class="nav-item">
           <a class="nav-link" href="adminpw.php">
-            <span data-feather="clipboard"></span>
+            <span data-feather="edit-3"></span>
             Change Password
           </a>
         </li>

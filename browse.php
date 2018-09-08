@@ -1,5 +1,6 @@
 <?php include_once "model.php"; ?>
 <?php $model = new Model(); 
+  $model->restrictAccessByLevel(1);
   $data = $model->getCompanyBySessionId();
 ?>
 <?php include_once "header2.php"; ?>
@@ -67,7 +68,7 @@
                   display: none;
                 }
               </style>
-              <script type="text/html" id="preview">
+              <script type="text/html" id="previewprof">
                 <div class="container_parent">
                   <div class="alert hidden alert-success alert-dismissible fade show" role="alert">
                     <strong>You have successfully applied to this job.</strong>
@@ -78,10 +79,10 @@
                   <div class="container">
                     <style type="text/css">
                       .job-banner {
-                      background: #eee url(uploads/[BANNER]);
+                      background: #eee url(uploads/[BANNER]) no-repeat;
                         height: 100px;
                         width: 100%;
-                        background-size: contain;
+                        background-size: cover;
                         margin-bottom: 10px;
                       }
                     </style>
@@ -204,7 +205,7 @@
                   type : 'POST',
                   dataType : 'JSON',
                   success : function(res){
-                    var html = $("#preview").html();
+                    var html = $("#previewprof").html();
                     var target = $("#list-home");
                     var list = res.desclist;
                     var li = "";
@@ -214,8 +215,9 @@
                     for(var i in list) {
                       li += "<p>"+list[i]+"</p>";
                     }
+                    console.log(html);
 
-
+                    console.log(target.length);
                     target.html("");
                     html = html.replace("[LOGO]", (res.userid + "/" + res.photo)).
                       replace("[BANNER]", (res.userid + "/" + res.banner)).
@@ -231,7 +233,6 @@
                       replace("[COMPANY]", res.name);
                     target.append(html);
 
-                    console.log(res);
                     listen();
                   }
                 });

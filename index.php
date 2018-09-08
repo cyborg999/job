@@ -7,9 +7,9 @@
 
 ?>
 <?php include_once "header.php"; ?>
-    <div class="container idx">
+    <div class="container-fluid idx bg bg0">
         <main role="main">
-          <ul class="nav nav-pills">
+          <ul class="nav nav-pills hidden">
             <li class="nav-item">
               <a class="nav-link active" href="#">Jobs</a>
             </li>
@@ -33,11 +33,9 @@
               <a class="nav-link disabled" href="#">Industries</a>
             </li>
           </ul>
-          <br/>
-          
           <style type="text/css">
             .carousel-item {
-              height: 400px;
+              height: 500px;
             }
             .carousel-inner {
               background: black;
@@ -46,8 +44,27 @@
             .carousel p {
               text-shadow: 1px 1px 10px #6b6969;
             }
+            .bg {
+              padding: 0;
+              position: relative;
+              overflow: hidden;
+            }
+            .bg {
+              margin-top: -35px;
+            }
+            .bg1::after {
+              content: "";
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              background: url(./img/bg.svg) no-repeat;
+              background-size: cover;
+              bottom: -20px;
+              left: 0;
+            }
           </style>
-          <div class="container-fluid">
+
+          <div class="container-fluid bg bg1">
               <div class="row">
                 <div class="col">
                   <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">

@@ -337,7 +337,7 @@
 					<h4 class="display-8">Add Photo</h4>
 				</div>
 				<div class="row">
-					 <span class="btn btn-success fileinput-button">
+					 <span class="btn btn-success fileph fileinput-button">
 				        <i class="glyphicon glyphicon-plus"></i>
 				        <span>Upload...</span>
 				        <input id="fileupload" type="file" name="photo">
@@ -347,9 +347,23 @@
 				    <div id="progress" class="progress">
 				        <div class="progress-bar progress-bar-success"></div>
 				    </div>
-				    <div id="files" class="files"></div>
+				    <div id="files" class="phfile files"></div>
 				</div>
-				<div class="row clearfix">	
+				<style type="text/css">
+					.fileph {
+						height: 40px;
+					}
+					.ph {
+						margin-top: 20px;
+					}
+					.phfile {
+						width: 100%;
+					}
+					.next {
+						margin-right: 5px;
+					}
+				</style>
+				<div class="row clearfix ph">	
 					<br/>
 				    <br/>
 				    <input type="submit" value="<<prev" data-left="-89px" data-percen="-400%" class="next btn custom" name="">

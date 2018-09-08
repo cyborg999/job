@@ -50,6 +50,42 @@ class Model {
 		$this->uploadCV();
 	}	
 
+	public function restrictAccessByLevel($level){
+		if(isset($_SESSION['usertype'])){
+			$type = $_SESSION['usertype'];
+
+			switch($level) {
+				case 3:
+					//admin only
+					if($type != "admin"){
+						header("Location:404.php");
+					}
+
+					break;
+				case 2: 
+					//employer only
+					if($type !="employer"){
+						header("Location:404.php");
+					}
+
+					break;
+				case 1 : 
+					//employer only
+					if($type !="applicant"){
+						header("Location:404.php");
+					}
+					break;
+				default :
+					//can be acccess by everyone pero papasok na to sa else ng parent if
+					
+					break;
+			}
+		}
+		else {
+			header("Location:404.php");
+		}
+	}
+
 	public function changePasswordListener(){
 		if(isset($_POST['changepw'])){
 			$record = $this->db->query("

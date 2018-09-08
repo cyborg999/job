@@ -28,11 +28,11 @@
 				</div>
 		      	<div class="form-group">
 					<label>Password</label>
-					<input type="password" value="<?= isset($_POST['password1']) ? $_POST['username'] : '';?>" class="form-control" name="password1" required placeholder="Password..."/>
+					<input type="password" value="<?= isset($_POST['password1']) ? $_POST['password1'] : '';?>" class="form-control" name="password1" required placeholder="Password..."/>
 				</div>
 		      	<div class="form-group">
 					<label>Retype Password</label>
-					<input type="password" value="<?= isset($_POST['password2']) ? $_POST['username'] : '';?>" class="form-control" name="password2" required placeholder="Password..."/>
+					<input type="password" value="<?= isset($_POST['password2']) ? $_POST['password2'] : '';?>" class="form-control" name="password2" required placeholder="Password..."/>
 				</div>
 				<h5>User Type </h5>
 		      	<div class="form-check form-check-inline">

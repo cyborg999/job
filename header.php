@@ -29,6 +29,11 @@
         border-color: transparent;
         font-weight: 600;
       }
+      .fixedhead {
+        position: fixed;
+        z-index: 999;
+        width: 100%;
+      }
     </style>
     <!-- Custom styles for this template -->
     <link href="css/default.css" rel="stylesheet"/>
@@ -37,7 +42,7 @@
 </head>
 
 <body>
-    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+    <div class="fixedhead d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
           <h5 class=" my-0 mr-md-auto font-weight-normal"><a href="index.php"><img src="img/logo.png"></a></h5>
           <?php if(isset($_SESSION['id'])) : ?>
             <nav class="my-2 my-md-0 mr-md-3">
@@ -47,7 +52,8 @@
           <?php else : ?>
             <nav class="my-2 my-md-0 mr-md-3">
 
-              <a class="p-2 text-dark" href="login.php">Login</a>
+              <a class="p-2 text-dark" href="login.php">Login
+              </a>
             </nav>
             <a class="btn btn-success" href="signup.php">Sign up</a>
           <?php endif ?>

@@ -1,5 +1,6 @@
 <?php include_once "model.php"; ?>
 <?php $model = new Model(); 
+  $model->restrictAccessByLevel(1);
   $industry = $model->getIndustry();
   $mySocial = $model->getMySocial();
   $personal = $model->getUserById($_SESSION['id']);

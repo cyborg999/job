@@ -124,6 +124,11 @@
         <div class="col-4 right">
           <div class="row">
             <style type="text/css">
+              #allskills {
+                display: block;
+                clear: both;
+                width: 100%;
+              }
               #allskills p {
                 background: #c1e1fd;
                   padding: 3px 10px;

@@ -1,6 +1,6 @@
 <?php include_once "model.php"; ?>
 <?php $model = new Model(); 
-
+  $model->restrictAccessByLevel(2);
 ?>
 <?php include_once "header2.php";
 
