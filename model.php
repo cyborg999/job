@@ -580,14 +580,46 @@ class Model {
 		if(isset($_POST['browse'])){
 
 			$text = $_POST['searchtext'];
-			$stmnt =  $this->db->query("
-				SELECT t1.*,t2.name,t2.address,t2.overview,t2.banner,t2.size,t2.photo
-				FROM job t1
-				LEFT JOIN company t2 
-				ON t1.companyid = t2.userid
-				WHERE t1.title LIKE '%".$text."%'
-			")->fetchAll(PDO::FETCH_ASSOC);
 
+			switch ($_POST['category']) {
+				case 'Jobs':
+					$stmnt =  $this->db->query("
+						SELECT t1.*,t2.name,t2.address,t2.overview,t2.banner,t2.size,t2.photo
+						FROM job t1
+						LEFT JOIN company t2 
+						ON t1.companyid = t2.userid
+						WHERE t1.title LIKE '%".$text."%'
+					")->fetchAll(PDO::FETCH_ASSOC);
+
+					break;
+				case 'Skills':
+					$stmnt =  $this->db->query("
+						SELECT t1.*,t2.name,t2.address,t2.overview,t2.banner,t2.size,t2.photo
+						FROM job t1
+						LEFT JOIN company t2 
+						ON t1.companyid = t2.userid
+						WHERE (t1.description LIKE '%".$text."%')
+						OR (t1.desclist LIKE '%".$text."%')
+					")->fetchAll(PDO::FETCH_ASSOC);
+
+					break;
+				case 'Companies':
+					$stmnt =  $this->db->query("
+						SELECT t1.*,t2.name,t2.address,t2.overview,t2.banner,t2.size,t2.photo
+						FROM job t1
+						LEFT JOIN company t2 
+						ON t1.companyid = t2.userid
+						WHERE t2.name LIKE '%".$text."%'
+					")->fetchAll(PDO::FETCH_ASSOC);
+
+					break;
+				
+				default:
+					# code...
+					break;
+			}
+			
+			// opd($stmnt);
 			die(json_encode($stmnt));
 
 		}

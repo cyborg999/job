@@ -1,5 +1,8 @@
 
 <!doctype html>
+  <?php
+  $name = $model->getSettings();
+  ?>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -8,7 +11,7 @@
     <meta name="author" content="">
     <!-- <link rel="icon" href="bootstrap-4.0.0/favicon.ico"> -->
 
-    <title>Jobsearch</title>
+    <title><?= $name['name'];?></title>
 
     <!-- Bootstrap core CSS -->
     <link href="bootstrap-4.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -21,7 +24,7 @@
 
   <body>
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="index.php"><img src="img/logo.png"/></a>
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="index.php"><img src="img/logo2.png"/></a>
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
           <a class="nav-link" href="logout.php">Logout</a>

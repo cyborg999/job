@@ -1,5 +1,8 @@
 
 <!doctype html>
+  <?php
+  $name = $model->getSettings();
+  ?>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -8,7 +11,7 @@
     <meta name="author" content="">
     <!-- <link rel="icon" href="bootstrap-4.0.0/favicon.ico"> -->
 
-    <title>Jobsearch</title>
+    <title><?= $name['name'];?></title>
 
     <!-- Bootstrap core CSS -->
     <link href="bootstrap-4.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -30,9 +33,18 @@
         font-weight: 600;
       }
       .fixedhead {
-        position: fixed;
+        padding: 0!important;
+        /*position: fixed;
+        position: sticky;
+        top: 100px;
         z-index: 999;
         width: 100%;
+        top: 0;
+        background: rgba(0,0,0,.3);
+        border: 0;*/
+      }
+      .logo {
+        height: 60px;
       }
     </style>
     <!-- Custom styles for this template -->
@@ -42,17 +54,23 @@
 </head>
 
 <body>
-    <div class="fixedhead d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
-          <h5 class=" my-0 mr-md-auto font-weight-normal"><a href="index.php"><img src="img/logo.png"></a></h5>
+    <div class="fixedhead d-flex container flex-column flex-md-row align-items-center p-3 px-md-4 mb-3">
+          <h5 class=" my-0 mr-md-auto font-weight-normal"><a href="index.php"><img src="img/logo.png" class="logo"></a></h5>
           <?php if(isset($_SESSION['id'])) : ?>
             <nav class="my-2 my-md-0 mr-md-3">
-              <a class="p-2 text-dark" href="browse.php">Browse</a>
-              <a class="p-2 text-dark" href="logout.php">Logout</a>
+              <?php if ($_SESSION['usertype'] == "admin"): ?>
+                <a class="p-2 text-black" href="admin.php">Admin</a>
+              <?php elseif ($_SESSION['usertype'] == "employer"): ?>
+              <a class="p-2 text-black" href="profile.php">Employer</a>
+              <?php else: ?>
+              <a class="p-2 text-black" href="browse.php">Browse</a>
+              <?php endif ?>
+              <a class="p-2 text-black" href="logout.php">Logout</a>
             </nav>
           <?php else : ?>
             <nav class="my-2 my-md-0 mr-md-3">
 
-              <a class="p-2 text-dark" href="login.php">Login
+              <a class="p-2 text-black" href="login.php">Login
               </a>
             </nav>
             <a class="btn btn-success" href="signup.php">Sign up</a>

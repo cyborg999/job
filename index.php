@@ -9,33 +9,10 @@
 <?php include_once "header.php"; ?>
     <div class="container-fluid idx bg bg0">
         <main role="main">
-          <ul class="nav nav-pills hidden">
-            <li class="nav-item">
-              <a class="nav-link active" href="#">Jobs</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Industries</a>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Computer Programming</a>
-                <a class="dropdown-item" href="#">Education</a>
-                <a class="dropdown-item" href="#">Nursing</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Engineering</a>
-              </div>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Skills</a>
-            </li>
-             <li class="nav-item">
-              <a class="nav-link" href="#">Companies</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#">Industries</a>
-            </li>
-          </ul>
+          
           <style type="text/css">
             .carousel-item {
-              height: 500px;
+              height: 400px;
             }
             .carousel-inner {
               background: black;
@@ -50,7 +27,7 @@
               overflow: hidden;
             }
             .bg {
-              margin-top: -35px;
+              /*margin-top: -110px;*/
             }
             .bg1::after {
               content: "";
@@ -102,14 +79,147 @@
           <div class=" bansner">
               <br>
               <br>
-             <div class="container search">
-                <form class="form-inline hidden">
-                <div class="form-group mx-sm-3 mb-2">
-                  <label for="inputPassword2" class="sr-only">Search</label>
-                  <input type="text" class="form-control search2" id="inputPassword2" placeholder="Type here..">
+            <div class="container">
+            <div class="row">
+              <ul class="nav nav-pills hiddsen">
+                <li class="nav-item">
+                  <a class="nav-link active" href="#">Jobs</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Skills</a>
+                </li>
+                 <li class="nav-item">
+                  <a class="nav-link" href="#">Companies</a>
+                </li>
+              </ul>
+              <form id="btnsearch" class="form-inline">
+                
+                  <div class="col">
+                    <input type="text" class="form-control" id="searchtext" placeholder="Search Here">
+                  </div>
+                  <div class="col">
+                    <input type="submit" value="search"  class="btn btn-primary"/>
                 </div>
-                <button type="submit" class="btn btn-primary mb-2">Search</button>
               </form>
+            </div>
+          </div>
+          <br>
+          <script type="text/html" id="job">
+            <a href="#" data-id=[ID] class="viewjob list-group-item list-group-item-action flex-column align-items-start [ACTIVE]">
+                <div class="d-flex w-100 justify-content-between">
+                  <h5 class="mb-1">[TITLE]</h5>
+                </div>
+                  <small>[DATE]</small>
+                <p class="mb-1">[COMPANY]</p>
+              </a>
+          </script>
+          <div class="container">
+            <div class="row">
+              <div class="col-3">
+                <div id="jobs" class="list-group">
+
+                  
+                </div>
+              </div>
+
+
+              <style type="text/css">
+                .logo {
+                  vertical-align: middle;
+                  display: block;
+                  max-width: 100%;
+                  height: auto;
+                  margin-top: 20px;
+                }
+                .detail {
+                  float: right;
+                  list-style-type: none;
+                }
+                .hidden {
+                  display: none;
+                }
+              </style>
+              <script type="text/html" id="previewprof">
+                <div class="container_parent">
+                  <div class="alert hidden alert-success alert-dismissible fade show" role="alert">
+                    <strong>You have successfully applied to this job.</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="container">
+                    <style type="text/css">
+                      .job-banner {
+                      background: #eee url(uploads/[BANNER]) no-repeat;
+                        height: 100px;
+                        width: 100%;
+                        background-size: cover;
+                        margin-bottom: 10px;
+                      }
+                    </style>
+                    <div class="img-container job-banner"> </div>
+                  </div>
+                  <div class="container">
+                    <div class="row">
+                      <div class="col">
+                        <div class="row">
+                          <div class="col-4">
+                            <div class="img-container ">
+                              <img class="logo" src="uploads/[LOGO]">
+                            </div>
+                          </div>
+                          <div class="col">
+                            <h1 class="display-5">[TITLE]</h1>
+                            <a href="" class="display-7">[COMPANY]</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <br/>
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-8">
+                        <h3 class="display-6">Job Description</h3>
+                        <p>[DESC]</p>
+                        <hr>
+                        <b class="display-7">[OTHERDESC]</b>
+                        <br/>
+                        <br/>
+                        <div>[LIST]
+                        </div>
+                      </div>
+                      <div class="col">
+                          <h5>Other Details</h5>
+                          <ul class="dsetail">
+                            <li><em>Open Until: </em>[EXPIRE]</li>
+                            <li><em>Minimum Experience: </em>[MINEXP]</li>
+                            <li><em>Salary: </em>[SALARY]</li>
+                            <li><em>Processing Time: </em>[PROCESSINGTIME]</li>
+                          </ul>
+                          <br>
+                          <?php if (isset($_SESSION['id'])):  ?>
+                            <input type="submit" data-id="[ID]" class="btn btn-success apply  btn-lg" value="Apply" name="">
+                          <?php else: ?>
+                            <a href="login.php" class="btn btn-danger btn-sm">You need to login first in order to apply for this job</a>
+
+                          <?php endif ?>
+                      </div>
+                    </div>
+                </div>
+              </div>
+
+              </script>
+              <div class="col">
+                <div class="tab-content" id="nav-tabContent">
+                  <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+             <div class="container search">
+              
+                <hr>
                 <br/>
                 <h2 class="display-7">Jobs you may be interested in</h2>
                 <br/>
@@ -132,42 +242,56 @@
                         <a href=""><?= $job['company']; ?></a>
                         <p class="card-text">Salary : <?= $job['salary']; ?></p>
                         <p class="card-text desc"><?= $job['description']; ?></p>
-                        <a href="viewjob.php?id=<?= $job['id']; ?>" class="btn btn-success">Apply</a>
+                        <a href="viewjob.php?id=<?= $job['id']; ?>" class="btn btn-success custom">Apply</a>
                       </div>
                     </div>
                   </div>
                  <?php endforeach; ?>
                 </div>
               </div>
+              <div class="container">
+                <div class="row">
+                  <div class="col hidden">
+                     <h3 class="display-6">Employer by choice</h3>
+                     <!-- slider -->
+                     <ul class="bychoice">
+                      <?php foreach ($featuredCompanies as $key => $value): ?>
+                       <li>
+                        <a href="">
+                         <img width="100" height="auto" src="uploads/<?= $value['userid'].'/'.$value['photo'];?>" alt="<?= $value['name']; ?>">
+                        </a>
+                       </li> 
+                      <?php endforeach ?>
+                     </ul>
+                  </div>
+                </div>
+              </div>
           </div>
-          <br/>
-          <br/>
-          <h3 class="display-6">Employer by choice</h3>
-           <!-- slider -->
-           <ul class="bychoice">
-            <?php foreach ($featuredCompanies as $key => $value): ?>
-             <li>
-              <a href="">
-               <img width="100" height="auto" src="uploads/<?= $value['userid'].'/'.$value['photo'];?>" alt="<?= $value['name']; ?>">
-              </a>
-             </li> 
-            <?php endforeach ?>
-           </ul>
+         
         </main>
 
-        <footer class="pt-4 my-md-5 pt-md-5">
+        <footer class="container">
           <div class="row">
-            <div class="col-3">
+          <!--   <div class="col-3">
               <img class="mb-2" src="img/logo.png" alt="" >
               <small class="d-block mb-3 text-muted">&copy; 2017-2018</small>
-            </div>
+            </div> -->
             
-            <div class="col-8">
-              <h5>About</h5>
-              <ul class="list-unstyled text-small">
+            <div class="col">
+              <style type="text/css">
+                .footer-links {
+                  text-align: center;
+                  margin: 120px auto 20px;
+                }
+                .footer-links li {
+                  list-style-type: none;
+                  display: inline;
+                }
+              </style>
+              <ul class="list-unstyled footer-links text-small">
                 <li><a class="text-muted" data-toggle="modal" data-target="#termsModal" href="#">Terms & Conditions</a></li>
-                <li><a data-toggle="modal" data-target="#contactModal" class="text-muted" href="#">Contact Us</a></li>
-                <li><a data-toggle="modal" data-target="#privacyModal" class="text-muted" href="#">Privacy & Policies</a></li>
+                <li><a data-toggle="modal" data-target="#contactModal" class="text-muted" href="#">| Contact Us |</a></li>
+                <li><a data-toggle="modal" data-target="#privacyModal" class="text-muted" href="#">Privacy & Policies |</a></li>
                 <li><a data-toggle="modal" data-target="#aboutModal" class="text-muted" href="#">About Us</a></li>
               </ul>
             </div>
@@ -288,7 +412,128 @@
       (function($){
         $(document).ready(function(){
           $('.carousel').carousel();
-         
+          
+          $(".nav-link").on("click", function(e){
+            e.preventDefault();
+            var me = $(this);
+
+            $(".nav-link.active").removeClass("active");
+
+            me.addClass("active");
+          });
+
+          function listen(){
+              $('.alert').alert();
+
+              $(".apply").off().on("click", function(e){
+                e.preventDefault();
+
+                var me = $(this);
+                var id = me.data("id");
+
+                $.ajax({
+                  url : "process.php",
+                  data : { apply : true, id : id},
+                  type : 'POST',
+                  dataType : 'JSON',
+                  success :  function(res){
+                    console.log(res);
+                    me.parents(".container_parent").find(".alert").removeClass("hidden");
+                  }
+                });
+
+              });
+
+              $(".viewjob").off().on("click", function(e){
+                e.preventDefault();
+                var me = $(this);
+
+                $(".viewjob").removeClass("active");
+
+                me.addClass("active");
+                console.log(me.data("id"));
+
+                $.ajax({
+                  url : "process.php",
+                  data : { viewjob : true, id : me.data("id")},
+                  type : 'POST',
+                  dataType : 'JSON',
+                  success : function(res){
+                    var html = $("#previewprof").html();
+                    var target = $("#list-home");
+                    var list = res.desclist;
+                    var li = "";
+
+                    list = list.split("]");
+
+                    for(var i in list) {
+                      li += "<p>"+list[i]+"</p>";
+                    }
+                    console.log(html);
+
+                    console.log(target.length);
+                    target.html("");
+                    html = html.replace("[LOGO]", (res.userid + "/" + res.photo)).
+                      replace("[BANNER]", (res.userid + "/" + res.banner)).
+                      replace("[TITLE]", res.title).
+                      replace("[DESC]", res.description).
+                      replace("[OTHERDESC]", res.otherdesc).
+                      replace("[EXPIRE]", res.title).
+                      replace("[ID]", res.id).
+                      replace("[MINEXP]", res.min_experience).
+                      replace("[SALARY]", res.salary).
+                      replace("[PROCESSINGTIME]", res.processing_time).
+                      replace("[LIST]", li).
+                      replace("[COMPANY]", res.name);
+                    target.append(html);
+
+                    listen();
+                  }
+                });
+              });
+          }
+          
+          listen();
+          
+          $("#btnsearch").on("submit", function(e){
+            e.preventDefault();
+            var searchtext = $("#searchtext").val();
+            var cat = $(".nav-link.active").html();
+
+            var jobprev = $("#list-home");
+
+            jobprev.html("");
+
+            $.ajax({
+              url : "process.php",
+              data : { browse : true, searchtext : searchtext, category : cat},
+              type : 'POST',
+              dataType : 'JSON',
+              success : function(res){
+                console.log(res);
+                var x  = 0;
+                var target = $("#jobs");
+                
+                target.html("");
+
+                for(var i in res){
+                  var html = $("#job").html();
+
+                  html = html.replace("[ACTIVE]" , (x==0) ? 'active' : '').
+                    replace("[DATE]", res[i].date_added).
+                    replace("[TITLE]", res[i].title).
+                    replace("[ID]", res[i].id).
+                    replace("[COMPANY]", res[i].name);
+
+                    x++;
+
+                    target.append(html);
+                }
+
+                listen();
+              }
+            });
+          });
         });
 
       })(jQuery);

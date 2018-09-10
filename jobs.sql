@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 01, 2018 at 07:28 PM
+-- Generation Time: Sep 10, 2018 at 05:55 PM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.2
 
@@ -43,7 +43,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id`, `terms`, `contact`, `privacy`, `about`, `logo`, `name`) VALUES
-(8, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\r\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\r\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'ContactLorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\r\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\r\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'PriLorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\r\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\r\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'AbotLorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\r\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\r\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', NULL, '');
+(10, '<a href=\"\">email@gmail.com</a>\r\n<p>otLorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p>\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\r\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\r\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'ContactLorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\r\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\r\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'PriLorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\r\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\r\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'AbotLorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\r\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\r\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', NULL, 'Peso');
 
 -- --------------------------------------------------------
 
@@ -64,7 +64,8 @@ CREATE TABLE `application` (
 
 INSERT INTO `application` (`id`, `jobid`, `userid`, `status`) VALUES
 (6, 9, 23, 0),
-(7, 9, 23, 0);
+(7, 9, 23, 0),
+(8, 11, 29, 0);
 
 -- --------------------------------------------------------
 
@@ -96,10 +97,10 @@ CREATE TABLE `company` (
 
 INSERT INTO `company` (`id`, `name`, `address`, `overview`, `banner`, `industry`, `social_ids`, `size`, `telephone`, `email`, `photo`, `userid`, `mobile`, `completed`, `approved`) VALUES
 (3, '2', '2', '2', '37e8c8d4ad2cfe6b9f6462695e8246be.png', '2', '2', '2', '2', '2', '37e8c8d4ad2cfe6b9f6462695e8246be.png', 6, 2, 0, 0),
-(4, 'Hays Specialist', 'Tampa, Florida, US', 'Hays is the expert at recruiting qualified, professional and skilled people worldwide. We operate across the private and public sectors, dealing in full-time positions, contract roles and temporary assignments. Hays employs over 9,000 staff operating from over 250 offices in 33 countries across 20 specialisms. \r\n\r\nLast year our experts placed 67,000 candidates into permanent jobs and over 220,000 people into interim or contract assignments. We attract the best candidates, make the best match and provide the best industry expertise, delivered through our commitment to service excellence. \r\nOur website www.hays.com', 'd118f39d3444485ec693535f37925461.png', 'Staffing/Employment Agencies', 'fb', '5,000 to 9,999 employees', '09345353', 'hays@gmail.com', 'a2b5f1c3c8dec2a3173ec1409c015e2a.gif', 9, 78687678, 1, 0),
+(4, 'Hays Specialist', 'Tampa, Florida, US', 'Hays is the expert at recruiting qualified, professional and skilled people worldwide. We operate across the private and public sectors, dealing in full-time positions, contract roles and temporary assignments. Hays employs over 9,000 staff operating from over 250 offices in 33 countries across 20 specialisms. \r\n\r\nLast year our experts placed 67,000 candidates into permanent jobs and over 220,000 people into interim or contract assignments. We attract the best candidates, make the best match and provide the best industry expertise, delivered through our commitment to service excellence. \r\nOur website www.hays.com', 'd118f39d3444485ec693535f37925461.png', 'Staffing/Employment Agencies', 'fb', '5,000 to 9,999 employees', '09345353', 'hays@gmail.com', 'a2b5f1c3c8dec2a3173ec1409c015e2a.gif', 9, 78687678, 1, 1),
 (5, 'jordans', '', '', NULL, '', '', '', '', '', NULL, 11, 0, 0, 0),
-(6, 'asdsad', '', '', 'f4abe06c5c3752d36886bac2b10220d9.png', '', '', '', '', '', '733f5111c19fea69076ee001539213a9.png', 12, 0, 1, 0),
-(7, 'jordan sadiwa', '3242 zfdsfd', '', 'd118f39d3444485ec693535f37925461.png', '', '', '', '', 'sad@mail.com', '93e43439321d51bb2a5eeb7b1e57b4b6.jpeg', 21, 342424, 1, 0);
+(6, 'asdsad', '', '', 'f4abe06c5c3752d36886bac2b10220d9.png', '', '', '', '', '', '733f5111c19fea69076ee001539213a9.png', 12, 0, 1, 1),
+(7, 'jordan sadiwa', '3242 zfdsfd', '', 'd118f39d3444485ec693535f37925461.png', '', '', '', '', 'sad@mail.com', '93e43439321d51bb2a5eeb7b1e57b4b6.jpeg', 21, 342424, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -126,7 +127,9 @@ INSERT INTO `education` (`id`, `school`, `level`, `datestart`, `dateend`, `useri
 (18, 'Marinduque State College', 'Bachelor', '2018-08-01', '2018-08-01', 25),
 (19, 'Marinduque State College', 'Doctorate', '2018-08-01', '2018-08-01', 26),
 (21, 'Marinduque State College', 'Master', '2018-08-01', '2018-08-01', 23),
-(22, 'Infinite Devworks', 'Master', '2018-08-01', '2018-08-01', 23);
+(22, 'Infinite Devworks', 'Master', '2018-08-01', '2018-08-01', 23),
+(23, 'Marinduque State College', 'Bachelor', '2018-09-01', '2018-09-01', 29),
+(24, 'Marinduque State College', 'Bachelor', '2018-09-01', '2018-09-01', 29);
 
 -- --------------------------------------------------------
 
@@ -153,7 +156,9 @@ INSERT INTO `emp_history` (`id`, `companyid`, `companyname`, `startdate`, `endda
 (2, 0, 'US Autoparts', '2018-08-12', '2018-08-17', 'PHP Dev', 'ncluding fractional months in the above is much more complicated, because three days in a typical February is a larger fraction of that month (~10.714%) than three days in August (~9.677%), and of course even February is a moving target depending on whether it\'s a leap year.', 23),
 (16, 0, 'MemeisLove', '2018-08-02', '2018-08-29', 'PHP Developer', 'some desc', 25),
 (17, 0, 'MemeisLove', '2018-08-16', '2018-08-23', 'PHP Dev', 'sfsdfs', 26),
-(18, 0, 'Infinite Dev Works', '2018-08-08', '2018-11-17', 'PHP Dev', 'lorem', 23);
+(18, 0, 'Infinite Dev Works', '2018-08-08', '2018-11-17', 'PHP Dev', 'lorem', 23),
+(19, 0, 'Timeless Elements', '2018-09-06', '2018-09-19', 'Data Encoder', 'Supply data to ecommerce website', 29),
+(20, 0, 'Timeless Elements', '2018-09-06', '2018-09-19', 'Data Encoder', 'Supply data to ecommerce website', 29);
 
 -- --------------------------------------------------------
 
@@ -251,7 +256,10 @@ CREATE TABLE `message` (
 INSERT INTO `message` (`id`, `content`, `sender`, `receiver`, `seen`, `dateadded`) VALUES
 (24, 'Required forms have been updated by the administrator.<br>Please comply with the new requirements in order to post a new job.', 28, '9', 1, '2018-09-01 16:44:58'),
 (25, 'Your account has been approved.<br> You can now post a new job opening.', 28, '4', 0, '2018-09-01 16:45:14'),
-(26, 'Required forms have been updated by the administrator.<br>Please comply with the new requirements in order to post a new job.', 28, '9', 1, '2018-09-01 16:45:22');
+(26, 'Required forms have been updated by the administrator.<br>Please comply with the new requirements in order to post a new job.', 28, '9', 1, '2018-09-01 16:45:22'),
+(27, 'Your account has been approved.<br> You can now post a new job opening.', 28, '7', 0, '2018-09-09 04:19:12'),
+(28, 'Your account has been approved.<br> You can now post a new job opening.', 28, '6', 0, '2018-09-09 04:19:13'),
+(29, 'Your account has been approved.<br> You can now post a new job opening.', 28, '4', 0, '2018-09-10 15:17:05');
 
 -- --------------------------------------------------------
 
@@ -275,7 +283,8 @@ INSERT INTO `photo` (`id`, `filename`, `active`, `dateadded`) VALUES
 (72, 'dee20a9f2dae8ca2c592292f5fcaed27.png', 1, '2018-08-29 15:10:39'),
 (73, '1fd0476eca4e8a345d40ad06944c2718.png', 1, '2018-08-29 15:31:50'),
 (74, '62ceda10c7dca2bf6d7bef7234166120.jpg', 1, '2018-09-01 13:42:31'),
-(75, '55a1d747e74ae579d5e54a0f08ef71be.jpg', 1, '2018-09-01 13:43:07');
+(75, '55a1d747e74ae579d5e54a0f08ef71be.jpg', 1, '2018-09-01 13:43:07'),
+(76, 'ab96516b545d380deb0a21deb6468b98.jpg', 1, '2018-09-08 06:45:40');
 
 -- --------------------------------------------------------
 
@@ -336,7 +345,8 @@ INSERT INTO `skill` (`id`, `name`, `level`, `userid`) VALUES
 (36, 'Javascript', 2, 23),
 (37, 'CSS/CSS3', 4, 23),
 (38, 'Photoshop', 3, 23),
-(39, 'MS Office', 3, 23);
+(39, 'MS Office', 3, 23),
+(40, 'PHP', 4, 29);
 
 -- --------------------------------------------------------
 
@@ -357,9 +367,7 @@ CREATE TABLE `slider` (
 --
 
 INSERT INTO `slider` (`id`, `title`, `description`, `photoid`, `dateadded`) VALUES
-(52, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 'Ut enim ad minim veniam,\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 73, '2018-08-29 15:31:50'),
-(53, 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'Ut enim ad minim veniam,\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\ncillum dolore eu fugiat nulla pariatur.', 74, '2018-09-01 13:42:32'),
-(54, 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ', 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.', 75, '2018-09-01 13:43:08');
+(55, 'See it. Love it', 'A unique and beautiful collection of UI elements that are all flexible and modular. A complete and customizable solution to building the website of your dreams.', 76, '2018-09-08 06:45:40');
 
 -- --------------------------------------------------------
 
@@ -385,7 +393,8 @@ INSERT INTO `socialmedia` (`id`, `name`, `link`, `userid`) VALUES
 (10, 'fb', '', 21),
 (14, 'fb', 'fn.vom', 25),
 (15, 'jordan sadiwa', 'sfsdf', 26),
-(18, 'jordan sadiwa', 'test.com', 23);
+(18, 'jordan sadiwa', 'test.com', 23),
+(19, 'facebook.com', 'fb.com/sadasdasda', 29);
 
 -- --------------------------------------------------------
 
@@ -433,7 +442,8 @@ INSERT INTO `user` (`id`, `username`, `password`, `usertype`, `deleted`, `datere
 (25, 'applicant3', '80228fe3343c9613474abdc5d549416d', 'applicant', 0, '2018-08-20 13:29:53'),
 (26, 'applicant4', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'applicant', 0, '2018-08-20 15:14:44'),
 (27, 'applicant6', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'applicant', 0, '2018-08-22 10:33:20'),
-(28, 'admin', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'admin', 0, '2018-08-28 05:15:37');
+(28, 'admin', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'admin', 0, '2018-08-28 05:15:37'),
+(29, 'testuser', '0b4e7a0e5fe84ad35fb5f95b9ceeac79', 'applicant', 0, '2018-09-08 05:16:02');
 
 -- --------------------------------------------------------
 
@@ -472,7 +482,8 @@ INSERT INTO `userinfo` (`id`, `firstname`, `lastname`, `middlename`, `dob`, `add
 (5, 'fname1', 'lname1', 'mname1', '2018-08-02', 'add1', 1, 'nat1', '', '16', '7d9e92e6620014147b7ea839451e87d5.docx', '35fe3128054de722cc7796074b08dd2f.jpg', 'sad1@gmail.com', 23, '', 'female', 1, '23424', '24234'),
 (6, 'Jordan', 'Sadiwa', 'De los Reyes', '2018-08-09', '1852 Sandejas Pasay City', 630000000, 'Philippines', '', '', NULL, '93e43439321d51bb2a5eeb7b1e57b4b6.jpeg', 'sad@mail.com', 25, '', 'male', 1, NULL, NULL),
 (7, 'jordan', 'sadiwa', 'De los Reyes', '0000-00-00', '3242 zfdsfd', 342424, 'Hong Kong', '', '', NULL, NULL, 'sad@mail.com', 26, '', 'male', 1, NULL, NULL),
-(8, '', '', '', '0000-00-00', '', 0, '', '', '', NULL, NULL, '', 27, '', 'male', 0, NULL, NULL);
+(8, '', '', '', '0000-00-00', '', 0, '', '', '', NULL, NULL, '', 27, '', 'male', 0, NULL, NULL),
+(9, 'jordan', 'sadiwa', '', '2018-09-03', '3242 zfdsfd', 342424, 'Hong Kong', '', '', NULL, '5482b6b334b5b8380d715a5bffae331f.png', 'sad@mail.com', 29, '', 'male', 1, 'Web Developer', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\r\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\r\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.');
 
 --
 -- Indexes for dumped tables
@@ -576,13 +587,13 @@ ALTER TABLE `userinfo`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `application`
 --
 ALTER TABLE `application`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `company`
@@ -594,13 +605,13 @@ ALTER TABLE `company`
 -- AUTO_INCREMENT for table `education`
 --
 ALTER TABLE `education`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `emp_history`
 --
 ALTER TABLE `emp_history`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `industry`
@@ -618,13 +629,13 @@ ALTER TABLE `job`
 -- AUTO_INCREMENT for table `message`
 --
 ALTER TABLE `message`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `photo`
 --
 ALTER TABLE `photo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
 
 --
 -- AUTO_INCREMENT for table `requirement`
@@ -636,31 +647,31 @@ ALTER TABLE `requirement`
 -- AUTO_INCREMENT for table `skill`
 --
 ALTER TABLE `skill`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `slider`
 --
 ALTER TABLE `slider`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT for table `socialmedia`
 --
 ALTER TABLE `socialmedia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `userinfo`
 --
 ALTER TABLE `userinfo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -19,8 +19,21 @@
             </div>
           </div>
           <br>
+          <br>
           <div class="container">
             <div class="row">
+
+               <ul class="nav nav-pills hiddsen">
+                <li class="nav-item">
+                  <a class="nav-link active" href="#">Jobs</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Skills</a>
+                </li>
+                 <li class="nav-item">
+                  <a class="nav-link" href="#">Companies</a>
+                </li>
+              </ul>
               <form id="btnsearch" class="form-inline">
                 
                   <div class="col">
@@ -162,13 +175,16 @@
     <script type="text/javascript">
       (function($){
         $(document).ready(function(){
-
-          $("#btnsearch").on("submit", function(e){
+          $(".nav-pills .nav-link").on("click", function(e){
             e.preventDefault();
-            var searchtext = $("#searchtext").val();
+            var me = $(this);
 
+            $(".nav-pills .nav-link.active").removeClass("active");
 
-            function listen(){
+            me.addClass("active");
+          });
+
+          function listen(){
               $('.alert').alert();
 
               $(".apply").off().on("click", function(e){
@@ -237,19 +253,31 @@
                   }
                 });
               });
-            }
+          }
+          
+          listen();
+          
+          $("#btnsearch").on("submit", function(e){
+            e.preventDefault();
+            var searchtext = $("#searchtext").val();
+            var cat = $(".nav-link.active").html();
 
-            listen();
+            var jobprev = $("#list-home");
+
+            jobprev.html("");
 
             $.ajax({
               url : "process.php",
-              data : { browse : true, searchtext : searchtext},
+              data : { browse : true, searchtext : searchtext, category : cat},
               type : 'POST',
               dataType : 'JSON',
               success : function(res){
                 console.log(res);
                 var x  = 0;
                 var target = $("#jobs");
+                
+                target.html("");
+
                 for(var i in res){
                   var html = $("#job").html();
 
@@ -261,7 +289,6 @@
 
                     x++;
 
-                    target.html("");
                     target.append(html);
                 }
 
