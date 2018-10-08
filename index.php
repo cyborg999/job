@@ -242,7 +242,8 @@
                         <a href=""><?= $job['company']; ?></a>
                         <p class="card-text">Salary : <?= $job['salary']; ?></p>
                         <p class="card-text desc"><?= $job['description']; ?></p>
-                        <a href="viewjob.php?id=<?= $job['id']; ?>" class="btn btn-success custom">Apply</a>
+                        <!-- <a href="viewjob.php?id=<?= $job['id'];?>" class="btn btn-success custom">Apply</a> -->
+                        <a href="login.php?id=<?= $job['id'];?>" class="btn btn-success custom">Apply</a>
                       </div>
                     </div>
                   </div>

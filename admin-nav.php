@@ -16,7 +16,7 @@
       $photo = (!$valid) ? "./img/default.jpg" : $_SESSION['photo'];
 
       ?>
-      <img id="account-logo" src="<?= $photo;?>">
+      <!-- <img id="account-logo" src="<?= $photo;?>"> -->
         
     </div>
 
@@ -46,6 +46,12 @@
          <a class="nav-link" href="companies.php">
           <span data-feather="file"></span>
           Companies
+        </a>
+      </li>
+      <li class="nav-item">
+         <a class="nav-link" href="cvs.php">
+          <span data-feather="file"></span>
+          Applicants
         </a>
       </li>
       <li class="nav-item">

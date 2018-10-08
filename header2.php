@@ -24,7 +24,15 @@
 
   <body>
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="index.php"><img src="img/logo2.png"/></a>
+      <style type="text/css">
+        #complogo {
+          max-width: 100%;
+          max-height: 50px;
+          margin: 0 auto;
+          display: block;
+        }
+      </style>
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="index.php"><img id="complogo" src="img/<?= $name['logo'];?>"/></a>
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
           <a class="nav-link" href="logout.php">Logout</a>

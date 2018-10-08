@@ -47,8 +47,138 @@ class Model {
 		$this->markSeenListener();
 		$this->settingsListener();
 		$this->changePasswordListener();
+		$this->searchUserListener();
+		$this->viewEmployerChartListener();
 		$this->uploadCV();
+		$this->uploadLogo();
 	}	
+
+	public function viewEmployerChartListener(){
+		if(isset($_POST['viewEmployerChart'])){
+			$this->getEmployerChart();
+		}
+	}
+
+	public function getPhoto(){
+		$photo = "";
+
+		if($_SESSION['usertype'] == "employer"){
+			$photo = $this->db->query("
+					SELECT photo
+					FROM company
+					WHERE userid = ".$_SESSION['id']." 
+					LIMIT 1
+					")->fetchAll(PDO::FETCH_ASSOC);
+		} else {
+			//applicant
+			$photo = $this->db->query("
+					SELECT photo
+					FROM userinfo
+					WHERE userid = ".$_SESSION['id']." 
+					LIMIT 1
+					")->fetchAll(PDO::FETCH_ASSOC);
+		}
+
+		return reset($photo);
+	}
+
+	public function getEmployerChart(){
+		$year = $_POST['year'];
+
+		if($_POST['year'] == "current"){
+			$year = date("Y");
+		}
+
+		$year2 = $year + 1;
+
+		$stmnt = $this->db->query("
+				SELECT t1.jobid,t2.userid,t2.id,t2.date_added,t2.title
+				FROM  application t1
+				LEFT JOIN job t2 ON t1.jobid = t2.id
+				WHERE (YEAR(t1.date_added) BETWEEN ".$year." AND ".$year2.")
+				AND t2.userid = ".$_SESSION['id']."
+			")->fetchAll(PDO::FETCH_ASSOC);
+
+		$data = array();
+		foreach ($stmnt as $key => $value) {
+				$date = date_create($value['date_added']);
+				$y = date_format($date,"Y");
+				$m = date_format($date,"m");
+
+				//set default 12 months
+				if(! @in_array($y, $data[$value['jobid']])) {
+						
+					for($i = 0; $i<=11;$i++){
+							$data[$value['jobid']][$y][$i] = 0;
+					}
+				}
+
+				@$data[$value['jobid']][$y][$m] += 1;
+				@$data[$value['jobid']]['title'] = $value['title'];
+		}
+
+		$series = array();
+		$counter = 0;
+			// opd($data);
+
+		foreach($data as $idx => $d){
+			@$series[$counter]['name'] = $d['title'];
+			$series[$counter]['data'] = $d[key($d)];
+			$counter++;
+		}
+
+		die(json_encode($series));
+	}
+
+	public function updateLogo($filename) {
+
+		$this->db->prepare("
+				UPDATE admin
+				SET logo = ?
+				WHERE 1
+			")->execute(array($filename));
+	}
+
+	public function uploadLogo(){
+		if(isset($_FILES['newlogo'])){
+
+			$path = "img/";
+			$ext = ".".pathinfo($_FILES['newlogo']['name'], PATHINFO_EXTENSION);
+			$filename = md5($_FILES['newlogo']['name']).$ext;
+
+			if (!file_exists($path)) {
+			    mkdir($path, 0777, true);
+			}
+			if(move_uploaded_file($_FILES['newlogo']['tmp_name'], $path."/".$filename)){
+
+				$this->updateLogo($filename);
+				die(json_encode(array('success')));
+			}
+			else {
+				die(json_encode(array('failed')));
+			}
+		}
+	}
+	public function searchUserListener(){
+		if(isset($_POST['searchUser'])){
+			$data = $this->db->query("
+					SELECT *
+					FROM userinfo
+					WHERE concat(lastname,firstname) LIKE '%".$_POST['txt']."%'
+				")->fetchAll(PDO::FETCH_ASSOC);
+
+			die(json_encode($data));
+		}
+	}
+
+
+	public function getAllUser(){
+		return $this->db->query("
+				SELECT *
+				FROM userinfo
+				ORDER BY lastname ASC
+			")->fetchAll(PDO::FETCH_ASSOC);
+	}
 
 	public function restrictAccessByLevel($level){
 		if(isset($_SESSION['usertype'])){
@@ -944,7 +1074,12 @@ class Model {
 				$_SESSION['photo'] = 'uploads/'.$_SESSION['id'].'/'.$data['photo'];
 				$_SESSION['name'] = $data['firstname'];
 
-				header("Location:browse.php");
+				if(isset($_GET['id'])){
+					header("Location:viewjob.php?id=".$_GET['id']);
+
+				} else {
+					header("Location:browse.php");
+				}
 			} else {
 				header("Location:info.php");
 			}

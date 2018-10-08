@@ -1,6 +1,6 @@
 <style type="text/css">
   #account-logo {
-    width: 95%;
+    max-width: 95%;
     max-height: 200px;
     height: auto;
     display: block;
@@ -13,9 +13,9 @@
       <br>  
       <br>  
       <?php
-      $valid = strpos($_SESSION['photo'], ".");
-      $photo = (!$valid) ? "./img/default.jpg" : $_SESSION['photo'];
-
+      $valid = strpos(@$_SESSION['photo'], ".");
+      $pic = $model->getPhoto();
+      $photo = (!$valid) ? "./img/default.jpg" : "uploads/".$_SESSION['id'].'/'.$pic['photo'];
       ?>
       <img id="account-logo" src="<?= $photo;?>">
     </div>
@@ -53,6 +53,12 @@
           <a class="nav-link" href="alljob.php">
             <span data-feather="clipboard"></span>
             View All Jobs
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="reports.php">
+            <span data-feather="clipboard"></span>
+            Reports
           </a>
         </li>
       <?php else: ?>

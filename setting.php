@@ -16,7 +16,9 @@ $setting = $model->getSettings();
           <br>
           <br>
           <div class="container">
+           
             <div class="row">
+              
               <div class="col">
                 <form method="post" action="">
                   <input type="hidden" name="setting" value="true">
@@ -40,9 +42,20 @@ $setting = $model->getSettings();
                     <textarea cols="130" class="form-control" name="contact"><?= (isset($setting['contact']) ? $setting['contact'] : '');?></textarea>
                   </label>
                   <hr>
-                  <input type="submit" class="btn btn-success" value="save" name="">
+                  <input type="submit" class="btn btn-success" value="Save" name="">
                 </form>
                 
+              </div>
+            </div>
+
+             <div class="row">
+              <div class="col">
+                <br>
+                <br>
+                <h4>Upload New Logo</h4>
+                <iframe src="logo.php" width="100%;" frameborder="0" style="overflow: hidden;margin: 0;padding: 0; height: 500px;">
+                  
+                </iframe>
               </div>
             </div>
           </div>

@@ -9,11 +9,13 @@ $password 	= "";
 
 
 // // //live
-// $server 	= "sugarbait.ml";
-// $db 		= "sugarbait";
-// $username 	= "root";
+// $server 	= "198.91.81.7";
+// $server 	= "localhost";
+
+// $db 		= "pesox10h_jobs";
+// $username 	= "pesox10h";
 // $charset 	= "utf8";
-// $password 	= "M@r1c3l@2018";
+// $password 	= "matantei999";
 
 
 

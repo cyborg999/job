@@ -1,6 +1,6 @@
 <?php include_once "model.php"; ?>
 <?php $model = new Model(); 
-  $model->restrictAccessByLevel(3);
+  $model->restrictAccessByLevel(2);
 	$mySocial = $model->getMySocial();
 ?>
 <?php include_once "header.php"; ?>
