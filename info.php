@@ -88,13 +88,18 @@
 					<label>Middlename
 						<input type="text" class="form-control" name="middlename" value="" placeholder="Middlename..."/>
 					</label>
-					<label>Lastname
+					<label >Lastname
 						<input type="text" class="form-control" name="lastname" value="" placeholder="Lastname..."/>
 					</label>
-					<label>Gender
-						<input type="checkbox" name="gender" value="male" checked />
-						<input type="checkbox" name="gender" value="female"/>
+					<label><span class="badge badge-primary">Gender</span>
+						<label>Male
+							<input type="radio" name="gender" value="male" checked />
+						</label>
+						<label>Female
+							<input type="radio" name="gender" value="female"/>
+						</label>
 					</label>
+
 					<label>Date of Birth
 						<input type="date" class="form-control" name="dob" value="" placeholder="Date of Birth..."/>
 					</label>
@@ -102,7 +107,7 @@
 						<input type="text" class="form-control" name="address" value="" placeholder="Address..."/>
 					</label>
 					<label>Mobile
-						<input type="text" class="form-control" name="mobile" value="" placeholder="Mobile #..."/>
+						<input type="number" class="form-control" name="mobile" value="" placeholder="Mobile #..."/>
 					</label>
 					<label>Nationality
 						<input type="text" class="form-control" name="nationality" value="" placeholder="Nationality..."/>
@@ -116,7 +121,7 @@
 					<label>Industry
 						<select class="form-control" name="industry_ids">
 							<?php foreach($industry as $idx => $i): ?>
-								<option value=""><?= $i['name'];?></option>
+								<option value="<?= $i['id'];?>"><?= $i['name'];?></option>
 							<?php endforeach; ?>
 						</select>
 					</label>

@@ -1,7 +1,8 @@
 <?php include_once "model.php"; ?>
 <?php $model = new Model(); 
-  $model->restrictAccessByLevel(2);
+	$model->restrictAccessByLevel(2);
 	$mySocial = $model->getMySocial();
+	$industry = $model->getIndustry();
 ?>
 <?php include_once "header.php"; ?>
 
@@ -99,7 +100,11 @@
 						<input type="text" class="form-control" name="email" value="" placeholder="Email..."/>
 					</label>
 					<label>Industry
-						<input type="text" class="form-control" value="" name="industry_ids">
+						<select class="form-control" name="industry_ids">
+							<?php foreach($industry as $idx => $i): ?>
+								<option value="<?= $i['id'];?>"><?= $i['name'];?></option>
+							<?php endforeach; ?>
+						</select>
 					</label>
 					<label class="hidden">Social Media
 						<input type="text" class="form-control" value="" name="social_ids">

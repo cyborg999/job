@@ -1,38 +1,58 @@
 <?php include_once "model.php"; ?>
 <?php $model = new Model(); 
-  // $model->restrictAccessByLevel(2);
-  $data = $model->getCompanyBySessionId();
+  $model->restrictAccessByLevel(3);
 ?>
 <?php include_once "header2.php"; ?>
-
+  <script src="hc/code/highcharts.js"></script>
+  <script src="hc/code/modules/data.js"></script>
+  <script src="hc/code/modules/drilldown.js"></script>
   <style type="text/css">
 
-
   </style>
-  
-<script src="hc/code/highcharts.js"></script>
-<script src="hc/code/modules/data.js"></script>
-<script src="hc/code/modules/drilldown.js"></script>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+    <div class="container-fluid">
+      <div class="row">
+        <?php include_once "admin-nav.php"; ?>
 
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+          <br>
+          <br>
+          <div  class="container">
+            <div class="row">
+              <div class="col-12" id="applicant"></div>
+            </div>
+            <div class="row">
+              <div class="col-12" id="employer"></div>
+            </div>
+          </div>
+         
+        </main>
+      </div>
+    </div>
+ <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+    <script src="bootstrap-4.0.0/assets/js/vendor/popper.min.js"></script>
     <script src="js/jquery.js"></script>
+    <script src="bootstrap-4.0.0/dist/js/bootstrap.min.js"></script>
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+    <script>
+      feather.replace()
+    </script>
+
     <script type="text/javascript">
       (function($){
         $(document).ready(function(){
-          function renderChart(res){
+          function renderChart(res,target, title, yLabel){
             // Create the chart
-            Highcharts.chart('container', {
+            Highcharts.chart(target, {
                 chart: {
                     type: 'column'
                 },
                 title: {
-                    text: 'Number of Applicants per Year'
+                    text: title
                 },
                 subtitle: {
                     text: ''
@@ -42,7 +62,7 @@
                 },
                 yAxis: {
                     title: {
-                        text: 'Applicants Count'
+                        text: yLabel
                     }
 
                 },
@@ -85,15 +105,22 @@
             type : "POST",
             dataType : "JSON", 
             success : function(res){
-                renderChart(res);
+                renderChart(res, "applicant", 'Number of Applicants per Year',  'Applicant Count');
+            }
+          });
+
+          //loads initial data
+          $.ajax({
+            url : "process.php",
+            data : { viewAdminChartEmployer : true},
+            type : "POST",
+            dataType : "JSON", 
+            success : function(res){
+                renderChart(res, "employer", 'Number of Employers per Year',  'Employer Count');
             }
           });
         });
       })(jQuery);
-    </script>
-    <script type="text/javascript">
-
-
     </script>
   </body>
 </html>

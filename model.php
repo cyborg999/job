@@ -41,6 +41,7 @@ class Model {
 		$this->requirementUploadListener();
 		$this->addRequirementListener();
 		$this->approveCompanyListener();
+		$this->disApproveCompanyListener();
 		$this->addSlideListener();
 		$this->uploadSliderListener();
 		$this->deleteSlideListener();
@@ -49,9 +50,177 @@ class Model {
 		$this->changePasswordListener();
 		$this->searchUserListener();
 		$this->viewEmployerChartListener();
+		$this->removeUserListener();
+		$this->activateUserListener();
+		$this->viewAdminChartListener();
 		$this->uploadCV();
 		$this->uploadLogo();
 	}	
+
+	public function viewAdminChartListener(){
+		if(isset($_POST['viewAdminChart'])){
+			$this->getAdminChart();
+		}
+
+		if(isset($_POST['viewAdminChartEmployer'])){
+			$this->getAdminChartForEmployer();
+		}
+	}
+
+	public function removeUserListener(){
+		if(isset($_POST['removeUser'])){
+			$this->db->prepare("
+					UPDATE user
+					SET deleted = 1
+					WHERE id = ?
+				")->execute(array($_POST['id']));
+
+			die(json_encode(array("success")));
+		}
+	}
+
+	public function activateUserListener(){
+		if(isset($_POST['activateUser'])){
+			$this->db->prepare("
+					UPDATE user
+					SET deleted = 0
+					WHERE id = ?
+				")->execute(array($_POST['id']));
+
+			die(json_encode(array("success")));
+		}
+	}
+
+	public function getAdminChartForEmployer(){
+		$stmnt = $this->db->query("
+				SELECT t1.industry,YEAR(t2.dateregistered) as 'year',t3.name
+				FROM company t1
+				LEFT JOIN user t2 ON t1.userid = t2.id
+				LEFT JOIN industry t3 ON t1.industry = t3.id
+				WHERE t2.usertype = 'employer'
+			")->fetchAll(PDO::FETCH_ASSOC);
+
+		$series = array();
+
+		foreach($stmnt as $idx => $d) {
+			@$series[$d['year']][$d['industry']]['y'] += 1;
+			@$series[$d['year']][$d['industry']]['name'] = $d['name'];
+			@$series[$d['year']][$d['industry']]['drilldown'] = $d['name'];
+
+		}
+
+		// { data
+		// "name": "Safari",
+		// "y": 5.58,
+		// "drilldown": "Safari"
+		// },
+
+
+		//series
+		//     "name": "2018",
+        //     "id": "2018",
+        //     "data": [
+        //         [
+        //             "Finance & Accounts",
+        //             y
+        //         ],
+        //     ]
+        // },
+		$data = array();
+		$drilldown = array();
+
+		foreach($series as $year =>$d) {
+			$y = 0;
+			$drilldata = array();
+
+			foreach($d as $idx => $a) {
+				$y += $a['y'];
+
+				$drilldata[] = array($a['name'], $a['y']);
+			}
+
+			$data[] = array(
+				"name" => $year,
+				"y" => $y,
+				"drilldown" => $year,
+			);
+
+			$drilldown[] = array(
+				"name" => $year,
+				"id" => $year,
+				"data" => $drilldata
+			);
+
+		}
+
+		die(json_encode(array("data" => $data, "series" => $drilldown)));
+	}
+
+	public function getAdminChart(){
+		$stmnt = $this->db->query("
+				SELECT t1.industry_ids,YEAR(t2.dateregistered) as 'year',t3.name
+				FROM userinfo t1
+				LEFT JOIN user t2 ON t1.userid = t2.id
+				LEFT JOIN industry t3 ON t1.industry_ids = t3.id
+				WHERE t2.usertype = 'applicant'
+			")->fetchAll(PDO::FETCH_ASSOC);
+
+		$series = array();
+
+		
+		foreach($stmnt as $idx => $d) {
+			@$series[$d['year']][$d['industry_ids']]['y'] += 1;
+			@$series[$d['year']][$d['industry_ids']]['name'] = $d['name'];
+			@$series[$d['year']][$d['industry_ids']]['drilldown'] = $d['name'];
+
+		}
+
+		// { data
+		// "name": "Safari",
+		// "y": 5.58,
+		// "drilldown": "Safari"
+		// },
+
+
+		//series
+		//     "name": "2018",
+        //     "id": "2018",
+        //     "data": [
+        //         [
+        //             "Finance & Accounts",
+        //             y
+        //         ],
+        //     ]
+        // },
+		$data = array();
+		$drilldown = array();
+
+		foreach($series as $year =>$d) {
+			$y = 0;
+			$drilldata = array();
+
+			foreach($d as $idx => $a) {
+				$y += $a['y'];
+
+				$drilldata[] = array($a['name'], $a['y']);
+			}
+
+			$data[] = array(
+				"name" => $year,
+				"y" => $y,
+				"drilldown" => $year,
+			);
+
+			$drilldown[] = array(
+				"name" => $year,
+				"id" => $year,
+				"data" => $drilldata
+			);
+
+		}
+
+		die(json_encode(array("data" => $data, "series" => $drilldown)));
+	}
 
 	public function viewEmployerChartListener(){
 		if(isset($_POST['viewEmployerChart'])){
@@ -174,9 +343,10 @@ class Model {
 
 	public function getAllUser(){
 		return $this->db->query("
-				SELECT *
-				FROM userinfo
-				ORDER BY lastname ASC
+				SELECT t1.*,t2.deleted
+				FROM userinfo t1
+				LEFT JOIN user t2 ON t1.userid = t2.id
+				ORDER BY t1.lastname ASC
 			")->fetchAll(PDO::FETCH_ASSOC);
 	}
 
@@ -451,6 +621,29 @@ class Model {
 			$this->addMessage("Your account has been approved.<br> You can now post a new job opening.", $_POST['userid']);
 			die(json_encode(array("success")));
 		}
+	}
+
+	public function  disApproveCompanyListener(){
+		if(isset($_POST['disApproveCompany'])){
+			$this->db->prepare("
+				UPDATE company
+				SET approved = 0
+				WHERE id = ?
+				")->execute(array($_POST['id']));
+
+			$this->addMessage("Your account has been disapproved.<br> Please recheck and upload all the necessary requirements in order to post a new job.", $_POST['userid']);
+			die(json_encode(array("success")));
+		}
+	}
+
+	public function getAllCompanies(){
+		$records = $this->db->query("
+				SELECT *
+				FROM company
+				WHERE completed = 1
+			")->fetchAll(PDO::FETCH_ASSOC);
+
+		return $records;
 	}
 
 	public function getCompanyByApproved($approved){
@@ -1109,6 +1302,7 @@ class Model {
 					FROM user
 					WHERE username = '".$_POST['username']."'
 					AND password = '". md5($_POST['password'])."'
+					AND deleted = 0
 					LIMIT 1
 				")->fetchAll();
 
@@ -1246,7 +1440,6 @@ class Model {
 					SELECT *
 					FROM userinfo
 					WHERE userid = ".$_SESSION['id'])->rowCount();	
-
 			if($exists>0){
 				$this->db->prepare("
 						UPDATE  userinfo

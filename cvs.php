@@ -64,6 +64,11 @@
                             <?php endif ?>
                         <td>
                           <input type="submit" data-toggle="modal" data-target="#adminModal" data-id="preview.php?id=<?= $value['userid'];?>" class="btn previewApplicant btn-succes btn-sm" value="preview" name="">
+                          <?php if ($value['deleted'] == 1): ?>
+                            <input type="submit"  data-id="<?= $value['userid'];?>" class="activate btn btn-success btn-sm" value="Activate" name="">
+                          <?php else :  ?>
+                            <input type="submit"  data-id="<?= $value['userid'];?>" class="deactivate btn btn-danger btn-sm" value="Deactivate" name="">
+                          <?php endif ?>
                         </td>
                       </tr>
                     <?php endforeach ?>
@@ -81,6 +86,7 @@
                 [CV]
               <td>
                 <input type="submit" data-toggle="modal" data-target="#adminModal" data-id="preview.php?id=[USERID]" class="btn previewApplicant btn-succes btn-sm" value="preview" name="">
+                <input type="submit"  data-id="[ID]" class="[CS] btn btn-[BTN] btn-sm" value="[TEXT]">
               </td>
             </tr>
           </script>
@@ -111,6 +117,50 @@
               var id = $(this).data("id");
               $("#adminModal").find("iframe").attr("src", id);
             });  
+
+            $(".deactivate").off().on("click", function(e){
+              e.preventDefault();
+              
+              var id = $(this).data("id");
+              var me = $(this);
+
+              $.ajax({
+                url : "process.php",
+                data : { removeUser : true, id: id},
+                type : "POST",
+                dataType : "JSON",
+                success : function(res){
+                  console.log(res);
+                  me.removeClass("deactivate btn-danger").addClass("activate btn-success");
+                  me.attr("value","Activate");
+                 
+                  listen();
+                }
+              });
+
+            });
+
+            $(".activate").off().on("click", function(e){
+              e.preventDefault();
+              var me = $(this);
+              
+              var id = $(this).data("id");
+
+              $.ajax({
+                url : "process.php",
+                data : { activateUser : true, id: id},
+                type : "POST",
+                dataType : "JSON",
+                success : function(res){
+                  console.log(res);
+                  me.removeClass("activate btn-primary").addClass("deactivate btn-danger");
+                  me.attr("value","Deactivate");
+
+                  listen();
+                }
+              });
+
+            });
           }
 
           listen();
@@ -139,12 +189,30 @@
                     cv = '<a href="uploads/'+res[i].userid+'/'+res[i].resume+'">Download CV</a>';
                   }
 
+                  var btn = "";
+                  var cs = "";
+                  var txt = "";
+
+                  if(res[i].deleted == 1){
+                    cs = "activate";
+                    btn = "success";
+                    txt = "Activate";
+                  } else {
+                    cs = "deactivate";
+                    btn = "danger";
+                    txt = "Deactivate";
+                  }
+
                   html = html.replace("[USERID]", res[i].userid).
                               replace("[PHOTO]", res[i].photo).
                               replace("[LASTNAME]", res[i].lastname).
                               replace("[FIRSTNAME]", res[i].firstname).
                               replace("[POSITION]", res[i].position).
                               replace("[CV]", cv).
+                              replace("[ID]", res[i].userid).
+                              replace("[CS]", cs).
+                              replace("[BTN]", btn).
+                              replace("[TEXT]", txt).
                               replace("[USERID]", res[i].userid);
 
                   body.append(html);

@@ -55,6 +55,12 @@
         </a>
       </li>
       <li class="nav-item">
+         <a class="nav-link" href="adminchart.php">
+          <span data-feather="pie-chart"></span>
+          Reports
+        </a>
+      </li>
+      <li class="nav-item">
          <a class="nav-link" href="setting.php">
           <span data-feather="settings"></span>
           Settings

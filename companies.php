@@ -2,7 +2,7 @@
 <?php $model = new Model(); 
 
 $requirements = $model->getAllAdminRequirements();
-$companies = $model->getCompanyByApproved(0);
+$companies = $model->getAllCompanies();
 
 // opd($list);
 ?>
@@ -45,7 +45,11 @@ $companies = $model->getCompanyByApproved(0);
                       <td><?= $value['name'];?></td>
                       <td>
                           <a href="" class="btn view">view requirements</a>
-                          <a href="" data-id="<?= $value['id'];?>" data-userid="<?= $value['userid'];?>" class="btn btn-primary approve">Approve</a>
+                          <?php if ($value['approved'] == 1): ?>
+                            <a href="" data-id="<?= $value['id'];?>" data-userid="<?= $value['userid'];?>" class="btn btn-danger disapprove">Disapprove</a>
+                          <?php else: ?>
+                            <a href="" data-id="<?= $value['id'];?>" data-userid="<?= $value['userid'];?>" class="btn btn-success approve">Approve</a>
+                          <?php endif ?>
                       </td>
                     </tr> 
                     <tr class="req hidden">
@@ -109,7 +113,29 @@ $companies = $model->getCompanyByApproved(0);
               $(this).parents("tr").next("tr.req").toggleClass("hidden");
             });
 
-            $(".approve").on("click", function(e){
+            $(".disapprove").off().on("click", function(e){
+              e.preventDefault();
+
+              var me = $(this);
+              var id = me.data("id");
+              var userid = me.data("id");
+
+              $.ajax({
+                url : "process.php",
+                data : { disApproveCompany : true, id:id, userid:userid},
+                type : 'POST',
+                dataType : 'JSON',
+                success : function(res){
+                  console.log(res);
+                  me.removeClass("disapprove btn-danger").addClass("approve btn-success");
+                  me.html("Approve");
+                  // me.parents("tr").remove();
+                  __listen();
+                }
+              });
+            });
+
+            $(".approve").off().on("click", function(e){
               e.preventDefault();
 
               var me = $(this);
@@ -122,9 +148,9 @@ $companies = $model->getCompanyByApproved(0);
                 type : 'POST',
                 dataType : 'JSON',
                 success : function(res){
-                  console.log(res);
-
-                  me.parents("tr").remove();
+                  me.removeClass("approve btn-success").addClass("disapprove btn-danger");
+                  me.html("Disapprove");
+                  __listen();
                 }
               });
             });

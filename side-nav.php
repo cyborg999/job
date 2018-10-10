@@ -57,7 +57,7 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="reports.php">
-            <span data-feather="clipboard"></span>
+            <span data-feather="pie-chart"></span>
             Reports
           </a>
         </li>
