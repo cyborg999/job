@@ -73,7 +73,7 @@
                     <label>Industry
                       <select class="form-control" required name="industry">
                         <?php foreach($industry as $idx => $i): ?>
-                          <option value=""><?= $i['name'];?></option>
+                          <option value="<?= $i['id'];?>"><?= $i['name'];?></option>
                         <?php endforeach; ?>
                       </select>
                     </label>

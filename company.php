@@ -56,7 +56,7 @@
 				/*background: orange;*/
 				position: relative;
 				overflow: hidden;
-				min-height: 700px;
+				min-height: 800px;
 			}
 			.container.comp {
 				float: left;
@@ -126,25 +126,29 @@
 			</div>
 
 			<div class="container photo comp">
-				<div class="upphoto">
-					<span class="btn custom fileinput-button">
-				        <i class="glyphicon glyphicon-plus"></i>
-				        <span>Add Company Logo...</span>
-				        <input id="fileupload" type="file" name="companyphoto">
-				    </span>
-				    <br>
-				    <br>
-				    <div id="progress" class="progress">
-				        <div class="progress-bar progress-bar-success"></div>
-				    </div>
-				    <div id="files" class="files"></div>
-				    <br/>
-				    <br/>
+				<div >
+					<div class="upphoto" style="padding-left: 40px;">
+						<span class="btn custom fileinput-button">
+					        <i class="glyphicon glyphicon-plus"></i>
+					        <span>Add Company Logo...</span>
+					        <input id="fileupload" type="file" name="companyphoto">
+					    </span>
+					    <br>
+					    <br>
+					    <div id="progress" class="progress">
+					        <div class="progress-bar progress-bar-success"></div>
+					    </div>
+					    <div id="files" class="files"></div>
+					    <br/>	
+					</div>
+					
+				    <iframe src="companybanner.php" frameborder="0"></iframe>
+					 <br/>
 			    	<input type="submit" value="<<prev" data-left="0px" data-percen="0%" class="next btn custom" name="">
-			    	<input type="submit" value="next>>" data-left="-120px" data-percen="-200%" class="next btn custom" name="">
+			    	<input type="submit" value="next>>" data-left="-89px" data-percen="-200%" class="next btn custom" name="">
 				</div>
 			</div>
-
+<!-- 
 
 			<div class="container comp">
 				<iframe src="companybanner.php" frameborder="0"></iframe>
@@ -152,7 +156,7 @@
 			    <br/>
 			    <input type="submit" value="<<prev" data-left="-120px" data-percen="-100%" class="next btn custom" name="">
 			    <input type="submit" value="next>>" data-left="-89px" data-percen="-300%" class="next btn custom" name="">
-			</div>
+			</div> -->
 			<div class="container comp">
 				<style type="text/css">
 					#social {
@@ -213,7 +217,7 @@
 			 	<br/>
 			    <br/>
 			    <input type="submit" value="<<prev" data-left="-89px" data-percen="-200%" class="next btn custom" name="">
-			    <input type="submit" id="socialnext" disabled value="next>>" data-left="-42px" data-percen="-400%" class="next btn custom" name="">
+			    <input type="submit" id="socialnext" disabled value="next>>" data-left="-42px" data-percen="-300%" class="next btn custom" name="">
 			</div>
 			<div class="container comp">
 				<div class="alert alert-success" role="alert">
@@ -221,7 +225,7 @@
 				  <p>You can now view your profile by clicking the link below.</p>
 				  <hr>
 				<br/>
-			    <input type="submit" id="completed" value="Completed" data-left="0" data-percen="-400%" class="next btn btn-success" name="">
+			    <input type="submit" id="completed" value="Completed" data-left="0" data-percen="-300%" class="next btn btn-success" name="">
 				</div>
 			</div>
 			

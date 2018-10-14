@@ -62,6 +62,11 @@
 
                   
                 </div>
+                <div class="list-group">
+                <label><span class="badge badge-primary">Recommended Jobs</span></label>
+                </div>
+                <div id="recommendedjobs" class="list-group">
+                </div>
               </div>
 
 
@@ -255,8 +260,42 @@
               });
           }
           
+          function getRecommendedJobs(){
+            $.ajax({
+              url : "process.php",
+              data : { recommended : true},
+              type : 'POST',
+              dataType : 'JSON',
+              success : function(res){
+                console.log(res);
+                var x  = 0;
+                var target = $("#recommendedjobs");
+                
+                target.html("");
+
+                for(var i in res){
+                  var html = $("#job").html();
+
+                  html = html.replace("[ACTIVE]" , (x==0) ? 'active' : '').
+                    replace("[DATE]", res[i].date_added).
+                    replace("[TITLE]", res[i].title).
+                    replace("[ID]", res[i].id).
+                    replace("[COMPANY]", res[i].name);
+
+                    x++;
+
+                    target.append(html);
+                }
+
+                listen();
+              }
+            });
+          } 
+
+          getRecommendedJobs();
           listen();
-          
+
+
           $("#btnsearch").on("submit", function(e){
             e.preventDefault();
             var searchtext = $("#searchtext").val();

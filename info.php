@@ -155,13 +155,14 @@
 						<label>School
 							<input type="text" required class="form-control" name="school" placeholder="School..."/>
 						</label>
-						<label>Level
-							<select class="form-control" required name="level">
+						<label>Course
+							<!-- <select class="form-control" required name="level">
 								<option value="Academic">Academic degree</option>
 								<option value="Bachelor">Bachelor's degree</option>
 								<option value="Doctorate">Doctorate degree</option>
 								<option value="Master">Master's degree</option>
-							</select>
+							</select> -->
+							<input type="text" name="level" class="form-control" placeholder="Course...">
 						</label>
 						<label>Date Started
 							<input type="month" name="educdatestart" class="form-control" placeholder="Date Started..." required />
@@ -189,6 +190,36 @@
 
 
 			<div class="container comp">
+				<div class="row">
+					<h4 class="display-8">Add Photo</h4>
+				</div>
+				<div class="row" style="padding-left: 40px;">
+					 <span class="btn btn-success fileph fileinput-button">
+				        <i class="glyphicon glyphicon-plus"></i>
+				        <span>Upload...</span>
+				        <input id="fileupload" type="file" name="photo">
+				    </span>
+				    <br>
+				    <br>
+				    <div id="progress" class="progress">
+				        <div class="progress-bar progress-bar-success"></div>
+				    </div>
+				    <div id="files" class="phfile files"></div>
+				</div>
+				<style type="text/css">
+					.fileph {
+						height: 40px;
+					}
+					.ph {
+						margin-top: 20px;
+					}
+					.phfile {
+						width: 100%;
+					}
+					.next {
+						margin-right: 5px;
+					}
+				</style>
 				<div class="row">
 					<h4 class="display-8">Upload Resume</h4>
 				</div>
@@ -323,7 +354,7 @@
 					<br/>
 				    <br/>
 				    <input type="submit" value="<<prev" data-left="-89px" data-percen="-300%" class="next btn custom" name="">
-				    <input type="submit" id="socialnext" value="next>>" data-left="-42px" data-percen="-500%" class="next btn custom" name="">
+				    <input type="submit" id="socialnext" value="next>>" data-left="-32px" data-percen="-600%" class="next btn custom" name="">
 
 				</div>
 				<script type="text/html" id="emphist">
@@ -337,37 +368,8 @@
 				</script>
 			</div>
 
-			<div class="container comp photo">
-				<div class="row">
-					<h4 class="display-8">Add Photo</h4>
-				</div>
-				<div class="row">
-					 <span class="btn btn-success fileph fileinput-button">
-				        <i class="glyphicon glyphicon-plus"></i>
-				        <span>Upload...</span>
-				        <input id="fileupload" type="file" name="photo">
-				    </span>
-				    <br>
-				    <br>
-				    <div id="progress" class="progress">
-				        <div class="progress-bar progress-bar-success"></div>
-				    </div>
-				    <div id="files" class="phfile files"></div>
-				</div>
-				<style type="text/css">
-					.fileph {
-						height: 40px;
-					}
-					.ph {
-						margin-top: 20px;
-					}
-					.phfile {
-						width: 100%;
-					}
-					.next {
-						margin-right: 5px;
-					}
-				</style>
+		<!-- 	<div class="container comp photo">
+				
 				<div class="row clearfix ph">	
 					<br/>
 				    <br/>
@@ -376,7 +378,7 @@
 
 				</div>
 			   
-			</div>
+			</div> -->
 
 
 			<div class="container comp">

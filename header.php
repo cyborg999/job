@@ -16,6 +16,14 @@
     <!-- Bootstrap core CSS -->
     <link href="bootstrap-4.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style type="text/css">
+      @font-face {
+        font-family: "job";
+        src : url(./font/Stylish-Regular.ttf);
+      }
+     
+      body * {
+        font-family: "job";
+      }
       .banner .container {
         background: url(./img/banner1.jpg) no-repeat;
         background-size: contain;

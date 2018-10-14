@@ -25,6 +25,14 @@
   <body>
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
       <style type="text/css">
+      @font-face {
+        font-family: "job";
+        src : url(./font/Stylish-Regular.ttf);
+      }
+     
+      body * {
+        font-family: "job";
+      }
         #complogo {
           max-width: 100%;
           max-height: 50px;

@@ -11,6 +11,18 @@
         <main role="main">
           
           <style type="text/css">
+            @font-face {
+              font-family: "job";
+              src : url(./font/Stylish-Regular.ttf);
+            }
+            .carousel-caption h5 {
+              font-size: 45px;
+              text-transform: uppercase;
+            }
+            body *,
+            .carousel-caption * {
+              font-family: "job";
+            }
             .carousel-item {
               height: 400px;
             }
@@ -38,6 +50,26 @@
               background-size: cover;
               bottom: -20px;
               left: 0;
+              display: none;
+            }
+            .carousel-indicators li .img-s {
+              width: 120px;
+              height: 70px;
+              display: block;
+              float: left;
+            }
+            .carousel-indicators li {
+              width: 120px;
+              height: 70px;
+            }
+            .carousel-indicators {
+              position: relative;
+              top: -40px;
+            }
+            .d-md-block {
+              background: rgba(0,0,0,.1);
+              border-radius: 5px;
+              padding: 10px 10px;
             }
           </style>
 
@@ -45,16 +77,12 @@
               <div class="row">
                 <div class="col">
                   <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                  <ol class="carousel-indicators">
-                    <?php foreach ($sliders as $key => $value): ?>
-                      <li data-target="#carouselExampleIndicators" data-slide-to="<?= $idx; ?>" class="<?= ($key==0) ? 'active' : '';?>"></li>
-                    <?php endforeach ?>
-                  </ol>
+                  
                   
                   <div class="carousel-inner">
 
                     <?php foreach ($sliders as $key => $slide): ?>
-                      <div style="background-image: url(./uploads/photos/<?= $slide['filename'];?>);background-size:cover;" class="carousel-item <?= ($key==0) ? 'active' : '';?>">
+                      <div style="background-image: url(./uploads/photos/<?= $slide['filename'];?>);background-size:100%; background-repeat: no-repeat;" class="carousel-item <?= ($key==0) ? 'active' : '';?>">
                          <div class="carousel-caption d-none d-md-block">
                           <h5><?= $slide['title'];?></h5>
                           <p><?= $slide['description'];?></p>
@@ -77,31 +105,65 @@
             
           </div>
           <div class=" bansner">
-              <br>
-              <br>
+            <ol class="carousel-indicators">
+
+                    <?php foreach ($sliders as $key => $value): ?>
+                      <li data-target="#carouselExampleIndicators" data-slide-to="<?= $key; ?>" class="<?= ($key==0) ? 'active' : '';?>">
+                        <div style="background-image: url(./uploads/photos/<?= $value['filename'];?>);background-size:100% 100%;    box-shadow: 1px 1px 10px #505050;" class="img-s"> </div>
+                      </li>
+                    <?php endforeach ?>
+                  </ol>
             <div class="container">
-            <div class="row">
-              <ul class="nav nav-pills hiddsen">
-                <li class="nav-item">
-                  <a class="nav-link active" href="#">Jobs</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Skills</a>
-                </li>
-                 <li class="nav-item">
-                  <a class="nav-link" href="#">Companies</a>
-                </li>
-              </ul>
-              <form id="btnsearch" class="form-inline">
-                
-                  <div class="col">
-                    <input type="text" class="form-control" id="searchtext" placeholder="Search Here">
-                  </div>
-                  <div class="col">
-                    <input type="submit" value="search"  class="btn btn-primary"/>
+            <style type="text/css">
+              #btnsearch {
+                width: 320px;
+                float: left;
+              }
+              .quicksearch {
+                background: #e0e0e0;
+                padding: 10px 0px 0;
+                margin: 0;
+                border-radius: 10px;
+              }
+              .quicksearch h5 {
+                float: left;
+                font-size: 22px;
+                padding: 8px;
+              }
+              .quicksearch .nav {
+                float: right;
+              }
+            </style>
+              <div class="row">
+                <div class="col-1"></div>
+                <div class="col-10 quicksearch">
+                  <h5>Quick Search</h5>
+                   <form id="btnsearch" class="form-inline hidsden">
+                    
+                      <div class="cosl">
+                        <input type="text" class="form-control" id="searchtext" placeholder="Search Here">
+                      </div>
+                      <div class="cosl">
+                        <button class="btn btn-prismary"><span data-feather="search"></span></button>
+                        <!-- <input type="submit" value="search"  class="btn btn-primary"/> -->
+                    </div>
+                  </form>
+                  <ul class="nav nav-pills hiddsen">
+                    <li class="nav-item">
+                      <a class="nav-link active" href="#">Jobs</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Skills</a>
+                    </li>
+                     <li class="nav-item">
+                      <a class="nav-link" href="#">Companies</a>
+                    </li>
+                  </ul>
+                 
                 </div>
-              </form>
-            </div>
+                <div class="col-1"></div>
+                
+              </div>
           </div>
           <br>
           <script type="text/html" id="job">
@@ -401,6 +463,10 @@
     <script src="bootstrap-4.0.0/assets/js/vendor/popper.min.js"></script>
     <script src="bootstrap-4.0.0/assets/js/vendor/holder.min.js"></script>
     <script src="bootstrap-4.0.0/dist/js/bootstrap.min.js"></script>
+      <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+    <script>
+      feather.replace()
+    </script>
     <script>
       Holder.addTheme('thumb', {
         bg: '#55595c',
